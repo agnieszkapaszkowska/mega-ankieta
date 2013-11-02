@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MegaAnkiety</title>
+    <title>MegaAnkieta</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="bootstrap-3.0.1-dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
 	<link href="styles.css" rel="stylesheet" media="screen">
@@ -19,23 +19,25 @@
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="Szukaj">
 				</div>
-				<button type="submit" class="btn btn-default">Otwórz</button>
+				<button type="submit" class="btn btn-primary">Otwórz</button>
 			</form>
 		  </li>
 		</ul>
 	  </div>
 	</nav>
   </head>
-  <body style="height:100%">
-	<div class="well" style="height:100%">
-		<div class="container" style="height:100%">
-			<div class="row" style="height:100%">
-				<div class="col-md-6 panel panel-default fill" style="height:100%">
-				  <div class="panel-body" style="height:900px">
-					Basic panel example
+  <body>
+	<div class="well well-lg">
+		<div class="container">
+			<div class="row row-first">
+				<div class="col-xs-6 panel panel-default fill">
+				  <div class="panel-body">
+					<form id="code_form" role="form">
+						<textarea id="input"></textarea>
+					</form>
 				  </div>
 				</div>
-				<div class="col-md-6 filler">
+				<div class="col-xs-6 filler">
 					<ul class="nav nav-tabs">
 						<li class="active"><a href="#image" data-toggle="tab">Ankieta</a></li>
 						<li><a href="#html" data-toggle="tab">HTML</a></li>
@@ -44,16 +46,33 @@
 					  <div class="tab-pane active" id="image">
 						<div class="panel panel-default">
 						  <div class="panel-body">
-							Basic panel example1
+							
 						  </div>
 						</div>
 					  </div>
 					  <div class="tab-pane" id="html">
 						<div class="panel panel-default">
 						  <div class="panel-body">
-							Basic panel example2
+							<textarea id="html" disabled></textarea>
 						  </div>
 						</div>
+					  </div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row">
+				<div class="col-xs-1">
+					<button id="view" type="submit" class="btn btn-default">Generuj</button>
+				</div>
+				<div class="col-xs-1">
+					<button id="save" type="submit" class="btn btn-primary">Zapisz</button>
+				</div>
+				<div class="col-xs-10">
+					<div class="panel panel-default">
+					  <div class="panel-body">
+						<textarea id="errors" disabled></textarea>
 					  </div>
 					</div>
 				</div>
