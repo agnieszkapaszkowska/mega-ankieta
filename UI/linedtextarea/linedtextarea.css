@@ -24,24 +24,28 @@
         border: 1px solid #c0c0c0;
         padding: 3px;
 		height: 100%;
+		width: 100%;
 }
 
 .linedtextarea {
         padding: 0px;
         margin: 0px;
 		height: 100%;
+		width: 100%;
 }
 
 .linedtextarea textarea, .linedwrap .codelines .lineno {
         font-size: 10pt;
         font-family: monospace;
         line-height: normal !important;
+		width: 100%;
 }
 
 .linedtextarea textarea {
         padding-right:0.3em;
         padding-top:0.3em;
         border: 0;
+		width: 100%;
 }
 
 .linedwrap .lines {

@@ -16,6 +16,37 @@
                 {selectedLine: -1,
                 selectedClass: 'lineselect'}
             );
+			$(window).resize(function () {
+				$(".lined").adjust();
+			});
+			$("#edit_panel").click(function() {
+				$(".toggle-button").removeClass("active");
+				$(this).addClass("active");
+				$(".fill").show();
+				$(".fill").css("width", "100%");
+				$(".filler").hide();
+				$("#menu").css("margin-top", "0px");
+				$(".linedwrap").css("width", "100%");
+				$(".lined").adjust();
+			});
+			$("#both_panels").click(function() {
+				$(".toggle-button").removeClass("active");
+				$(this).addClass("active");
+				$(".filler").show();
+				$(".fill").show();
+				$(".fill").css("width", "50%");
+				$(".filler").css("width", "50%");
+				$("#menu").css("margin-top", "0px");
+				$(".lined").adjust();
+			});
+			$("#view_panel").click(function() {
+				$(".toggle-button").removeClass("active");
+				$(this).addClass("active");
+				$(".fill").hide();
+				$(".filler").show();
+				$(".filler").css("width", "100%");
+				$("#menu").css("margin-top", "62px");
+			});
         });
         </script>
 
@@ -29,14 +60,14 @@
                 <table class="nav navbar-nav navbar-right">
                     <tbody><tr>
                         <td> 
-                            <div>
-                                <button class="btn btn-primary">
+                            <div id="layout_buttons" class="btn-group">
+                                <button id="edit_panel" class="btn btn-primary toggle-button">
                                     <span class="glyphicon glyphicon-edit"> </span> 
                                 </button>
-                                <button class="btn btn-primary"> 
+                                <button id="both_panels" class="btn btn-primary toggle-button active"> 
                                     <span class="glyphicon glyphicon-adjust"> </span> 
                                 </button>
-                                <button class="btn btn-primary">
+                                <button id="view_panel" class="btn btn-primary toggle-button">
                                     <span class="glyphicon glyphicon-eye-open"> </span> 
                                 </button>
                             </div>
@@ -89,7 +120,7 @@
                 </div>
             </div>
             <div class="container">
-                <div class="row">
+                <div id="menu" class="row">
                     <div class="col-xs-1">
                         <button id="view" type="submit" class="btn btn-default">Generuj</button>
                     </div>

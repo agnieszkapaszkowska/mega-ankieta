@@ -66,7 +66,7 @@
 
                         /* Wrap the text area in the elements we need */
                         textarea.wrap("<div class='linedtextarea'></div>");
-                        var linedTextAreaDiv    = textarea.parent().wrap("<div class='linedwrap' style='width:" + originalTextAreaWidth + "px'></div>");
+                        var linedTextAreaDiv    = textarea.parent().wrap("<div class='linedwrap' style='width:100%'></div>");
                         var linedWrapDiv                        = linedTextAreaDiv.parent();
                         
                         linedWrapDiv.prepend("<div class='lines' style='width:50px'></div>");
@@ -95,8 +95,8 @@
                         var textareaNewWidth                    = originalTextAreaWidth - sidebarWidth - paddingHorizontal - 20;
 
                         textarea.width( textareaNewWidth );
-                        linedWrapDiv.width( linedWrapDivNewWidth );
-                        
+                        //linedWrapDiv.width( linedWrapDivNewWidth );
+
 
                         
                         /* React to the scroll event */
@@ -118,9 +118,23 @@
                 });
         };
 
-  // default options
-  $.fn.linedtextarea.defaults = {
-        selectedLine: -1,
-        selectedClass: 'lineselect'
-  };
+	// default options
+	$.fn.linedtextarea.defaults = {
+		selectedLine: -1,
+		selectedClass: 'lineselect'
+	};
+  
+	$.fn.adjust = function(options) {
+		var linedTextAreaDiv = $(".linedwrap");
+		var linedWrapDiv = linedTextAreaDiv.parent();
+		var linesDiv = linedWrapDiv.find(".lines");
+	   
+		var sidebarWidth = linesDiv.outerWidth();
+		var paddingHorizontal = parseInt( linedWrapDiv.css("border-left-width") ) + parseInt( linedWrapDiv.css(		"border-right-width") ) + parseInt( linedWrapDiv.css("padding-left") ) + parseInt( linedWrapDiv.css("padding-right") );
+		var linedWrapDivNewWidth = parseInt(linedTextAreaDiv.css("width")) - paddingHorizontal;
+		var textareaNewWidth = parseInt(linedTextAreaDiv.css("width")) - sidebarWidth - paddingHorizontal - 30;
+
+		$(this).width( textareaNewWidth );
+	};
+						
 })(jQuery);
