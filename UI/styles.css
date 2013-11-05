@@ -31,3 +31,7 @@ textarea {
 .lined {
 	height:100%;
 }
+
+.project_name {
+    margin: 0px;
+}
