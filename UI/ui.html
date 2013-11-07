@@ -130,7 +130,7 @@
                             <span class="glyphicon glyphicon-cog"></span>
                             Generuj
                         </button>
-                        <button id="save" data-toggle="modal" data-target="#modal_save" class="btn btn-primary">
+                        <button id="save" class="btn btn-primary" data-toggle="modal" data-target="#modal_save_error">
                             <span class="glyphicon glyphicon-save"></span>
                             Zapisz
                         </button>
@@ -145,23 +145,20 @@
                 </div> <!-- #menu -->
             </div> <!-- .container -->
         </div><!-- .well -->
-        <div class="modal fade" id="modal_save" tabindex="-1" role="dialog"  aria-hidden="true">
+        <div class="modal fade" id="modal_save_error" tabindex="-1" role="dialog"  aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <h3> Jesteś pewien, że chcesz zapisać? </h3>
+                        <h3> Zapis zakończył się niepowodzeniem! </h3>
+                        <h4> Sprawdź połączenie z internetem. </h4>
 	                </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">
                             <span class="glyphicon glyphicon-remove"></span>
-                            Anuluj
-                        </button>
-                        <button type="submit" class="btn btn-primary">
-                            <span class="glyphicon glyphicon-save"></span>
-                            Zapisz
+                            Zamknij
                         </button>
                     </div>
                 </div><!-- .modal-content -->
