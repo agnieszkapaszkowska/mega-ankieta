@@ -12,35 +12,34 @@
         
         <script style="text/javascript">
         $(function() {
-                        $("#edit_panel").click(function() {
-                                $(".toggle-button").removeClass("active");
-                                $(this).addClass("active");
-                                $(".fill").show();
-                                $(".fill").css("width", "100%");
-                                $(".filler").hide();
-                                $("#menu").css("margin-top", "0px");
-								$(".linedwrap").css("width", "100%");
-								editor.resize();
-                        });
-                        $("#both_panels").click(function() {
-                                $(".toggle-button").removeClass("active");
-                                $(this).addClass("active");
-                                $(".filler").show();
-                                $(".fill").show();
-                                $(".fill").css("width", "50%");
-                                $(".filler").css("width", "50%");
-								$("#menu").css("margin-top", "0px");
-								editor.resize();
-                        });
-                        $("#view_panel").click(function() {
-                                $(".toggle-button").removeClass("active");
-                                $(this).addClass("active");
-                                $(".fill").hide();
-                                $(".filler").show();
-                                $(".filler").css("width", "100%");
-								$("#menu").css("margin-top", "62px");
-								editor.resize();
-                        });
+			$("#edit_panel").click(function() {
+				$(".toggle-button").removeClass("active");
+				$(this).addClass("active");
+				$(".fill").show();
+				$(".fill").css("width", "100%");
+				$(".filler").hide();
+				$("#menu").css("margin-top", "0px");
+				$(".linedwrap").css("width", "100%");
+				$(".lined").adjust();
+			});
+			$("#both_panels").click(function() {
+				$(".toggle-button").removeClass("active");
+				$(this).addClass("active");
+				$(".filler").show();
+				$(".fill").show();
+				$(".fill").css("width", "50%");
+				$(".filler").css("width", "50%");
+				$("#menu").css("margin-top", "0px");
+				$(".lined").adjust();
+			});
+			$("#view_panel").click(function() {
+				$(".toggle-button").removeClass("active");
+				$(this).addClass("active");
+				$(".fill").hide();
+				$(".filler").show();
+				$(".filler").css("width", "100%");
+				$("#menu").css("margin-top", "62px");
+			});
         });
         </script>
 
@@ -87,7 +86,9 @@
                 <div class="row row-first">
                     <div class="col-xs-6 panel panel-default fill">
                         <div class="panel-body">
-							<div id="editor"></div>
+                            <form id="code_form" role="form">
+                                <textarea class="lined" id="input"></textarea>
+                            </form>
                         </div>
                     </div>
                     <div class="col-xs-6 filler">
@@ -105,8 +106,8 @@
                             </div>
                             <div class="tab-pane" id="html">
                                 <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <textarea id="html" disabled></textarea>
+									<div class="panel-body">
+										<div id="editor"></div>
                                     </div>
                                 </div>
                             </div>
@@ -145,7 +146,7 @@
                     <div class="modal-body">
                         <h3> Zapis zakończył się niepowodzeniem! </h3>
                         <h4> Sprawdź połączenie z internetem. </h4>
-                        </div>
+	                </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal">
                             <span class="glyphicon glyphicon-remove"></span>
@@ -156,10 +157,9 @@
             </div><!-- .modal-dialog -->
 		</div><!-- .modal -->
 		<script type="text/javascript">
-			var editor= ace.edit("editor");
+			var editor = ace.edit("editor");
 			editor.setTheme("ace/theme/textmate");
 			editor.getSession().setMode("ace/mode/plain_text");
-			editor.getSession().setUseWrapMode(true);
 			editor.setFontSize(14);
 		</script>
     </body>

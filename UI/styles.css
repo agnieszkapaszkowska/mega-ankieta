@@ -28,10 +28,11 @@ textarea {
 	background-color:white;
 }
 
-.lined {
-	height:100%;
-}
-
 .project_name {
     margin: 0px;
+}
+
+#editor {
+	height: inherit;
+	width: inherit;
 }
