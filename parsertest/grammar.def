@@ -1,0 +1,15 @@
+survey 						:= [ \t\r\n]*, ("[[", [ \t\r\n]*, widget, [ \t\r\n]*, "]]", [ \t\r\n]*)*
+widget 						:= ("if", [ \t\r\n]+, condition) / "endif" / "else" / ("elseif", [ \t\r\n]+, condition) / pipedExpr
+pipedExpr					:= field, ([ \t\r\n]*, "|", [ \t\r\n]*, field)*
+field						:= (id, [ \t\r\n]*, "=")?, [ \t\r\n]*, value
+listWithTuples				:= "[", [ \t\r\n]*, listWithTuplesElement, ( [ \t\r\n]*, ",", [ \t\r\n]*, listWithTuplesElement )*, [ \t\r\n]*, "]"
+listWithTuplesElement		:= simpleValue / tupleWithoutLists
+listWithoutTuples			:= "[", [ \t\r\n]*, simpleValue, ( [ \t\r\n]*, ",", [ \t\r\n]*, simpleValue)*, [ \t\r\n]*, "]"
+tupleWithLists				:= "(", [ \t\r\n]*, tupleWithListsElement, ( [ \t\r\n]*, ",", [ \t\r\n]*, tupleWithListsElement)*, [ \t\r\n]*, ")"
+tupleWithListsElement		:= (id, [ \t\r\n]*, "=", [ \t\r\n]* )?, (simpleValue / listWithoutTuples)
+tupleWithoutLists			:= "(", [ \t\r\n]*, tupleWithoutListsElement, ( [ \t\r\n]*, ",", [ \t\r\n]*, tupleWithoutListsElement )*, [ \t\r\n]*, ")"
+tupleWithoutListsElement	:= (id, [ \t\r\n]*, "=", [ \t\r\n]* )?, simpleValue
+value						:= tupleWithLists / listWithTuples / simpleValue
+simpleValue					:= [A-Za-z0-9]+
+id							:= [A-Za-z], [A-Za-z0-9]*
+condition					:= "c"

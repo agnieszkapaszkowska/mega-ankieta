@@ -5,7 +5,7 @@ from simpleparse import generator
 from mx.TextTools import TextTools
 
 input = stdin.read()
-decl = open('typographify.def').read()
-parser = generator.buildParser(decl).parserbyname('para')
+decl = open('grammar.def').read()
+parser = generator.buildParser(decl).parserbyname('survey')
 taglist = TextTools.tag(input, parser)
 print(taglist)
