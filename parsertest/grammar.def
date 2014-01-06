@@ -10,6 +10,7 @@ tupleWithListsElement		:= (id, [ \t\r\n]*, "=", [ \t\r\n]* )?, (simpleValue / li
 tupleWithoutLists			:= "(", [ \t\r\n]*, tupleWithoutListsElement, ( [ \t\r\n]*, ",", [ \t\r\n]*, tupleWithoutListsElement )*, [ \t\r\n]*, ")"
 tupleWithoutListsElement	:= (id, [ \t\r\n]*, "=", [ \t\r\n]* )?, simpleValue
 value						:= tupleWithLists / listWithTuples / simpleValue
-simpleValue					:= [A-Za-z0-9]+
+simpleValue					:= [A-Za-z0-9.,]+ / string
 id							:= [A-Za-z], [A-Za-z0-9]*
+string						:= "\x22", ( ("{{", [ \t\r\n]*, condition, [ \t\r\n]*, "|", [ \t\r\n]*, string, [ \t\r\n]*, ( [ \t\r\n]*, "|", [ \t\r\n]*, string, [ \t\r\n]* )?,"}}") / "\x5C\x22" / -"\x22" )+, "\x22"
 condition					:= "c"
