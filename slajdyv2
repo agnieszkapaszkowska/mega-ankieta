@@ -1,0 +1,137 @@
+Idea jest taka - 10-12 minut mówienia, potem prezentacja na żywo, silnie wzorowana na:
+	
+	http://www.youtube.com/watch?v=LQ6pFgQXQ0Q
+
+Przy czy warto dorzucić jeszcze, obok html, generowanie dokumentacji w latexu.
+
+http://pythonhosted.org/an_example_pypi_project/sphinx.html
+
+Slajdy:
+
+1 - 		SPHINX
+		Generator dokumentacji
+
+Agnieszka Paszkowska, Hubert Marlikowski, Jakub Pyszka, Michał Rudziński
+
+2 - Cel SPHINXa
+
+	Zmniejszenie kosztów tworzenia dokumentacji - większość generowana z docstringów. 
+	
+	Większa elastyczność, możliwość dostosowania do własnych potrzeb.
+	
+	Docstringi blisko kodu, więc jest szansa, że przy zmianie kodu komentarze też zostaną zaktualizowane.
+
+	Dokumentacja jest estetyczna.
+
+3 - SPHINX - główne cechy:
+
+	Wspierane języki:
+		- Python
+		- C/C++
+		- planowane kolejne
+		
+	Format dokumentacji:
+		- HTML
+		- Latex 
+		- hipsterskie
+			* manpages
+			* plaintext
+
+4 - SPHINX - główne cechy: (cd.)
+	
+	Automatyczne dodawanie referencji do klas, funkcji itp.
+	
+	Rozsądna struktura dokumentacji:
+		Drzewo dokumentu, automatyczne dodawanie linków do przodków i potomków.
+	
+	Automatyczne tworzenie indeksów.
+	
+	Automatyczne podświetlanie składni.
+	
+	Używa ReStructuredText.
+	
+
+5 - Teoria.
+
+	Łatwa instalacja, wygodny quickstart.
+	
+	Ważne pliki:
+		- conf.py 
+		- .rst
+		- pliki źródłowe pythona
+
+6 - ReStructuredText.
+
+	Język znaczników oraz parser, przeznaczony do szybkiego tworzenia prostych stron internetowych, samodzielnych dokumentów i dokumentacji technicznej.
+
+7 - ReStructuredText - przykłady.
+
+http://docutils.sourceforge.net/docs/user/rst/quickref.html
+http://pythonhosted.org/an_example_pypi_project/sphinx.html
+	- title, subtitle
+	- lists: bullet, enumerated
+	- grid table, simple table
+	- hyperlinki
+	- referencje - :mod:, :func:, :class:
+
+8 - ReStructuredText - docstrings.
+	- wersja googlowa
+
+		def public_fn_with_googley_docstring(name, state=None):
+		    """This function does something.
+
+		    Args:
+		       name (str):  The name to use.
+
+		    Kwargs:
+		       state (bool): Current state to be in.
+
+		    Returns:
+		       int.  The return code::
+
+			  0 -- Success!
+			  1 -- No good.
+			  2 -- Try again.
+
+		    Raises:
+		       AttributeError, KeyError
+
+		    A really great idea.  A way you might use me is
+
+		    >>> print public_fn_with_googley_docstring(name='foo', state=None)
+		    0
+
+		    BTW, this always returns 0.  **NEVER** use with :class:`MyPublicClass`.
+
+		    """
+		    return 0
+	- wersja sphinxowa
+
+		def public_fn_with_sphinxy_docstring(name, state=None):
+		    """This function does something.
+
+		    :param name: The name to use.
+		    :type name: str.
+		    :param state: Current state to be in.
+		    :type state: bool.
+		    :returns:  int -- the return code.
+		    :raises: AttributeError, KeyError
+
+		    """
+		    return 0
+	
+9 - (Pół)Automatyczna dokumentacja.
+
+	Generowana na bazie docstringów.
+		
+	.. automodule:: <module_name>
+	.. autoclass:: <class_name> and
+	.. autofunction:: <function_name>	
+
+	oraz :members:
+
+	
+	
+	
+
+
