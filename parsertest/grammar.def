@@ -1,24 +1,25 @@
-survey 						:= [ \t\r\n]*, (assignmentRight / assignmentLeft / ("[[", [ \t\r\n]*, widget, [ \t\r\n]*, "]]"), [ \t\r\n]*)*
-widget 						:= ("if", [ \t\r\n]+, condition) / "endif" / "else" / ("elseif", [ \t\r\n]+, condition) / pipedExpr
-assignmentRight				:= "[[", [ \t\r\n]*, widget, [ \t\r\n]*, "]]", [ \t\r\n]*, ">>", [ \t\r\n]*, varId, [ \t\r\n]+
-assignmentLeft				:= varId, "<<", (( "[[", [ \t\r\n]*, widget, [ \t\r\n]*, "]]") / tupleWithLists / listWithTuples / iterator / datasource / string / number / varId )
-pipedExpr					:= widgetArg, ([ \t\r\n]*, "|", [ \t\r\n]*, widgetArg)*
-widgetArg					:= (id, [ \t\r\n]*, "=")?, [ \t\r\n]*, ( tupleWithLists / listWithTuples / iterator / datasource / string / number / varId )
+survey 						:= [ \t\r\n]*, ( (assignmentLeft / widgetConditional / assignmentRight / widget), [ \t\r\n]*)*
+widget 						:= "[[", widgetArg, ("|", widgetArg)*, "]]"
+widgetConditional			:= "{{", "if", [ \t\r\n]+, condition, "}}", survey, ( "{{", "elseif", [ \t\r\n]+, condition, "}}", survey )*, ( "{{", "else", "}}",survey )?, "{{", "endif", "}}"
+assignmentRight				:= widget, [ \t\r\n]*, ">>", [ \t\r\n]*, varId, [ \t\r\n]+
+assignmentLeft				:= varId, "<<", ( widget / tupleWithLists / listWithTuples / iterator / datasource / string / number / bool / varId )
+widgetArg					:= (id, [ \t\r\n]*, "=")?, [ \t\r\n]*, ( tupleWithLists / listWithTuples / iterator / datasource / string / number / bool / varId )
 listWithTuples				:= "[", [ \t\r\n]*, listWithTuplesElement, ( [ \t\r\n]*, ",", [ \t\r\n]*, listWithTuplesElement )*, [ \t\r\n]*, "]"
-listWithTuplesElement		:= tupleWithoutLists / string / number / varId
+listWithTuplesElement		:= tupleWithoutLists / string / number / bool / varId
 listWithoutTuples			:= "[", [ \t\r\n]*, listWithoutTuplesElement,  ( [ \t\r\n]*, ",", [ \t\r\n]*, listWithoutTuplesElement )*, [ \t\r\n]*, "]"
-listWithoutTuplesElement	:= string / number / varId
+listWithoutTuplesElement	:= string / number / bool / varId
 tupleWithLists				:= "(", [ \t\r\n]*, tupleWithListsElement, ( [ \t\r\n]*, ",", [ \t\r\n]*, tupleWithListsElement)*, [ \t\r\n]*, ")"
-tupleWithListsElement		:= (id, [ \t\r\n]*, "=", [ \t\r\n]* )?, (listWithoutTuples / string / number / varId)
+tupleWithListsElement		:= (id, [ \t\r\n]*, "=", [ \t\r\n]* )?, (listWithoutTuples / string / number / bool / varId)
 tupleWithoutLists			:= "(", [ \t\r\n]*, tupleWithoutListsElement, ( [ \t\r\n]*, ",", [ \t\r\n]*, tupleWithoutListsElement )*, [ \t\r\n]*, ")"
-tupleWithoutListsElement	:= (id, [ \t\r\n]*, "=", [ \t\r\n]* )?, ( string / number / varId )
+tupleWithoutListsElement	:= (id, [ \t\r\n]*, "=", [ \t\r\n]* )?, ( string / number / bool / varId )
 iterator					:= "iterator", "(", iteratorArg, (",", iteratorArg)*, ")"
-iteratorArg					:= datasource / string / number / varId
+iteratorArg					:= (id, "=")?, (datasource / string / number / bool / varId)
 datasource					:= "datasource", "(", datasourceArg, (",", datasourceArg)*, ")"
-datasourceArg				:= string / number / varId
+datasourceArg				:= (id, "=")?, (string / number / bool / varId)
 id							:= [A-Za-z], [A-Za-z0-9]*
 varId						:= [A-Za-z], [A-Za-z0-9]*
-number						:= "-"?, ( "0" / ([1-9], [0-9]*) ), ( ("." / ","), [0-9]+ )?
+number						:= "-"?, ( "0" / ([1-9], [0-9]*) ), ( ".", [0-9]+ )?
+bool						:= "true" / "false"
 string						:= "\x22", ( stringConditional / "\x5C\x22" / -"\x22" )+, "\x22"
 stringConditional			:= "{{", [ \t\r\n]*, condition, [ \t\r\n]*, "|", [ \t\r\n]*, string, [ \t\r\n]*, ( [ \t\r\n]*, "|", [ \t\r\n]*, string, [ \t\r\n]* )?,"}}"
 condition					:= "1==1"

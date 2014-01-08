@@ -1,0 +1,7 @@
+{{if 1==1}}
+x<<[["checkbox"]]
+{{elseif 1==1}}
+[["radiogroup"]]
+{{else}}
+[["select"]]>>y
+{{endif}}
