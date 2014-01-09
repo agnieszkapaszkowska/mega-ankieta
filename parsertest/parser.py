@@ -3,9 +3,23 @@ import os
 from sys import stdin, stdout, stderr
 from simpleparse import generator
 from mx.TextTools import TextTools
+import re
+
+
+def print_tree(tree, level):
+	if tree == None or tree == []:
+		pass
+	else:
+		for el in tree:
+			print(level * "\t" + "{0} ({1}-{2})".format(el[0],el[1],el[2]))
+			print_tree(el[3], level + 1)
+		
 
 input = stdin.read()
 decl = open('grammar.def').read()
 parser = generator.buildParser(decl).parserbyname('survey')
-taglist = TextTools.tag(input, parser)
-print(taglist)
+success, resultTrees, nextCharacter = TextTools.tag(input, parser)
+
+print_tree(resultTrees, 0)
+
+
