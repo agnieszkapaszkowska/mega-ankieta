@@ -5,21 +5,22 @@ from simpleparse import generator
 from mx.TextTools import TextTools
 import re
 
+input = stdin.read()
 
 def print_tree(tree, level):
 	if tree == None or tree == []:
 		pass
 	else:
 		for el in tree:
-			print(level * "\t" + "{0} ({1}-{2})".format(el[0],el[1],el[2]))
+			print(level * "\t" + "{0} ({1}-{2} \"{3}\")".format(el[0],el[1],el[2], input[el[1]:el[2]]))
 			print_tree(el[3], level + 1)
-		
 
-input = stdin.read()
-decl = open('grammar.def').read()
-parser = generator.buildParser(decl).parserbyname('survey')
+
+decl = open('condition.def').read()
+parser = generator.buildParser(decl).parserbyname('condition')
 success, resultTrees, nextCharacter = TextTools.tag(input, parser)
 
 print_tree(resultTrees, 0)
+#print(resultTrees)
 
 

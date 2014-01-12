@@ -1,0 +1,11 @@
+condition			:= (subCondition, logicOp, condition) / subCondition
+subCondition 		:= ( "(", condition, ")" ) / ( "!", "(", condition, ")" ) / compCondition / bool
+compCondition		:= (conditionValue, compOp, conditionValue) / ("!"?, ( structElem / varId ) )
+conditionValue		:= string / number / bool / structElem / varId
+logicOp           	:= "||" / "&&"
+compOp				:= "==" / "!=" / "<=" / "<" / ">=" / ">"
+varId				:= [A-Za-z], [A-Za-z0-9]*
+structElem			:= varId, (".", varId)+
+number				:= "-"?, ( "0" / ([1-9], [0-9]*) ), ( ".", [0-9]+ )?
+bool				:= c"true" / c"false"
+string				:= "\x22", ( "\x5C\x22" / -"\x22" )*, "\x22"

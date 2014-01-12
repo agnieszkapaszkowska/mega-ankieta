@@ -1,0 +1,3 @@
+{{ If ((6 == 8 && 1 > 0 && "xxx" == str || ( ! true && a.b.c.d != "abc" ) )) }} 
+xx << 5
+{{  eNdIf }} 
