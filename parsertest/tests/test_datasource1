@@ -1,2 +1,2 @@
-var<<datasource("a",5.8,xxx)
-var<<datasource(name=value,num=-0.6955)
+datasource("a",5.8,xxx)
+datasource(name=value,num=-0.6955)
