@@ -25,9 +25,10 @@ bool						:= c"true" / c"false"
 string						:= "\x22", ( "\x5C\x22" / -"\x22" )*, "\x22"
 extendedString				:= "\x22", ( stringConditional / "\x5C\x22" / -"\x22" )*, "\x22"
 stringConditional			:= "{{", ws*, condition, ws*, "|", ws*, extendedString, ( ws*, "|", ws*, extendedString )?, ws*, "}}"
-condition					:= "1==1"#conditionContent
-# conditionContent			:= ("!", ws*, conditionContent) / ( "(", ws*, conditionContent, ws*, ")" ) / ( conditionContent, ws*, logicOp, ws*, conditionContent ) / ( conditionValue, ws*, compOp, ws*, conditionValue) 
-conditionContent			:= "1" / ( conditionContent, ws*, "&&", ws*, conditionContent)
+condition					:= conditionContent
+conditionContent			:= (subCondition, ws*, logicOp, ws*, condition) / subCondition
+subCondition 				:= ( "(", ws*, condition, ws*, ")" ) / ( "!", ws*, "(", ws*, condition, ws*, ")" ) / compCondition / bool
+compCondition				:= (conditionValue, ws*, compOp, ws*, conditionValue) / ( ( "!", ws* )?, ( structElem / varId ) )
 conditionValue				:= string / number / bool / structElem / varId
 compOp						:= "==" / "!=" / "<=" / "<" / ">=" / ">"
 logicOp						:= "&&" / c"and" / "||" / c"or"
