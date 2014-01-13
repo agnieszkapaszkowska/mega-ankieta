@@ -41,6 +41,34 @@
 								$("#menu").css("margin-top", "62px");
 								editor.resize();
                         });
+                        $("#view").click(function(e) {
+                            e.preventDefault();
+                            var editor = ace.edit("editor");
+                            var code = editor.getSession().getValue();
+                            $.ajax({
+                                url: '.',
+                                method: 'POST',
+                                data: {
+                                    type: '1',
+                                    input: code,
+                                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                                },
+                                success: function(data) {
+                                    if (data.error != '0') {
+                                        $("#errors").val(data.error);
+                                        console.log(data.error);
+                                    }
+                                    else {
+                                        $("#errors").val('');
+                                        console.log(data.survey);
+                                    }
+                                },
+                                error: function(data) {
+                                    $("#errors").val('error');
+                                    console.log('error');
+                                }
+                            });
+                        });
         });
         </script>
 
