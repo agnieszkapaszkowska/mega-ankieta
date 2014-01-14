@@ -1,6 +1,7 @@
 from simpleparse import generator
 from mx.TextTools import TextTools
 from iss.surveys.widget import Widget
+import re
 
 
 class JSGenerator:
@@ -9,7 +10,7 @@ class JSGenerator:
 
     def generate(self, text):
         success, resultTrees, nextCharacter = self.parse(text)
-        if not success:
+        if not success or nextCharacter != len(text):
             return (self.find_error(
                     text, nextCharacter), '')
         return self.generate_js(resultTrees)
@@ -24,4 +25,28 @@ class JSGenerator:
         return 'error'
 
     def generate_js(self, resultTrees):
-        return '0', str(resultTrees)
+        jsScript = "var survey = new Survey();\n"
+        error = "0"
+        for (name, start, stop, childTrees) in resultTrees:
+            error, code = getattr(
+                self, self.convert_from_camelcase(name))(childTrees)
+            if error != "0":
+                return error, ""
+            jsScript += code
+        return error, jsScript
+
+    def assignment_left(self, resultTrees):
+        return "0", "assignmentLeft\n"
+    
+    def assignment_right(self, resultTrees):
+        return "0", "assignmentRight\n"
+
+    def widget(self, resultTrees):
+        return "0", "widget\n"
+
+    def widget_conditional(self, resultTrees):
+        return "0", "widgetConditional\n"
+
+    def convert_from_camelcase(self, name):
+        s1 = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
+        return re.sub('([a-z0-9])([A-Z])', r'\1_\2', s1).lower()
