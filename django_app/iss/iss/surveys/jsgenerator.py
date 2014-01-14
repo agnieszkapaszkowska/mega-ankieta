@@ -36,10 +36,14 @@ class JSGenerator:
         return error, jsScript
 
     def assignment_left(self, resultTrees):
-        return "0", "assignmentLeft\n"
+        error, code = self.widget(resultTrees[1][3])
+        code += ""  # assignment in onchange
+        return error, "assignmentLeft\n"
     
     def assignment_right(self, resultTrees):
-        return "0", "assignmentRight\n"
+        error, code = self.widget(resultTrees[0][3])
+        code += ""  # assignment in onchange
+        return error, "assignmentRight\n"
 
     def widget(self, resultTrees):
         return "0", "widget\n"
