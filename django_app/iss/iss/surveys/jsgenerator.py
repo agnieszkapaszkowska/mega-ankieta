@@ -1,5 +1,6 @@
 from simpleparse import generator
 from mx.TextTools import TextTools
+from iss.surveys.widget import Widget
 
 
 class JSGenerator:
