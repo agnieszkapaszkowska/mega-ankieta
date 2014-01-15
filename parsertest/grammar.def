@@ -3,7 +3,7 @@ widget 						:= "[[", ws*, string, (ws*, "|", ws*, widgetArg)*, ws*, "]]"
 widgetConditional			:= "{{", ws*, c"if", ws+, condition, ws*, "}}", survey, ( "{{", ws*, c"elseif", ws+, condition, ws*, "}}", survey )*, ( "{{", ws*, c"else", ws*, "}}",survey )?, "{{", ws*, c"endif", ws*, "}}"
 assignmentRight				:= widget, ws*, ">>", ws*, varId, ws+
 assignmentLeft				:= varId, ws*, "<<", ws*, ( widget / tupleWithLists / listWithTuples / iterator / datasource / simpleValue )
-widgetArg					:= (id, ws*, "=")?, ws*, ( tupleWithLists / listWithTuples / iterator / datasource / simpleValue )
+widgetArg					:= (id, ws*, "=")?, ws*, ( tupleWithLists / listWithTuples / iterator / datasource / simpleExprValue )
 listWithTuples				:= "[", ws*, listWithTuplesElement, ( ws*, ",", ws*, listWithTuplesElement )*, ws*, "]"
 listWithTuplesElement		:= tupleWithoutLists / simpleValue
 listWithoutTuples			:= "[", ws*, listWithoutTuplesElement,  ( ws*, ",", ws*, listWithoutTuplesElement )*, ws*, "]"
@@ -18,6 +18,7 @@ datasource					:= c"datasource", ws*, "(", ws*, string, (ws*, ",", ws*, datasour
 datasourceArg				:= (id, ws*, "=", ws*)?, simpleValue 
 id							:= [A-Za-z], [A-Za-z0-9]*
 >simpleValue<				:= extendedString / number / bool / structElem / varId
+>simpleExprValue<			:= arythmExpr / extendedString / bool
 varId						:= [A-Za-z], [A-Za-z0-9]*
 structElem					:= varId, (".", varId)+
 number						:= "-"?, ( "0" / ([1-9], [0-9]*) ), ( ".", [0-9]+ )?
@@ -26,10 +27,13 @@ string						:= "\x22", ( "\x5C\x22" / -"\x22" )*, "\x22"
 extendedString				:= "\x22", ( stringConditional / "\x5C\x22" / -"\x22" )*, "\x22"
 stringConditional			:= "{{", ws*, condition, ws*, "|", ws*, extendedString, ( ws*, "|", ws*, extendedString )?, ws*, "}}"
 condition					:= conditionContent
-conditionContent			:= (subCondition, ws*, logicOp, ws*, condition) / subCondition
+conditionContent			:= subCondition, ( ws*, logicOp, ws*, condition )?
 subCondition 				:= ( "(", ws*, condition, ws*, ")" ) / ( "!", ws*, "(", ws*, condition, ws*, ")" ) / compCondition / bool
 compCondition				:= (conditionValue, ws*, compOp, ws*, conditionValue) / ( ( "!", ws* )?, ( structElem / varId ) )
-conditionValue				:= string / number / bool / structElem / varId
+conditionValue				:= arythmExpr / string / bool
+arythmExpr					:= subArythmExpr, ( ws*, arythmOp, ws*, arythmExpr )?
+subArythmExpr				:= ( ("-", ws* )?, "(", ws*, arythmExpr, ws*, ")" ) / ( ( "-", ws* )?, (structElem / varId) ) / number
+arythmOp					:= "-" / "+" / "*" / "/"
 compOp						:= "==" / "!=" / "<=" / "<" / ">=" / ">"
 logicOp						:= "&&" / c"and" / "||" / c"or"
 <ws>						:= [ \t\r\n]
