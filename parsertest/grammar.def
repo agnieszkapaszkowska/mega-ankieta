@@ -2,7 +2,7 @@ survey 						:= ws*, ( (assignmentLeft / widgetConditional / assignmentRight / w
 widget 						:= "[[", ws*, string, (ws*, "|", ws*, widgetArg)*, ws*, "]]"
 widgetConditional			:= "{{", ws*, c"if", ws+, condition, ws*, "}}", survey, ( "{{", ws*, c"elseif", ws+, condition, ws*, "}}", survey )*, ( "{{", ws*, c"else", ws*, "}}",survey )?, "{{", ws*, c"endif", ws*, "}}"
 assignmentRight				:= widget, ws*, ">>", ws*, varId, ws+
-assignmentLeft				:= varId, ws*, "<<", ws*, ( widget / tupleWithLists / listWithTuples / iterator / datasource / simpleValue )
+assignmentLeft				:= varId, ws*, "<<", ws*, ( widget / tupleWithLists / listWithTuples / iterator / datasource / simpleExprValue ), ws+
 widgetArg					:= (id, ws*, "=")?, ws*, ( tupleWithLists / listWithTuples / iterator / datasource / simpleExprValue )
 listWithTuples				:= "[", ws*, listWithTuplesElement, ( ws*, ",", ws*, listWithTuplesElement )*, ws*, "]"
 listWithTuplesElement		:= tupleWithoutLists / simpleValue
@@ -27,11 +27,12 @@ string						:= "\x22", ( "\x5C\x22" / -"\x22" )*, "\x22"
 extendedString				:= "\x22", ( stringConditional / "\x5C\x22" / -"\x22" )*, "\x22"
 stringConditional			:= "{{", ws*, condition, ws*, "|", ws*, extendedString, ( ws*, "|", ws*, extendedString )?, ws*, "}}"
 condition					:= conditionContent
-conditionContent			:= subCondition, ( ws*, logicOp, ws*, condition )?
+<conditionContent>			:= subCondition, ( ws*, logicOp, ws*, condition )?
 subCondition 				:= ( "(", ws*, condition, ws*, ")" ) / ( "!", ws*, "(", ws*, condition, ws*, ")" ) / compCondition / bool
 compCondition				:= (conditionValue, ws*, compOp, ws*, conditionValue) / ( ( "!", ws* )?, ( structElem / varId ) )
 conditionValue				:= arythmExpr / string / bool
-arythmExpr					:= subArythmExpr, ( ws*, arythmOp, ws*, arythmExpr )?
+arythmExpr					:= arythmExprContent
+<arythmExprContent>			:= subArythmExpr, ( ws*, arythmOp, ws*, arythmExpr )?
 subArythmExpr				:= ( ("-", ws* )?, "(", ws*, arythmExpr, ws*, ")" ) / ( ( "-", ws* )?, (structElem / varId) ) / number
 arythmOp					:= "-" / "+" / "*" / "/"
 compOp						:= "==" / "!=" / "<=" / "<" / ">=" / ">"
