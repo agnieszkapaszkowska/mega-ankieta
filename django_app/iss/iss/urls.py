@@ -7,4 +7,5 @@ admin.autodiscover()
 urlpatterns = patterns('',
     url(r'^$', SurveyView.as_view(), name='survey_view'),
     url(r'^admin/', include(admin.site.urls)),
+    (r'^accounts/', include('registration.backends.default.urls')),
 )

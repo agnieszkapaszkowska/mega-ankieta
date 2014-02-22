@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>MegaAnkieta</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link href="{{STATIC_URL}}surveys/bootstrap-3.0.1-dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="{{STATIC_URL}}surveys/styles.css" rel="stylesheet" media="screen">
+        <script src="https://code.jquery.com/jquery.js"></script>
+        <script src="{{STATIC_URL}}surveys/bootstrap-3.0.1-dist/js/bootstrap.min.js"></script>
+        <script src="{{STATIC_URL}}surveys/aceeditor/ace.js"></script>
+        
+        <script style="text/javascript">
+        $(function() {
+                        $("#edit_panel").click(function() {
+                                $(".toggle-button").removeClass("active");
+                                $(this).addClass("active");
+                                $(".fill").show();
+                                $(".fill").css("width", "100%");
+                                $(".filler").hide();
+                                $("#menu").css("margin-top", "0px");
+								$(".linedwrap").css("width", "100%");
+								editor.resize();
+                        });
+                        $("#both_panels").click(function() {
+                                $(".toggle-button").removeClass("active");
+                                $(this).addClass("active");
+                                $(".filler").show();
+                                $(".fill").show();
+                                $(".fill").css("width", "50%");
+                                $(".filler").css("width", "50%");
+								$("#menu").css("margin-top", "0px");
+								editor.resize();
+                        });
+                        $("#view_panel").click(function() {
+                                $(".toggle-button").removeClass("active");
+                                $(this).addClass("active");
+                                $(".fill").hide();
+                                $(".filler").show();
+                                $(".filler").css("width", "100%");
+								$("#menu").css("margin-top", "62px");
+								editor.resize();
+                        });
+                        $("#view").click(function(e) {
+                            e.preventDefault();
+                            var editor = ace.edit("editor");
+                            var code = editor.getSession().getValue();
+                            $.ajax({
+                                url: '.',
+                                method: 'POST',
+                                data: {
+                                    type: '1',
+                                    input: code,
+                                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                                },
+                                success: function(data) {
+                                    if (data.error != '') {
+                                        $("#errors").val(data.error);
+                                        console.log(data.error);
+                                    }
+                                    else {
+                                        $("#errors").val('');
+                                        console.log(data.survey);
+                                    }
+                                },
+                                error: function(data) {
+                                    $("#errors").val('error');
+                                    console.log('error');
+                                }
+                            });
+                        });
+        });
+        </script>
+
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/"><h3 class="project_name">MegaAnkieta</h3></a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <table class="nav navbar-nav navbar-right">
+                    <tbody><tr>
+                        {% block layout_panel %}
+                        {% endblock %}
+                    {% if user.is_authenticated %}
+                        <td>
+                            <form class="navbar-form navbar-left" role="search">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" placeholder="Szukaj">
+                                </div>
+                                <button type="submit" class="btn btn-primary">
+                                    <span class="glyphicon glyphicon-open"></span>
+                                    Otwórz
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <a href='{% url 'auth_logout' %}' class="btn btn-primary">Wyloguj </a>
+                        </td>
+                    {% else %}
+                        <td>
+                            <a href='{% url 'auth_login' %}' class="btn btn-primary">Zaloguj </a>
+
+                        </td>
+                    {% endif %}
+                    </tr></tbody>
+                </table>
+            </div>
+        </nav>
+        {% block main_content %}
+        {% endblock %}
+    </body>
+</html>

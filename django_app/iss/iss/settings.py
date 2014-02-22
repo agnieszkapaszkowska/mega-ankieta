@@ -38,6 +38,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'iss.surveys',
+    'registration',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -94,3 +95,5 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 )
+
+ACCOUNT_ACTIVATION_DAYS = 7

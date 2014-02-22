@@ -1,0 +1,4 @@
+Potwierdź rejestrację klikając w link poniżej w ciągu {{ expiration_days }} dni:
+http://{{site.domain}}/accounts/activate/{{ activation_key }}
+
+
