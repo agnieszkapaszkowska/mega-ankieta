@@ -1,17 +1,31 @@
-from widget import Widget
-
+from iss.surveys.widget import Widget
 
 class RadioWidget(Widget):
-    name = "radio"
-    requiredParametersNames = [
-        ("name", Widget.encode_formats([Widget.SINGLE])),
-        ("id", Widget.encode_formats([Widget.SINGLE, Widget.LIST])),
-        ("text", Widget.encode_formats([Widget.SINGLE, Widget.LIST]))
-    ]
-    optionalParameters = {
-        ("checkedIndex", Widget.encode_formats([Widget.SINGLE])): -1, 
-        ("orientation", Widget.encode_formats([Widget.SINGLE])): "vertical"
-    }
+    argsData = {
+                    'name': {\
+                                'type': 'string',\
+                                'required': 1\
+                            },\
+                    'data': {\
+                                'type': 'tupleWithoutLists',\
+                                'required': 1,\
+                                'args': {\
+                                            'id': {\
+                                                    'type': 'string',\
+                                                    'required': 1\
+                                                },\
+                                            'text': {\
+                                                        'type': 'extendedString',\
+                                                        'required': 1
+                                                    }\
+                                        },\
+                                'unnamedArgs': ['id', 'text'],\
+                            },\
+                    'checkedIndex': {\
+                                        'type': 'number',\
+                                        'required': 0,\
+                                        'default': -1\
+                                    }\
+                    }
 
-    def __init__(self, listOfValues):
-        self.listOfValues = listOfValues
+    unnamedArgs = ['name', 'data', 'checkedIndex']
