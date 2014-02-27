@@ -1,6 +1,6 @@
 from iss.surveys.widget import Widget
 
-class RadioWidget(Widget):
+class CheckboxWidget(Widget):
 	argsData = {
 			'name': {
 				'type': 'string',
@@ -19,16 +19,16 @@ class RadioWidget(Widget):
 						'text': {
 							'type': 'extendedString',
 							'required': 1
+							},
+						'checked': {
+							'type': 'bool',
+							'required': 0,
+							'default': 'false'
 							}
 						},
-					'unnamedArgs': ['id', 'text'],
+					'unnamedArgs': ['id', 'text', 'checked'],
 					}
 				},
-			'checkedIndex': {
-				'type': 'number',
-				'required': 0,
-				'default': -1
-				}
 			}
 
-	unnamedArgs = ['name', 'data', 'checkedIndex']
+	unnamedArgs = ['name', 'data']

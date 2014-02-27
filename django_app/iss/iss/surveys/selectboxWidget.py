@@ -1,6 +1,6 @@
 from iss.surveys.widget import Widget
 
-class RadioWidget(Widget):
+class SelectboxWidget(Widget):
 	argsData = {
 			'name': {
 				'type': 'string',
@@ -24,11 +24,11 @@ class RadioWidget(Widget):
 					'unnamedArgs': ['id', 'text'],
 					}
 				},
-			'checkedIndex': {
+			'selectedIndex': {
 				'type': 'number',
 				'required': 0,
 				'default': -1
 				}
 			}
 
-	unnamedArgs = ['name', 'data', 'checkedIndex']
+	unnamedArgs = ['name', 'data', 'selectedIndex']
