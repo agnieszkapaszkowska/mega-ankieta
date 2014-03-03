@@ -2,7 +2,7 @@ from iss.surveys.widget import Widget
 
 class RadioWidget(Widget):
 	argsData = {
-			'name': {
+			'name':{
 				'type': 'string',
 				'required': 1
 				},
@@ -27,7 +27,7 @@ class RadioWidget(Widget):
 			'checkedIndex': {
 				'type': 'number',
 				'required': 0,
-				'default': -1
+				'default': '-1'
 				}
 			}
 

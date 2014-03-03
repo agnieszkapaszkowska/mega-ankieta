@@ -1,35 +1,39 @@
 from parser import Parser
 
 class Survey:
-    text = ''
-    surveyVar = 'iss.survey'
+	text = ''
+	surveyVar = 'iss.survey'
 
-    @staticmethod
-    def generate():
-        try:
-            success, resultTrees, nextCharacter = Parser.parse(Survey.text)
-            print Survey.generateJS(resultTrees)
-            return '', Survey.generateJS(resultTrees)
+	@staticmethod
+	def generate():
+		try:
+			success, resultTrees, nextCharacter = Parser.parse(Survey.text)
 
-        except Exception as e:
-            return str(e), ''
+			if not success or nextCharacter != len(Survey.text):
+				raise Exception("Parsing error")
 
-    @staticmethod
-    def generateJS(resultTrees):
-        js = "var iss = {};\n" + Survey.surveyVar + " = new iss.lib.Survey();\n"
+			#print Survey.generateJS(resultTrees)
+			return '', Survey.generateJS(resultTrees)
 
-        for prodName, _, _, childrenTrees in resultTrees:
-            production = Survey.stringToClass(prodName)(childrenTrees)
-            js += production.getJS() + "\n"
+		except Exception as e:
+			return str(e), ''
 
-        return js
+	@staticmethod
+	def generateJS(resultTrees):
+		js = "var iss = {};\n" + Survey.surveyVar + " = new iss.lib.Survey();\n"
 
-    @staticmethod
-    def stringToClass(string):
-        className = Survey.stringToClassName(string)
+		for prodName, _, _, childrenTrees in resultTrees:
+			production = Survey.stringToClass(prodName)(childrenTrees)
+			js += production.getJS() + "\n"
 
-        return getattr(__import__('iss.surveys.' + string, globals(), locals(), className), className)
+		return js
 
-    @staticmethod
-    def stringToClassName(string):
-        return string[0].upper() + string[1:]
+	@staticmethod
+	def stringToClass(string):
+		className = Survey.stringToClassName(string)
+
+		return getattr(__import__('iss.surveys.' + string, globals(), locals(), className), className)
+
+	@staticmethod
+	def stringToClassName(string):
+		return string[0].upper() + string[1:]

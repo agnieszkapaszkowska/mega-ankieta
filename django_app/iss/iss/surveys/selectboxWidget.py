@@ -27,7 +27,7 @@ class SelectboxWidget(Widget):
 			'selectedIndex': {
 				'type': 'number',
 				'required': 0,
-				'default': -1
+				'default': '-1'
 				}
 			}
 

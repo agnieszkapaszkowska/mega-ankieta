@@ -2,20 +2,20 @@ from iss.surveys.widget import Widget
 
 class TextinputWidget(Widget):
 	argsData = {
-			'id': {
+			'name': {
 				'type': 'string',
 				'required': 1
 				},
 			'label': {
 				'type': 'extendedString',
 				'required': 0,
-				'default': ''
+				'default': '""'
 				},
 			'placeholder': {
 				'type': 'extendedString',
 				'required': 0,
-				'default': ''
+				'default': '""'
 				}
 			}
 
-	unnamedArgs = ['id', 'label', 'placeholder']
+	unnamedArgs = ['name', 'label', 'placeholder']

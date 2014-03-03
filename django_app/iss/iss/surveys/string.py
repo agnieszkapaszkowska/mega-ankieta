@@ -2,7 +2,7 @@ from iss.surveys.survey import Survey
 from iss.surveys.parser import parseTree
 
 class String:
-    def __init__(self, tree):
+    def __init__(self, tree, x = {}):
         self.tree = tree
 
     def generateJS(self):

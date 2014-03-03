@@ -17,8 +17,8 @@ iteratorArg                 := (id, ws*, "=", ws*)?, (datasource / simpleValue)
 datasource                  := c"datasource", ws*, "(", ws*, string, (ws*, ",", ws*, datasourceArg)*, ws*, ")"
 datasourceArg               := (id, ws*, "=", ws*)?, simpleValue 
 id                          := [A-Za-z], [A-Za-z0-9]*
->simpleValue<               := extendedString / number / bool / structElem / varId
->simpleExprValue<           := arythmExpr / string / extendedString / bool
+>simpleValue<               := string / extendedString / number / bool / structElem / varId
+>simpleExprValue<           := arythmExpr / simpleValue
 varId                       := [A-Za-z], [A-Za-z0-9]*
 structElem                  := varId, (".", varId)+
 number                      := "-"?, ( "0" / ([1-9], [0-9]*) ), ( ".", [0-9]+ )?
@@ -27,12 +27,12 @@ string                      := "\x22", ( "\x5C\x22" / -"\x22" )*, "\x22"
 extendedString              := "\x22", ( stringConditional / "\x5C\x22" / -"\x22" )*, "\x22"
 stringConditional           := "{{", ws*, condition, ws*, "|", ws*, extendedString, ( ws*, "|", ws*, extendedString )?, ws*, "}}"
 condition                   := conditionContent
-<conditionContent>          := subCondition, ( ws*, logicOp, ws*, condition )?
+<conditionContent>          := subCondition, ( ws*, logicOp, ws*, condition )*
 subCondition                := ( "(", ws*, condition, ws*, ")" ) / ( "!", ws*, "(", ws*, condition, ws*, ")" ) / compCondition / bool
 compCondition               := (conditionValue, ws*, compOp, ws*, conditionValue) / ( ( "!", ws* )?, ( structElem / varId ) )
 conditionValue              := arythmExpr / string / bool
 arythmExpr                  := arythmExprContent
-<arythmExprContent>         := subArythmExpr, ( ws*, arythmOp, ws*, arythmExpr )?
+<arythmExprContent>         := subArythmExpr, ( ws*, arythmOp, ws*, arythmExpr )*
 subArythmExpr               := ( ("-", ws* )?, "(", ws*, arythmExpr, ws*, ")" ) / ( ( "-", ws* )?, (structElem / varId) ) / number
 arythmOp                    := "-" / "+" / "*" / "/"
 compOp                      := "==" / "!=" / "<=" / "<" / ">=" / ">"

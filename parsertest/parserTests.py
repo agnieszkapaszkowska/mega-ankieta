@@ -25,8 +25,10 @@ testCases = [\
 		('''{{if 1==1}}\nx<<[["checkbox"]]\n{{elseif 1==1}}\n[["radiogroup"]]\n{{else}}\n[["select"]]>>y\n{{endif}}''', "widgetConditional", 1),\
 		('''(1+1)/(x-a.d)''', "arythmExpr", 1),\
 		('''-6+k.gh +-x''', "arythmExpr", 1),\
+		('''name = -6+k.gh +-x''', "widgetArg", 1),\
 		('''x*-9+(ad.k.p* 7 + 9) - 5''', "arythmExpr", 1),\
-		('''var << "str{{x*-9+(ad.k.p* 7 + 9) - 5==x|"f"}}" ''', "assignmentLeft", 1),\
+		('''x*-9+(ad.k.p* 7 + 9) - 5 == x''', "condition", 1),\
+		('''var << "str{{x*-9+(ad.k.p* 7 + 9) - 5==x|"x"}}" ''', "assignmentLeft", 1),\
 		('''{{iF x*-9+(ad.k.p* 7 + 9) - 5==x}}\nvar << 10\n{{ENDif }}''', "widgetConditional", 1),\
 		('''var << 2+3 ''', "assignmentLeft", 1),\
 		]
