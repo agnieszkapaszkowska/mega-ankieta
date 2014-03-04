@@ -1,6 +1,10 @@
 testCases = [\
 		('''var<<[["checkbox"]] ''', "assignmentLeft", 1),\
 		('''[["checkbox"]]>>var ''', "assignmentRight", 1),\
+		('''1==1''', "compCondition", 1),\
+		('''!(1==1)''', "condition", 1),\
+		('''true&&1==1''', "condition", 1),\
+		('''(1==1)||!x''', "condition", 1),\
 		('''1==1&&true&&(true&&!(false)||1==1)''', "condition", 1),\
 		('''{{ If ((6 == 8 && 1 > 0 && "xxx" == str || ( ! true && a.b.c.d != "abc" ) )) }} \nxx << 5\n{{  eNdIf }}''', "widgetConditional", 1),\
 		('''x.x.fda==5&&!(aa!="str")||(!(var)&&(5>=a.f)||!x)''', "condition", 1),\
@@ -18,16 +22,23 @@ testCases = [\
 		('''0.66''', "number", 1),\
 		('''-0.69''', "number", 1),\
 		('''"string"''', "string", 1),\
-		('''"string+*  	^&()[]{}/.,!~~$%^@#$%^&*"''', "string", 1),\
+		('''"string+*  	^&()[]\{\}/.,!~~$%^@#$%^&*"''', "string", 1),\
 		('''"x{{1==1|"f"}}g"''', "extendedString", 1),\
 		('''"x{{2!=4&& !x|"f" | "sf"}}g"''', "extendedString", 1),\
 		('''"x{{2!=4&& !x|"{{1==1|"x"|"y"}}" | "sf"}}g"''', "extendedString", 1),\
 		('''{{if 1==1}}\nx<<[["checkbox"]]\n{{elseif 1==1}}\n[["radiogroup"]]\n{{else}}\n[["select"]]>>y\n{{endif}}''', "widgetConditional", 1),\
+		('''(1+1)''', "arythmExpr", 1),\
+		('''1+1''', "arythmExpr", 1),\
+		('''x-a.d''', "arythmExpr", 1),\
+		('''(x-a.d)''', "arythmExpr", 1),\
 		('''(1+1)/(x-a.d)''', "arythmExpr", 1),\
 		('''-6+k.gh +-x''', "arythmExpr", 1),\
 		('''name = -6+k.gh +-x''', "widgetArg", 1),\
 		('''x*-9+(ad.k.p* 7 + 9) - 5''', "arythmExpr", 1),\
 		('''x*-9+(ad.k.p* 7 + 9) - 5 == x''', "condition", 1),\
+		('''"str{{x*-9+(ad.k.p* 7 + 9) - 5==x|"x"}}"''', "extendedString", 1),\
+		('''"str{{1==x|"x"}}"''', "extendedString", 1),\
+		('''var << "str{{1==x|"x"}}" ''', "assignmentLeft", 1),\
 		('''var << "str{{x*-9+(ad.k.p* 7 + 9) - 5==x|"x"}}" ''', "assignmentLeft", 1),\
 		('''{{iF x*-9+(ad.k.p* 7 + 9) - 5==x}}\nvar << 10\n{{ENDif }}''', "widgetConditional", 1),\
 		('''var << 2+3 ''', "assignmentLeft", 1),\
