@@ -23,6 +23,10 @@ testCases = [\
 		('''-0.69''', "number", 1),\
 		('''"string"''', "string", 1),\
 		('''"string+*  	^&()[]\{\}/.,!~~$%^@#$%^&*"''', "string", 1),\
+		('''"{{1==1|"x"}}{{1==1|"f"}}"''', "extendedString", 1),\
+		('''"x{{1==1|"f"}}"''', "extendedString", 1),\
+		('''"x{{1==1|"f"}}{{1==1|"x"}}"''', "extendedString", 1),\
+		('''"{{1==1|"f"}}g"''', "extendedString", 1),\
 		('''"x{{1==1|"f"}}g"''', "extendedString", 1),\
 		('''"x{{2!=4&& !x|"f" | "sf"}}g"''', "extendedString", 1),\
 		('''"x{{2!=4&& !x|"{{1==1|"x"|"y"}}" | "sf"}}g"''', "extendedString", 1),\
