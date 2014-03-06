@@ -10,10 +10,6 @@ class BaseParametrisedObject:
 		self.jsArgs = []
 
 	def createArgs(self):
-		for name in self.argsData:
-			if type(self.argsData[name]) != type(list()):
-				self.argsData[name] = [self.argsData[name]]
-
 		for _, _, _, argTree in self.childrenTrees:
 			js, argName = self.getArg(argTree)
 			self.checkArg(argName)
@@ -62,13 +58,13 @@ class BaseParametrisedObject:
 
 	def checkArgs(self):
 		for name in self.argsData:
-			if self.argsData[name][0]['required'] and not name in self.foundArgs:
+			if self.argsData[name]['required'] and not name in self.foundArgs:
 				raise Exception('Required argument "' + name + '" wasn\'t supplied')
 
 	def completeArgsList(self):
 		for name in self.argsData:
-			if not self.argsData[name][0]['required']:
-				self.jsArgs.append(name + ": function() { return " + self.argsData[name][0]['default'] + " }")
+			if not self.argsData[name]['required']:
+				self.jsArgs.append(name + ": function() { return " + self.argsData[name]['default'] + " }")
 
 	def getClassName(self):
 		return self.__class__.__name__

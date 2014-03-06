@@ -2,6 +2,19 @@ from iss.surveys.parser import parseTree
 from iss.surveys.survey import Survey
 
 class Arg:
+	typeSynonims = {
+			"extendedString": ["extendedString", "string", "varId", "structElem"],
+			"string": ["string", "varId", "structElem"],
+			"number": ["number", "arythmExpr", "varId", "structElem"],
+			"bool": ["bool", "varId", "structElem"],
+			"listWithTuples": ["listWithTuples", "iterator", "varId", "structElem"],
+			"listWithoutTuples": ["listWithoutTuples", "iterator", "varId", "structElem"],
+			"tupleWithLists": ["tupleWithLists", "iterator", "varId", "structElem"],
+			"tupleWithoutLists": ["tupleWithoutLists", "iterator", "varId", "structElem"],
+			"iterator": ["iterator", "varId", "structElem"],
+			"datasource": ["datasource", "varId", "structElem"],
+			}
+
 	def __init__(self, childrenTrees):
 		self.childrenTrees = childrenTrees
 
@@ -22,14 +35,11 @@ class Arg:
 	def generateJS(self):
 		valueType = self.childrenTrees[-1][parseTree['PROD_NAME']]
 
-		for typeVariant in self.data:
-			if valueType == typeVariant['type']:
-				value = Survey.stringToClass(valueType)(self.childrenTrees[-1], typeVariant)
-				js = value.getJS() if valueType in ['iterator', 'datasource'] else value.generateJS()
+		if valueType in self.typeSynonims[self.data['type']]:
+			value = Survey.stringToClass(valueType)(self.childrenTrees[-1], self.data['type'])
+			js = value.getJS() if valueType in ['iterator', 'datasource'] else value.generateJS()
 
-				return self.argName + ': ' + js
-
-		possibleTypes = map(lambda x: x['type'], self.data)
+			return self.argName + ': ' + js
 
 		raise Exception('Argument ' + self.argName + ' should be one of types: ' + \
-				str(possibleTypes) + ' not ' + valueType)
+				str(self.typeSynonims[self.data['type']]) + ' not ' + valueType)

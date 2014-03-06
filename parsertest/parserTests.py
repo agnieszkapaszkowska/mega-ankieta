@@ -220,6 +220,7 @@ testCases = [\
 		('''false''', "bool", 1),\
 		('''FALSE''', "bool", 1),\
 		('''fAlSE''', "bool", 1),\
+		('''3''', "bool", 0),\
 
 		#INNER_STRING
 		('''string+*  	^&()[]\{\}\\"/.,!~~$%^@#$%^&*''', "innerString", 1),\
