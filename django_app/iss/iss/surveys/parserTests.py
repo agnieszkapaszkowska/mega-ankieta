@@ -46,24 +46,24 @@ testCases = [\
 		('''var << "str{{x*-9+(ad.k.p* 7 + 9) - 5==x|"x"}}" ''', "assignmentLeft", 1),\
 		('''{{iF x*-9+(ad.k.p* 7 + 9) - 5==x}}\nvar << 10\n{{ENDif }}''', "widgetConditional", 1),\
 		('''var << 2+3 ''', "assignmentLeft", 1),\
-		
-		#SURVEY	
+
+		#SURVEY
 		('''var << [["checkbox"]]\n[["checkbox"]] >> var2 \n [["radio"]]''', "survey", 1),\
 		('''var << [["checkbox"]]        {{ if !X || x.x == "str" && x }}\n[["checkbox"]]\n{{endif}}''', "survey", 1),\
-		
+
 		#WIDGET
 		('''[["checkbox"]]''', "widget", 1),\
 		('''[["radio"|"xxx"]]''', "widget", 1),\
-		
+
 		#WIDGET_CONDITIONAL
 		('''{{ if !X || x.x == "str" && x }}\n[["checkbox"]]\n{{endif}}''', "widgetConditional", 1),\
-		
+
 		#ASSIGNMENT_LEFT
 		('''ccACAf  <<       [["checkbox"]] ''', "assignmentLeft", 1),\
-		
+
 		#ASSIGNMENT_RIGHT
 		('''[["checkbox"]]  >> vCSar ''', "assignmentRight", 1),\
-		
+
 		#WIDGET_ARG
 		('''1''', "widgetArg", 1),\
 		('''1+2''', "widgetArg", 1),\
@@ -88,22 +88,22 @@ testCases = [\
 		('''(123,x.y,True,FaLSe)''', "listWithTuplesElement", 1),\
 		('''11''', "listWithTuplesElement", 1),\
 		('''("asd{{1==2|"x"}}",5)''', "listWithTuplesElement", 1),\
-		
+
 		#LIST_WITHOUT_TUPLES
 		('''[xx,"yz",123,x.y,True,FaLSe,"asd{{1==2|"x"}}"]''', "listWithoutTuples", 1),\
-		
+
 		#LIST_WITOUTH_TUPLES_ELEMENT
 		('''23.9''', "listWithoutTuplesElement", 1),\
 		('''True''', "listWithoutTuplesElement", 1),\
 		('''11''', "listWithoutTuplesElement", 1),\
 		('''"asd{{1==2|"x"}}"''', "listWithoutTuplesElement", 1),\
-		
+
 		#TUPLE_WITH_LIST
 		('''([1,23],["c",x.y])''', "tupleWithLists", 1),\
 		('''(11,2,[1])''', "tupleWithLists", 1),\
 		('''(1)''', "tupleWithLists", 1),\
 		('''([1,23],["c",x.y,"asd{{1==2|"x"}}"])''', "tupleWithLists", 1),\
-		
+
 		#TUPLE_WITH_LIST_ELEMENT
 		('''["c",x.y]''', "tupleWithListsElement", 1),\
 		('''True''', "tupleWithListsElement", 1),\
@@ -121,7 +121,7 @@ testCases = [\
 		('''x.y''', "tupleWithoutListsElement", 1),\
 		('''var = "trololo"''', "tupleWithoutListsElement", 1),\
 		('''"asd{{1==2|"x"}}"''', "tupleWithoutListsElement", 1),\
-		
+
 		#ITERATOR
 		('''iterator("ListIter")''', "iterator", 1),\
 		('''iterator("ListIter", "xxx")''', "iterator", 1),\
@@ -147,7 +147,7 @@ testCases = [\
 		('''datasource("URLData",xx = x,  v1 = 1234, v2 = True, v3=-1.12, v4=x.uuu.z,v5="asd{{1==2|"x"}}")''', "datasource", 1),\
 		('''datasource("a",5.8,xxx)''', "datasource", 1),\
 		('''datasource("url", name=value,num=-0.6955)''', "datasource", 1),\
-		
+
 		#DATASOURCE_ARG
 		('''"www.jkm.pl"''', "datasourceArg", 1),\
 		('''1234''', "datasourceArg", 1),\
@@ -176,7 +176,7 @@ testCases = [\
 		('''-1.12''', "simpleValue", 1),\
 		('''x.uuu.z''', "simpleValue", 1),\
 		('''"asd{{1==2|"x"}}"''', "simpleValue", 1),\
-		
+
 		#SIMPLE_EXPR_VALUE
 		('''"www.jkm.pl"''', "simpleExprValue", 1),\
 		('''1234''', "simpleExprValue", 1),\
@@ -244,7 +244,7 @@ testCases = [\
 		#STRING_CONDITIONAL
 		('''{{2!=4&& !x|"f" | "sf"}}''', "stringConditional", 1),\
 		('''{{1==1|"x"}}''', "stringConditional", 1),\
-		
+
 		#CONDITION
 		('''x*-9+(ad.k.p* 7 + 9) - 5 == x''', "condition", 1),\
 		('''x*-9+(ad.k.p* 7 + 9) - 5 == x && x > 1 || a < 3 || x.yy >= zmienna || x<="cos"''', "condition", 1),\

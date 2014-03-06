@@ -36,7 +36,12 @@ class Arg:
 		valueType = self.childrenTrees[-1][parseTree['PROD_NAME']]
 
 		if valueType in self.typeSynonims[self.data['type']]:
-			value = Survey.stringToClass(valueType)(self.childrenTrees[-1], self.data['type'])
+			valueTree = self.childrenTrees[-1] # without id if present
+
+			if valueType in ['datasource', 'iterator']:
+				valueTree = valueTree[parseTree['CHILDREN_TREES']]
+
+			value = Survey.stringToClass(valueType)(valueTree, self.data['type'])
 			js = value.getJS() if valueType in ['iterator', 'datasource'] else value.generateJS()
 
 			return self.argName + ': ' + js

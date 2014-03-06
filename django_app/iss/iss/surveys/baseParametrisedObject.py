@@ -3,7 +3,7 @@ from iss.surveys.string import String
 from iss.surveys.survey import Survey
 
 class BaseParametrisedObject:
-	def __init__(self, childrenTrees):
+	def __init__(self, childrenTrees, _ = None):
 		self.childrenTrees = childrenTrees
 		self.foundUnnamedArgs = 0
 		self.foundArgs = {}
@@ -63,7 +63,7 @@ class BaseParametrisedObject:
 
 	def completeArgsList(self):
 		for name in self.argsData:
-			if not self.argsData[name]['required']:
+			if not self.argsData[name]['required'] and not name in self.foundArgs:
 				self.jsArgs.append(name + ": function() { return " + self.argsData[name]['default'] + " }")
 
 	def getClassName(self):

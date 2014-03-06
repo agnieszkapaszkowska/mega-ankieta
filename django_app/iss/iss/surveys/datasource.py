@@ -1,9 +1,8 @@
-from iss.surveys.baseParametrisedObject import BaseParametrisedObject
-from iss.surveys.survey import Survey
+from iss.surveys.parametrisedValue import ParametrisedValue
 
-class Datasource(BaseParametrisedObject):
-    def generateJS(self):
-        self.createArgs()
+class Datasource(ParametrisedValue):
+	def generatePlainJS(self):
+		return 'iss.lib.datasource.' + self.getClassName() +\
+				'(' + ParametrisedValue.generatePlainJS(self) + ')'
 
-        return 'function () { return iss.lib.datasources.' + self.getClassName() +\
-				'({' + ', '.join(self.jsArgs) + '});'
+

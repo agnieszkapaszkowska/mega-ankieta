@@ -1,9 +1,7 @@
-from iss.surveys.baseParametrisedObject import BaseParametrisedObject
-from iss.surveys.survey import Survey
+from iss.surveys.parametrisedValue import ParametrisedValue
 
-class Iterator(BaseParametrisedObject):
-    def generateJS(self):
-        self.createArgs()
+class Iterator(ParametrisedValue):
+	def generatePlainJS(self):
+		return 'iss.lib.iterators.' + self.getClassName() +\
+				'(' + ParametrisedValue.generatePlainJS(self) + ')'
 
-        return 'function () { return iss.lib.iterators.' + self.getClassName() +\
-				'({' + ', '.join(self.jsArgs) + '});'

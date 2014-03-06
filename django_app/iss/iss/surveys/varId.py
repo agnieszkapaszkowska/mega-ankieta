@@ -1,11 +1,5 @@
-from iss.surveys.survey import Survey
-from iss.surveys.parser import parseTree
+from iss.surveys.value import Value
 
-class VarId:
-    def __init__(self, tree, _ = None):
-        self.tree = tree
-
+class VarId(Value):
     def generateJS(self):
-        varId = Survey.text[self.tree[parseTree['START']]:self.tree[parseTree['STOP']]]
-
-        return 'function() { return iss.vars.' + varId + ' }'
+        return 'function() { return iss.vars.' + self.generatePlainJS() + ' }'

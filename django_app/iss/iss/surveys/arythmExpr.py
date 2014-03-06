@@ -1,11 +1,5 @@
-from iss.surveys.survey import Survey
-from iss.surveys.parser import parseTree
+from iss.surveys.value import Value
 
-class ArythmExpr:
-    def __init__(self, tree, _ = None):
-        self.tree = tree
-
+class ArythmExpr(Value):
     def generateJS(self):
-        expr = Survey.text[self.tree[parseTree['START']]:self.tree[parseTree['STOP']]]
-
-        return 'function() { with (iss.vars) { return ' + expr + ' }}'
+        return 'function() { with (iss.vars) { return (' + self.generatePlainJS() + ') }}'

@@ -12,7 +12,6 @@ class Survey:
 			if not success or nextCharacter != len(Survey.text):
 				raise Exception("Parsing error")
 
-			#print Survey.generateJS(resultTrees)
 			return '', Survey.generateJS(resultTrees)
 
 		except Exception as e:
