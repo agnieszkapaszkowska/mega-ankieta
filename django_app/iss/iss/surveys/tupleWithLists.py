@@ -1,3 +1,4 @@
-from iss.surveys.parametrisedValue import ParametrisedValue
+from iss.surveys.tuple import Tuple
 
 class TupleWithLists(Tuple):
+    pass

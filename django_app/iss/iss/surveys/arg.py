@@ -41,10 +41,10 @@ class Arg:
 			if valueType in ['datasource', 'iterator']:
 				valueTree = valueTree[parseTree['CHILDREN_TREES']]
 
-			value = Survey.stringToClass(valueType)(valueTree, self.data['type'])
+			value = Survey.stringToClass(valueType)(valueTree, self.data)
 			js = value.getJS() if valueType in ['iterator', 'datasource'] else value.generateJS()
 
-			return self.argName + ': ' + js
+			return ((self.argName + ': ') if self.argName != '' else '') + js
 
 		raise Exception('Argument ' + self.argName + ' should be one of types: ' + \
 				str(self.typeSynonims[self.data['type']]) + ' not ' + valueType)
