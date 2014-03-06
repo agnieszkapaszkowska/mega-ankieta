@@ -61,6 +61,7 @@
                                     else {
                                         $("#errors").val('');
                                         console.log(data.survey);
+                                        $("#html-survey").text(data.survey);
                                     }
                                 },
                                 error: function(data) {
