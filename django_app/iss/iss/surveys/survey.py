@@ -24,8 +24,8 @@ class Survey:
     def generateJS(resultTrees):
         js = "var iss = {};\n" + Survey.surveyVar + " = new iss.lib.Survey();\n"
 
-        for prodName, _, _, childrenTrees in resultTrees:
-            production = Survey.stringToClass(prodName)(childrenTrees)
+        for prodName, start, stop, childrenTrees in resultTrees:
+            production = Survey.stringToClass(prodName)((prodName, start, stop, childrenTrees))
             js += production.getJS() + "\n"
 
         return js

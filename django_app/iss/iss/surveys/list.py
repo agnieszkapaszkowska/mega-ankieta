@@ -1,19 +1,15 @@
-from iss.surveys.baseParametrisedObject import BaseParametrisedObject
-from iss.surveys.value import Value
+from iss.surveys.containerValue import ContainerValue
 
-class List(BaseParametrisedObject, Value):
-    def __init__(self, tree, argsData):
-		BaseParametrisedObject.__init__(self, tree[-1])
-
-		self.argsData = argsData
-		self.unnamedArgs = []
-
+class List(ContainerValue):
+    
     def generatePlainJS(self):
         self.createArgs()
         return "array(" + ', '.join(self.jsArgs) + ")"
 
     def getArgData(self, argName):
-        return '', self.argsData['args']
+        if self.argsData is None:
+            return '', {'type' : 'all'}
+        return '', self.argsData
 
     def checkArg(self, argName):
         pass

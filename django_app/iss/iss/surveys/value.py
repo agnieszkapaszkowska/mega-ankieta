@@ -9,7 +9,7 @@ class Value:
         return 'function() { return ' + self.generatePlainJS()+ ' }'
 
     def generatePlainJS(self):
-		start = self.childrenTrees[parseTree['START']]
-		stop = self.childrenTrees[parseTree['STOP']]
+        start = self.childrenTrees[parseTree['START']]
+        stop = self.childrenTrees[parseTree['STOP']]
 
-		return Survey.text[start:stop]
+        return Survey.text[start:stop]
