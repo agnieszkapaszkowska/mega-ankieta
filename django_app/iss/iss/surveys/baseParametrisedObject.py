@@ -2,7 +2,9 @@ from iss.surveys.arg import Arg
 from iss.surveys.string import String
 from iss.surveys.survey import Survey
 
+
 class BaseParametrisedObject:
+
     def __init__(self, childrenTrees, _ = None):
         self.childrenTrees = childrenTrees[-1]
         self.foundUnnamedArgs = 0
@@ -21,6 +23,12 @@ class BaseParametrisedObject:
 
         self.checkArgs()
         self.completeArgsList()
+
+    def createArgsWithoutType(self, argsData):
+        for _, _, _, argTree in self.childrenTrees:
+            arg = Arg(argTree)
+            arg.setData(arg.getName(), argsData)
+            self.jsArgs.append(arg.generateJS())
 
     def getArg(self,argTree):
         arg = Arg(argTree)
