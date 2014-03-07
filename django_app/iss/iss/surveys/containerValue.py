@@ -5,7 +5,6 @@ from iss.surveys.value import Value
 class ContainerValue(BaseParametrisedObject, Value):
     def __init__(self, childrenTrees, argsData=None):
         BaseParametrisedObject.__init__(self, childrenTrees)
-        print argsData
         if argsData is None:
             self.argsData = None
         else:
