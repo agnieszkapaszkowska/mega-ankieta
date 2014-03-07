@@ -1,7 +1,9 @@
 from iss.surveys.baseParametrisedObject import BaseParametrisedObject
 from iss.surveys.survey import Survey
 
+
 class Widget(BaseParametrisedObject):
+
     def generateJS(self):
         self.createArgs()
 

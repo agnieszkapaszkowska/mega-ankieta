@@ -1,7 +1,9 @@
 from iss.surveys.survey import Survey
 from iss.surveys.parser import parseTree
 
+
 class InnerString:
+
     def __init__(self, tree, x = {}):
         self.tree = tree
 

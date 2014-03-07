@@ -2,18 +2,20 @@ from iss.surveys.survey import Survey
 from iss.surveys.parser import parseTree
 from iss.surveys.value import Value
 
+
 class ExtendedString(Value):
-	def generateJS(self):
-		return "function() { with (iss.vars) { return " + self.generatePlainJS() + '; } }'
 
-	def generatePlainJS(self):
-		text = ""
+    def generateJS(self):
+        return "function() { with (iss.vars) { return " + self.generatePlainJS() + '; } }'
 
-		for production in self.childrenTrees[parseTree['CHILDREN_TREES']]:
-			prodClass = Survey.stringToClass(production[parseTree['PROD_NAME']])
+    def generatePlainJS(self):
+        text = ""
 
-			text += '(' + prodClass(production).generatePlainJS() + ')+\n'
+        for production in self.childrenTrees[parseTree['CHILDREN_TREES']]:
+            prodClass = Survey.stringToClass(production[parseTree['PROD_NAME']])
 
-		text += "''"
+            text += '(' + prodClass(production).generatePlainJS() + ')+\n'
 
-		return text
+        text += "''"
+
+        return text

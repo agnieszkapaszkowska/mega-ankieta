@@ -1,9 +1,14 @@
 from iss.surveys.survey import Survey
 from iss.surveys.parser import parseTree
 
+
 class Value:
+
     def __init__(self, childrenTrees, _ = None):
         self.childrenTrees = childrenTrees
+
+    def getJS(self):
+        return self.generateJS()
 
     def generateJS(self):
         return 'function() { return ' + self.generatePlainJS()+ ' }'

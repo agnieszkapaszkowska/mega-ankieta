@@ -1,5 +1,6 @@
 from iss.surveys.widget import Widget
 
+
 class CheckboxWidget(Widget):
 	argsData = {
 			'name': {

@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from iss.surveys.survey import Survey
 import json
 
+
 class SurveyView(TemplateView):
     template_name = 'surveys/index.html'
     GENERATE_TYPE = '1'

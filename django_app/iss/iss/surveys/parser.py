@@ -8,6 +8,7 @@ parseTree = {
 		'CHILDREN_TREES': 3
 		}
 
+
 class Parser:
 	grammarFile = 'iss/surveys/grammar.def'
 	startProdName = 'survey'

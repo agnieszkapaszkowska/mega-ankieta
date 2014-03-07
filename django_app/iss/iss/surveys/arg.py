@@ -1,6 +1,7 @@
 from iss.surveys.parser import parseTree
 from iss.surveys.survey import Survey
 
+
 class Arg:
     typeSynonims = {
             "extendedString": ["extendedString", "string", "varId", "structElem"],
