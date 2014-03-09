@@ -14,7 +14,7 @@ for i in range(0, len(testCases)):
 	input, prod, shouldSucceed = testCases[i]
 	success, children, nextCharacter = parser.parse(input, production=prod)
 	try:
-		assert success == shouldSucceed
+		assert (success == shouldSucceed) or ((not shouldSucceed) and (nextCharacter < len(input)))
 		assert (shouldSucceed and nextCharacter == len(input)) or (not shouldSucceed)
 
 		print(".", end="")
