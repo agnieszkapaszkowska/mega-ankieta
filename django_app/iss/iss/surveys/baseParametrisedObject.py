@@ -82,7 +82,6 @@ class BaseParametrisedObject:
 
     def getJS(self):
         specialisedClass = self.getSpecialisedClass(self.childrenTrees[0], self.getClassName())
-
         return specialisedClass([self.childrenTrees[1:]]).generateJS()
 
     def getSpecialisedClass(self, stringTree, baseClassName):
