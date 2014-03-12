@@ -1,9 +1,6 @@
-from iss.surveys.parametrisedValue import ParametrisedValue
+from iss.surveys.abstractParametrisedObject import AbstractParametrisedObject
 
 
-class Iterator(ParametrisedValue):
+class Iterator(AbstractParametrisedObject):
 
-    def generatePlainJS(self):
-        return 'iss.lib.iterators.' + self.getClassName() +\
-                '(' + ParametrisedValue.generatePlainJS(self) + ')'
-
+    pass

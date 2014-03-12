@@ -1,7 +1,7 @@
-from iss.surveys.widget import Widget
+from iss.surveys.abstractWidgetSubclass import AbstractWidgetSubclass
 
 
-class CheckboxWidget(Widget):
+class CheckboxWidget(AbstractWidgetSubclass):
 	argsData = {
 			'name': {
 				'type': 'string',

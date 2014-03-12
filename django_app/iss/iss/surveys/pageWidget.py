@@ -1,7 +1,7 @@
-from iss.surveys.widget import Widget
+from iss.surveys.abstractWidgetSubclass import AbstractWidgetSubclass
 
 
-class PageWidget(Widget):
+class PageWidget(AbstractWidgetSubclass):
     argsData = {
             'back': {
                 'type': 'bool',

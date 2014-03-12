@@ -1,8 +1,7 @@
-from iss.surveys.containerValue import ContainerValue
+from iss.surveys.abstractParametrisedObject import AbstractParametrisedObject
 
 
-class Tuple(ContainerValue):
-    
-    def generatePlainJS(self):
-        self.createArgs()
-        return "{" + ', '.join(self.jsArgs) + "}"
+class Tuple(AbstractParametrisedObject):
+
+    def generateJS(self):
+        return 'function() { return ' + self.generateSimpleJS() + '}'

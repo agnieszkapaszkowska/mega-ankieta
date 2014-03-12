@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 from __future__ import print_function
-from sys import argv
+import os, sys
 from iss.surveys.parser import Parser
 from iss.surveys.survey import Survey
 from iss.surveys.pythonTests import testCases
 
 errors = 0
+sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0) #unbuffered stdout
 
 for i in range(0, len(testCases)):
 	try:
@@ -22,7 +23,7 @@ for i in range(0, len(testCases)):
 	except Exception:
 		errors += 1
 
-		if len(argv) == 1 or (not argv[1] in ['-v', '--verbose']):
+		if len(sys.argv) == 1 or (not sys.argv[1] in ['-v', '--verbose']):
 			print('x', end='')
 			continue
 

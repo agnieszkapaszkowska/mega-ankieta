@@ -1,7 +1,7 @@
-from iss.surveys.iterator import Iterator
+from iss.surveys.abstractIteratorSubclass import AbstractIteratorSubclass
 
 
-class TestIterator(Iterator):
+class TestIterator(AbstractIteratorSubclass):
     argsData = {
             'name':{
                 'type': 'datasource',

@@ -1,10 +1,6 @@
-from iss.surveys.parametrisedValue import ParametrisedValue
+from iss.surveys.abstractParametrisedObject import AbstractParametrisedObject
 
 
-class Datasource(ParametrisedValue):
+class Datasource(AbstractParametrisedObject):
 
-    def generatePlainJS(self):
-        return 'iss.lib.datasource.' + self.getClassName() +\
-                '(' + ParametrisedValue.generatePlainJS(self) + ')'
-
-
+    pass

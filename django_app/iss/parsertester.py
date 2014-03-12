@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 from __future__ import print_function
-import os
-from sys import argv
+import os, sys
 from simpleparse.parser import Parser
 from iss.surveys.parserTests import testCases
 
@@ -9,6 +8,7 @@ with open('iss/surveys/grammar.def') as decl:
 	parser = Parser(decl.read())
 
 errors = 0
+sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0) #unbuffered stdout
 
 for i in range(0, len(testCases)):
 	input, prod, shouldSucceed = testCases[i]
@@ -22,7 +22,7 @@ for i in range(0, len(testCases)):
 	except AssertionError:
 		errors += 1
 
-		if len(argv) == 1 or (not argv[1] in ['-v', '--verbose']):
+		if len(sys.argv) == 1 or (not sys.argv[1] in ['-v', '--verbose']):
 			print('x', end='')
 			continue
 
@@ -34,7 +34,7 @@ for i in range(0, len(testCases)):
 		print(wrongTestNum + errorType + errorDetails)
 		break
 
-if errors == 0 or (len(argv) == 1 or (not argv[1] in ['-v', '--verbose'])):
+if errors == 0 or (len(sys.argv) == 1 or (not sys.argv[1] in ['-v', '--verbose'])):
 	summary = "\n\nAll tests completed (%s tests):\n%s errors\n%s passed\n" % \
 			(len(testCases), errors, len(testCases) - errors)
 

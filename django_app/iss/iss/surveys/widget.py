@@ -1,11 +1,7 @@
-from iss.surveys.baseParametrisedObject import BaseParametrisedObject
+from iss.surveys.abstractParametrisedObject import AbstractParametrisedObject
 from iss.surveys.survey import Survey
 
 
-class Widget(BaseParametrisedObject):
+class Widget(AbstractParametrisedObject):
 
-    def generateJS(self):
-        self.createArgs()
-
-        return Survey.surveyVar + ".addWidget('" + self.getClassName() +\
-                "', {" + ', '.join(self.jsArgs) + "});"
+    pass

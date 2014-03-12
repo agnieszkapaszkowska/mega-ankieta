@@ -1,6 +1,7 @@
 import sys
 import traceback
-from parser import Parser
+from parser import Parser, parseTree
+
 
 class Survey:
     text = ''
@@ -24,18 +25,26 @@ class Survey:
     def generateJS(resultTrees):
         js = "var iss = {};\n" + Survey.surveyVar + " = new iss.lib.Survey();\n"
 
-        for prodName, start, stop, childrenTrees in resultTrees:
-            production = Survey.stringToClass(prodName)((prodName, start, stop, childrenTrees))
-            js += production.getJS() + "\n"
+        for resultTree in resultTrees:
+            prodName = resultTree[parseTree['PROD_NAME']]
+            production = Survey.stringToClass(prodName)(resultTree)
+
+            js += production.generateJS() + "\n"
 
         return js
 
     @staticmethod
-    def stringToClass(string):
-        className = Survey.stringToClassName(string)
+    def stringTreeToClass(stringTree, baseClassName = ''):
+        from iss.surveys.string import String
+        string = String(stringTree).getPythonValue()
 
-        return getattr(__import__('iss.surveys.' + string, globals(), locals(), className), className)
+        return Survey.stringToClass(string, baseClassName)
 
     @staticmethod
-    def stringToClassName(string):
-        return string[0].upper() + string[1:]
+    def stringToClass(string, baseClassName = ''):
+        fileName = string[0].lower() + string[1:] + baseClassName
+        className = string[0].upper() + string[1:] + baseClassName
+
+        module = __import__('iss.surveys.' + fileName, globals(), locals(), className)
+
+        return getattr(module, className)

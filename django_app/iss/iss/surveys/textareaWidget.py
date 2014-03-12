@@ -1,7 +1,7 @@
-from iss.surveys.widget import Widget
+from iss.surveys.abstractWidgetSubclass import AbstractWidgetSubclass
 
 
-class TextareaWidget(Widget):
+class TextareaWidget(AbstractWidgetSubclass):
     argsData = {
             'name': {
                 'type': 'string',

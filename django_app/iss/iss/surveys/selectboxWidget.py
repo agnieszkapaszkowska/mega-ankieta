@@ -1,7 +1,7 @@
-from iss.surveys.widget import Widget
+from iss.surveys.abstractWidgetSubclass import AbstractWidgetSubclass
 
 
-class SelectboxWidget(Widget):
+class SelectboxWidget(AbstractWidgetSubclass):
     argsData = {
             'name': {
                 'type': 'string',

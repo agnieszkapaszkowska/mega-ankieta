@@ -1,7 +1,7 @@
-from iss.surveys.datasource import Datasource
+from iss.surveys.abstractDatasourceSubclass import AbstractDatasourceSubclass
 
 
-class TestDatasource(Datasource):
+class TestDatasource(AbstractDatasourceSubclass):
     argsData = {
             'name':{
                 'type': 'string',

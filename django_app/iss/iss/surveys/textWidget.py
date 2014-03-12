@@ -1,7 +1,7 @@
-from iss.surveys.widget import Widget
+from iss.surveys.abstractWidgetSubclass import AbstractWidgetSubclass
 
 
-class TextWidget(Widget):
+class TextWidget(AbstractWidgetSubclass):
     argsData = {
             'text': {
                 'type': 'extendedString',

@@ -42,7 +42,7 @@ testCases = [
 		'''x << [["radio"|"x"|iterator("test", x)]] x << [["radio"|"x"|iterator("test", datasource("test", "x"))]] ''',
 		'''[["radio"|"x"|iterator("test", x)]][["radio"|"x"|iterator("test", datasource("test", "x"))]]''',
 		'''[["radio"|"x"|iterator("test", x)]] >> x [["radio"|"x"|iterator("test", datasource("test", "x"))]] >> x ''',
-		
+
 
 
 		''' '''

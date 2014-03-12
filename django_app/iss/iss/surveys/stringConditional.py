@@ -1,11 +1,9 @@
 from iss.surveys.survey import Survey
 from iss.surveys.parser import parseTree
+from iss.surveys.value import Value
 
 
-class StringConditional:
-
-    def __init__(self, tree, _ = None):
-        self.tree = tree
+class StringConditional(Value):
 
     def generatePlainJS(self):
         jsParts = []
@@ -14,7 +12,6 @@ class StringConditional:
             prodClass = Survey.stringToClass(production[parseTree['PROD_NAME']])
 
             jsParts.append(prodClass(production).generatePlainJS())
-
 
         hasElse = len(jsParts) == 3
 
