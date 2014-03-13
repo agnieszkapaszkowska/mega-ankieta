@@ -24,12 +24,16 @@ class Survey:
     @staticmethod
     def generateJS(resultTrees):
         js = "var iss = {};\n" + Survey.surveyVar + " = new iss.lib.Survey();\n"
+        return js + Survey.generateProductionsJS(resultTrees)
 
+    @staticmethod
+    def generateProductionsJS(resultTrees):
+        js = ''
         for resultTree in resultTrees:
             prodName = resultTree[parseTree['PROD_NAME']]
             production = Survey.stringToClass(prodName)(resultTree)
 
-            js += production.generateJS() + "\n"
+            js += production.generateJS()
 
         return js
 
