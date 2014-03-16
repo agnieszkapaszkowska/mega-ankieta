@@ -6,16 +6,18 @@ from iss.surveys.parser import parseTree
 
 class AbstractParametrisedObject:
 
+    argsData = None
     def __init__(self, resultTree, argsData = None, **kwargs):
         self.resultTree = resultTree
 
         self.foundUnnamedArgs = 0
         self.foundArgsNames = []
         self.jsArgsList = []
-
+       
         if not argsData:
-            self.argsData = None
-            return
+            argsData = self.argsData
+            if not argsData:
+                return
 
         if 'args' in argsData:
             self.argsData = argsData['args']

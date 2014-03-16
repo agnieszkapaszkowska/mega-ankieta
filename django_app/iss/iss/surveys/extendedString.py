@@ -13,7 +13,10 @@ class ExtendedString(Value):
 
         for production in self.resultTree[parseTree['CHILDREN_TREES']]:
             prodClass = Survey.stringToClass(production[parseTree['PROD_NAME']])
-
-            text.append('(' + prodClass(production).generateSimpleJS() + ')')
-
+            
+            prodJS = prodClass(production).generateSimpleJS()
+            if production[parseTree['PROD_NAME']] == 'innerString':
+                prodJS = '"' + prodJS + '"'
+            text.append(prodJS)
+        
         return ' + '.join(text)
