@@ -10,7 +10,7 @@ iss.lib.widgets.CheckboxWidget = function(options) {
 $.widget("iss.checkboxWidget", {
     options: {
         name: '',
-        data: []
+        data: function() { return [] }
     },
 
     _create: function() {

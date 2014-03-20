@@ -13,6 +13,9 @@ class AbstractParametrisedObject:
         self.foundUnnamedArgs = 0
         self.foundArgsNames = []
         self.jsArgsList = []
+        
+        if 'additionalJsArgs' in kwargs:
+            self.jsArgsList = kwargs['additionalJsArgs']
        
         if not argsData:
             argsData = self.argsData
@@ -25,15 +28,12 @@ class AbstractParametrisedObject:
         if 'unnamedArgs' in argsData:
             self.unnamedArgs = argsData['unnamedArgs']
 
-        if 'additionalJsArgs' in kwargs:
-            self.jsArgsList = kwargs['additionalJsArgs']
 
     def generateJS(self):
         stringTree = self.resultTree[parseTree['CHILDREN_TREES']][0]
         self.resultTree[parseTree['CHILDREN_TREES']].pop(0)
 
         widgetSubclass = Survey.stringTreeToClass(stringTree, self.getClassName())
-
         return widgetSubclass(self.resultTree, additionalJsArgs = self.jsArgsList).generateJS()
 
     def generateSimpleJS(self):
