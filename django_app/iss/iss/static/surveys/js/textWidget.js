@@ -1,9 +1,13 @@
 iss.lib.widgets.TextWidget = function(options) {
-    return function(container) {
-            return $('<div></div>')
-                .appendTo(container)
-                .textWidget(options)
-                .data('iss-text-widget');
+    return function(condition) {
+        return function(container) {
+                if (condition())
+                    return $('<div></div>')
+                        .appendTo(container)
+                        .textWidget(options)
+                        .data('iss-text-widget');
+                return null;
+               }
            }
 }
 
@@ -14,7 +18,7 @@ $.widget("iss.textWidget", {
 
     _create: function() {
         this.element.addClass('text-widget');
-        this._setOption("text", this.options.text);
+        this._setOptions(this.options);
     },
 
     _setOption: function(key, value) {

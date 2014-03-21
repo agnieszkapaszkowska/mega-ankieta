@@ -1,12 +1,17 @@
 iss.lib.widgets.PageWidget = function(options) {
-    return function(widgets, index) {
-        return function(container) {
-                return $('<div id="' + index + '"></div>')
-                    .appendTo(container)
-                    .pageWidget(options, {
-                        'widgets': widgets,
-                        'index': index})
-                    .data('iss-page-widget');
+    return function(condition) {  
+        return function(widgets, assignments, index) {
+            return function(container) {
+                    if (condition())
+                        return $('<div id="' + index + '"></div>')
+                            .appendTo(container)
+                            .pageWidget(options, {
+                                'widgets': widgets,
+                                'assignments': assignments,
+                                'index': index})
+                            .data('iss-page-widget');
+                     return null;
+                   }
                }
            }
 }
@@ -15,6 +20,7 @@ $.widget("iss.pageWidget", {
     options: {
         back: function() { return false },
         widgets: [],
+        assignments: [],
         index: 0
     },
     
@@ -22,13 +28,15 @@ $.widget("iss.pageWidget", {
         this.element.addClass('page-widget');
         this._widgetsContainer = $('<div></div>').appendTo(this.element);
         this._navigationContainer = $("<div></div>").appendTo(this.element);
-        this._setOption('widgets', this.options.widgets);
+        this._setOptions(this.options);
         this._setNavigationButtons();
     },
 
     _setOption: function(key, value) {
         if (key == 'widgets')
             this._setWidgets(value);
+        else if (key == 'assignments')
+            this._setAssignments(value);
         this._super(key, value);
     },
 
@@ -36,6 +44,12 @@ $.widget("iss.pageWidget", {
         this._widgetsContainer.find('div').remove();
         for (var i = 0; i < widgets.length; i++) {
             widgets[i](this._widgetsContainer);
+        }
+    },
+    
+    _setAssignments: function(assignments) {
+        for (var i = 0; i < assignments.length; i++) {
+            assignments[i]();
         }
     },
 

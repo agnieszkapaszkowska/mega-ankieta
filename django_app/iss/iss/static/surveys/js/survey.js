@@ -2,7 +2,9 @@ iss.lib.Survey = function() {
     this.pages = [];
     this.currentPage = null;
     this.currentIndex = 0;
+    this.conditions = [function() { return true }];
     this.widgets = [];
+    this.assignments = [];
     this.container = "#image .panel-body";
     this.history = [];
     
@@ -11,16 +13,18 @@ iss.lib.Survey = function() {
     this.addWidgetConditional = addWidgetConditional;
     this.init = init;
     this.addPage = addPage;
-    this.getNextIndex = getNextIndex;
     this.gotoNext = gotoNext;
     this.gotoPrev = gotoPrev;
+    this.prepareCondition = prepareCondition;
     
     function addAssignment(fun) {
-        fun();
+        var condFun = this.prepareCondition(this.conditions.slice(0));
+        this.assignments.push(function() { if (condFun()) fun(); });
     }
 
     function addWidget(fun) {
-        var newFunction = fun();
+        var condFun = this.prepareCondition(this.conditions.slice(0));
+        var newFunction = fun()(condFun);
         if (fun.toString().indexOf(
                 "iss.lib.widgets.PageWidget") != -1) {
             this.addPage();   
@@ -31,20 +35,35 @@ iss.lib.Survey = function() {
         }
     }
 
-    function addWidgetConditional(fun) {
-        console.log("WidgetConditional");
+    function addWidgetConditional(array) {
+        for (var i = 0; i < array.length; i++) {
+            this.conditions.push(array[i].condition);
+            array[i].body();
+            this.conditions.pop();
+        }
+    }
+
+    function prepareCondition(conditions) {
+        return function() {
+            for (var i = 0; i < conditions.length; i++)
+                if (!conditions[i]())
+                    return false;
+            return true;
+        }
     }
 
     function addPage() {
         if (this.currentPage != null) {
             this.pages.push(this.currentPage(
-                this.widgets, this.currentIndex));
+                this.widgets, this.assignments, this.currentIndex));
         }
         else if (this.widgets.length > 0) {
             this.pages.push(iss.lib.widgets.PageWidget({})(
-                this.widgets, this.currentIndex));
+                this.prepareCondition(this.conditions.slice(0)))(
+                this.widgets, this.assignments, this.currentIndex));
         }
         this.widgets = [];
+        this.assignments = [];
         this.currentIndex ++;
     }
     
@@ -54,16 +73,15 @@ iss.lib.Survey = function() {
         this.gotoNext();
     }
 
-    function getNextIndex(index) {
-        return index + 1;
-    }
-
     function gotoNext() {
         if (this.history.length > 0)
             this.history[this.history.length - 1].widget.hide();
-        this.currentIndex = this.getNextIndex(this.currentIndex);
+        do {
+            this.currentIndex ++;
+            var widget = this.pages[this.currentIndex](this.container);
+        } while (widget == null);
         this.history.push({
-            widget: this.pages[this.currentIndex](this.container),
+            widget: widget,
             index: this.currentIndex});
     }
 

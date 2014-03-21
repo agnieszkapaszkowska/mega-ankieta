@@ -1,9 +1,13 @@
 iss.lib.widgets.CheckboxWidget = function(options) {
-    return function(container) {
-            return $('<div></div>')
-                .appendTo(container)
-                .checkboxWidget(options)
-                .data('iss-checkbox-widget');
+    return function(condition) {
+        return function(container) {
+                if (condition())
+                    return $('<div></div>')
+                        .appendTo(container)
+                        .checkboxWidget(options)
+                        .data('iss-checkbox-widget');
+                return null;
+               }
            }
 }
 
@@ -15,7 +19,7 @@ $.widget("iss.checkboxWidget", {
 
     _create: function() {
         this.element.addClass('checkbox-widget');
-        this._setOption("data", this.options.data);
+        this._setOptions(this.options);
     },
 
     _setOption: function(key, value) {

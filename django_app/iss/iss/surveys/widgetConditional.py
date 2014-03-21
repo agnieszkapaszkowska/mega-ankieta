@@ -7,23 +7,23 @@ from parser import parseTree
 class WidgetConditional(AbstractParametrisedObject):
 
     def generateJS(self):
-        first = True
-        condition = False
-        js = ''
+        condition = ''
+        conditions = []
+        js = []
         for component in self.resultTree[parseTree['CHILDREN_TREES']]:
             if component[parseTree['PROD_NAME']] == 'condition':
-                condition = True
-                if not first:
-                    js += "else "
-                first = False
-                js += "if (" + Condition(
-                    component).generateJS() + "() ) {\n"
+                condition = Condition(
+                    component).generateJS()
             else:
-                if not condition:
-                    js += "else {\n"
-                condition = False
-                js += Survey.generateProductionsJS(
-                    component[parseTree['CHILDREN_TREES']]) + "}\n"
+                js.append("{condition: function() { return "
+                          + condition + "()" + (
+                              " && " + " && ".join(conditions)
+                              if len(conditions) > 0 else "")
+                          + " }, body: function() { "
+                          + Survey.generateProductionsJS(
+                                component[parseTree['CHILDREN_TREES']])
+                          + "}}")
+                conditions.append("!(" + condition + "())")
+                condition = ''
         return (Survey.surveyVar
-                + ".addWidgetConditional( function() {"
-                + js + "});")
+                + ".addWidgetConditional([" + ",".join(js) + "]);\n")
