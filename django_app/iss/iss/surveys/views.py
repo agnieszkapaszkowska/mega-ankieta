@@ -23,3 +23,7 @@ class SurveyView(TemplateView):
 
         return HttpResponse(json.dumps(result),
                                     content_type="application/json")
+
+
+class TestView(TemplateView):
+    template_name = 'tests/tests.html'
