@@ -7,7 +7,8 @@ $.widget("iss.selectboxWidget", $.iss.widget, {
         name: '',
         data: function() { return [] },
         selectedIndex: function() { return -1 },
-        required: function() {return true }
+        required: function() {return true },
+        resultVarName: null
     },
 
     _create: function() {
@@ -17,6 +18,8 @@ $.widget("iss.selectboxWidget", $.iss.widget, {
     _setOption: function(key, value) {
         if (key == "data")
             this._setData(value);
+        if (key == "resultVarName" && value != null)
+            this._setCallback(value);
         this._super(key, value);
     },
 
@@ -34,11 +37,19 @@ $.widget("iss.selectboxWidget", $.iss.widget, {
                 .appendTo(selectTag);
         }
     },
+
+    _setCallback: function(varName) {
+        var element = this.element;
+        iss.vars[varName] = element.find('select')[0].selectedIndex;
+        element.find('select').change(
+            function() {
+                iss.vars[varName] = element.find('select')[0].selectedIndex;
+            });
+    },
     
     validate: function() {
         if (this.options.required()
-            && $('select[name='
-                 + this.options.name() + ']').selectedIndex == -1) {
+            && this.element.find('select')[0].selectedIndex == -1) {
             this.element.addClass('erorr');
             return false;
         }

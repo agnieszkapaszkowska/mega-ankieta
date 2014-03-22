@@ -7,7 +7,8 @@ $.widget("iss.checkboxWidget", $.iss.widget, {
         name: '',
         data: function() { return [] },
         horizontal: function() {return false },
-        required: function() {return false }
+        required: function() {return false },
+        resultVarName: null
     },
 
     _create: function() {
@@ -17,6 +18,8 @@ $.widget("iss.checkboxWidget", $.iss.widget, {
     _setOption: function(key, value) {
         if (key == "data")
             this._setData(value);
+        if (key == "resultVarName" && value != null)
+            this._setCallback(value);
         this._super(key, value);
     },
 
@@ -35,11 +38,27 @@ $.widget("iss.checkboxWidget", $.iss.widget, {
                 .appendTo(this.element);
         }
     },
+
+    _setCallback: function(varName) {
+        var element = this.element;
+        function getChecked() {
+            var checked = [];
+            element.find("input:checked").each(function () { 
+                checked.push($(this).parent().index()); 
+            });
+            return checked;
+        }
+        iss.vars[varName] = getChecked();
+        var name = this.options.name();
+        $('input[name=' + name + ']').click(
+            function() {
+                iss.vars[varName] = getChecked();
+            });
+    },
     
     validate: function() {
         if (this.options.required()
-            && $('input:checked[name='
-                 + this.options.name() + ']').length == 0) {
+            && this.element.find("input:checked").length == 0) {
             this.element.addClass('erorr');
             return false;
         }

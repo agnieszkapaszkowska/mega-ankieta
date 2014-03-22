@@ -89,7 +89,8 @@ class AbstractParametrisedObject:
         if len(argName):
             self.foundArgsNames.append(argName)
 
-            if argName == self.unnamedArgs[self.foundUnnamedArgs]:
+            if (hasattr(self, 'unnamedArgs')
+                    and argName == self.unnamedArgs[self.foundUnnamedArgs]):
                 self.foundUnnamedArgs = self.getNextUnnamedArgIndex()
 
         self.jsArgsList.append(js)

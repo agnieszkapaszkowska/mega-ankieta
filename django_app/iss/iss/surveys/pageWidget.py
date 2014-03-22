@@ -9,19 +9,19 @@ class PageWidget(AbstractWidgetSubclass):
                 'default': 'false'
                 },
             'buttons': {
-                'type': 'bool'
+                'type': 'bool',
                 'required': 0,
                 'default': 'true'
                 },
             'nextbuttontext': {
                     'type': 'extendedString',
                     'required': 0,
-                    'default': 'Next'
+                    'default': '"Next"'
                 },
             'prevbuttontext': {
                     'type': 'extendedString',
                     'required': 0,
-                    'default': 'Prev'
+                    'default': '"Prev"'
                 },
             }
 

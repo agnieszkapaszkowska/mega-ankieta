@@ -8,7 +8,8 @@ $.widget("iss.radioWidget", $.iss.widget, {
         data: function() { return [] },
         checkedIndex: function() { return -1 },
         horizontal: function() {return false },
-        required: function() {return true }
+        required: function() {return true },
+        resultVarName: null
     },
 
     _create: function() {
@@ -18,6 +19,8 @@ $.widget("iss.radioWidget", $.iss.widget, {
     _setOption: function(key, value) {
         if (key == "data")
             this._setData(value);
+        if (key == "resultVarName" && value != null)
+            this._setCallback(value);
         this._super(key, value);
     },
 
@@ -36,11 +39,20 @@ $.widget("iss.radioWidget", $.iss.widget, {
                 .appendTo(this.element);
         }
     },
+
+    _setCallback: function(varName) {
+        iss.vars[varName] = this.options.checkedIndex();
+        var element = this.element;
+        element.find('input').click(
+            function() {
+                iss.vars[varName] = element.find('input')
+                            .index(element.find('input:checked'));
+            });
+    },
     
     validate: function() {
         if (this.options.required()
-            && $('input:checked[name='
-                 + this.options.name() + ']').length == 0) {
+            && this.element.find('input:checked').length == 0) {
             this.element.addClass('erorr');
             return false;
         }
