@@ -29,7 +29,18 @@ class RadioWidget(AbstractWidgetSubclass):
                 'type': 'number',
                 'required': 0,
                 'default': '-1'
-                }
+                },
+            'horizontal': {
+                    'type': 'bool',
+                    'required': 0,
+                    'default': 'false'
+                },
+            'required': {
+                    'type': 'bool',
+                    'required': 0,
+                    'default': 'true'
+                },
             }
 
-    unnamedArgs = ['name', 'data', 'checkedIndex']
+    unnamedArgs = ['name', 'data', 'checkedIndex',
+                   'horizontal', 'required']

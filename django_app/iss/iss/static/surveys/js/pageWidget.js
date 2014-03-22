@@ -19,9 +19,12 @@ iss.lib.widgets.PageWidget = function(options) {
 $.widget("iss.pageWidget", {
     options: {
         back: function() { return false },
-        widgets: [],
         assignments: [],
-        index: 0
+        widgets: [],
+        index: 0,
+        buttons: function() { return true },
+        nextbuttontext: function() { return "Next" },
+        prevbuttontext: function() { return "Prev" },
     },
     
     _create: function() {
@@ -29,7 +32,8 @@ $.widget("iss.pageWidget", {
         this._widgetsContainer = $('<div></div>').appendTo(this.element);
         this._navigationContainer = $("<div></div>").appendTo(this.element);
         this._setOptions(this.options);
-        this._setNavigationButtons();
+        if (this.options.buttons())
+            this._setNavigationButtons();
     },
 
     _setOption: function(key, value) {
@@ -42,8 +46,11 @@ $.widget("iss.pageWidget", {
 
     _setWidgets: function(widgets) {
         this._widgetsContainer.find('div').remove();
+        this.widgets = [];
         for (var i = 0; i < widgets.length; i++) {
-            widgets[i](this._widgetsContainer);
+            var widget = widgets[i](this._widgetsContainer);
+            if (widget != null)
+                this.widgets.push(widget);
         }
     },
     
@@ -55,9 +62,11 @@ $.widget("iss.pageWidget", {
 
     _setNavigationButtons: function() {
         if (this.options.back())
-            $('<button onclick="iss.survey.gotoPrev()">Back</button>')
+            $('<button onclick="iss.survey.gotoPrev()">'
+                    + this.options.prevbuttontext() + '</button>')
                 .appendTo(this._navigationContainer);
-        $('<button onclick="iss.survey.gotoNext()">Next</button>')
+        $('<button onclick="iss.survey.gotoNext()">'
+                    + this.options.nextbuttontext() + '</button>')
             .appendTo(this._navigationContainer);
     },
 
@@ -72,6 +81,15 @@ $.widget("iss.pageWidget", {
     _destroy: function() {
         this.element.removeClass('page-widget');
         this.element.empty();
+    },
+
+    validatePage: function() {
+        for (var i = 0; i < this.widgets.length; i++) {
+            if (!this.widgets[i].validate())
+                return false;
+        }
+        return true;
     }
+    
 });
 

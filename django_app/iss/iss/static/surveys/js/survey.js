@@ -2,7 +2,7 @@ iss.lib.Survey = function() {
     this.pages = [];
     this.currentPage = null;
     this.currentIndex = 0;
-    this.conditions = [function() { return true }];
+    this.conditions = [];
     this.widgets = [];
     this.assignments = [];
     this.container = "#image .panel-body";
@@ -16,6 +16,7 @@ iss.lib.Survey = function() {
     this.gotoNext = gotoNext;
     this.gotoPrev = gotoPrev;
     this.prepareCondition = prepareCondition;
+    this.submit = submit;
     
     function addAssignment(fun) {
         var condFun = this.prepareCondition(this.conditions.slice(0));
@@ -74,12 +75,24 @@ iss.lib.Survey = function() {
     }
 
     function gotoNext() {
-        if (this.history.length > 0)
-            this.history[this.history.length - 1].widget.hide();
-        do {
+        if (this.history.length > 0) {
+            if (this.history[this.history.length - 1].widget.validatePage())
+                this.history[this.history.length - 1].widget.hide();
+            else {
+                console.log("Did not validate");
+                return;
+            }
+        }
+        var widget = null;
+        while (widget == null
+               && this.currentIndex < this.pages.length - 1) {
             this.currentIndex ++;
-            var widget = this.pages[this.currentIndex](this.container);
-        } while (widget == null);
+            widget = this.pages[this.currentIndex](this.container);
+        }
+        if (widget == null) {
+            this.submit();
+            return;
+        }
         this.history.push({
             widget: widget,
             index: this.currentIndex});
@@ -90,5 +103,9 @@ iss.lib.Survey = function() {
         if (this.history.length > 0)
             this.history[this.history.length - 1].widget.show();
             this.currentIndex = this.history[this.history.length - 1].index;
+    }
+
+    function submit() {
+        return;
     }
 }

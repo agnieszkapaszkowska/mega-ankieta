@@ -30,6 +30,16 @@ class CheckboxWidget(AbstractWidgetSubclass):
 					'unnamedArgs': ['id', 'text', 'checked'],
 					}
 				},
+            'horizontal': {
+                    'type': 'bool',
+                    'required': 0,
+                    'default': 'false'
+                },
+            'required': {
+                    'type': 'bool',
+                    'required': 0,
+                    'default': 'false'
+                },
 			}
 
-	unnamedArgs = ['name', 'data']
+	unnamedArgs = ['name', 'data', 'horizontal', 'required']

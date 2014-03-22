@@ -29,7 +29,12 @@ class SelectboxWidget(AbstractWidgetSubclass):
                 'type': 'number',
                 'required': 0,
                 'default': '-1'
-                }
+                },
+            'required': {
+                    'type': 'bool',
+                    'required': 0,
+                    'default': 'true'
+                },
             }
 
-    unnamedArgs = ['name', 'data', 'selectedIndex']
+    unnamedArgs = ['name', 'data', 'selectedIndex', 'required']

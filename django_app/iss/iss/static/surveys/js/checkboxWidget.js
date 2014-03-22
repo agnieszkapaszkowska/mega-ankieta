@@ -1,25 +1,17 @@
 iss.lib.widgets.CheckboxWidget = function(options) {
-    return function(condition) {
-        return function(container) {
-                if (condition())
-                    return $('<div></div>')
-                        .appendTo(container)
-                        .checkboxWidget(options)
-                        .data('iss-checkbox-widget');
-                return null;
-               }
-           }
+    return iss.lib.widgets.Widget("checkbox", options);
 }
 
-$.widget("iss.checkboxWidget", {
+$.widget("iss.checkboxWidget", $.iss.widget, {
     options: {
         name: '',
-        data: function() { return [] }
+        data: function() { return [] },
+        horizontal: function() {return false },
+        required: function() {return false }
     },
 
     _create: function() {
-        this.element.addClass('checkbox-widget');
-        this._setOptions(this.options);
+        this._super();
     },
 
     _setOption: function(key, value) {
@@ -29,17 +21,30 @@ $.widget("iss.checkboxWidget", {
     },
 
     _setData: function(dataFun) {
-        this.element.find("div").remove();
+        this.element.find("label").remove();
         var data = dataFun();
         for (var i = 0; i < data.length; i++) {
             var checkbox = data[i]();
-            $('<div><label><input type="checkbox" name="'
+            $('<label ' + (this.options.horizontal() ? 
+                    '' : 'style="display:block;"') + '>'
+                + '<input type="checkbox" name="'
                 + this.options.name() + '" id="'
                 + checkbox['id']() + '" '
                 + (checkbox['checked']() ? 'checked' : '')
-                + '>' + checkbox['text']() + '</label><div>')
+                + '>' + checkbox['text']() + '</label>')
                 .appendTo(this.element);
         }
-    }
+    },
+    
+    validate: function() {
+        if (this.options.required()
+            && $('input:checked[name='
+                 + this.options.name() + ']').length == 0) {
+            this.element.addClass('erorr');
+            return false;
+        }
+        return true;
+    },
+    
 });
 

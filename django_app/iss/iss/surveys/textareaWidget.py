@@ -16,7 +16,12 @@ class TextareaWidget(AbstractWidgetSubclass):
                 'type': 'extendedString',
                 'required': 0,
                 'default': '""'
-                }
+                },
+            'required': {
+                    'type': 'bool',
+                    'required': 0,
+                    'default': 'true'
+                },
             }
 
-    unnamedArgs = ['name', 'label', 'placeholder']
+    unnamedArgs = ['name', 'label', 'placeholder', 'required']
