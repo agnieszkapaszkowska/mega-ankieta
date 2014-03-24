@@ -4,6 +4,8 @@ iss.lib.widgets.TextWidget = function(options) {
 
 $.widget("iss.textWidget", $.iss.widget, {
     options: {
+        pageWidget: null,
+        condition: null,
         text: function() { return '' }
     },
 

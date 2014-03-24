@@ -4,6 +4,8 @@ iss.lib.widgets.RadioWidget = function(options) {
 
 $.widget("iss.radioWidget", $.iss.widget, {
     options: {
+        pageWidget: null,
+        condition: null,
         name: '',
         data: function() { return [] },
         checkedIndex: function() { return -1 },
@@ -43,10 +45,12 @@ $.widget("iss.radioWidget", $.iss.widget, {
     _setCallback: function(varName) {
         iss.vars[varName] = this.options.checkedIndex();
         var element = this.element;
+        var pageWidget = this.options.pageWidget;
         element.find('input').click(
             function() {
                 iss.vars[varName] = element.find('input')
                             .index(element.find('input:checked'));
+                pageWidget.childChanged();
             });
     },
     

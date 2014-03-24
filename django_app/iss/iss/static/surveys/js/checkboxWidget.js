@@ -4,6 +4,8 @@ iss.lib.widgets.CheckboxWidget = function(options) {
 
 $.widget("iss.checkboxWidget", $.iss.widget, {
     options: {
+        pageWidget: null,
+        condition: null,
         name: '',
         data: function() { return [] },
         horizontal: function() {return false },
@@ -50,9 +52,11 @@ $.widget("iss.checkboxWidget", $.iss.widget, {
         }
         iss.vars[varName] = getChecked();
         var name = this.options.name();
+        var pageWidget = this.options.pageWidget;
         $('input[name=' + name + ']').click(
             function() {
                 iss.vars[varName] = getChecked();
+                pageWidget.childChanged();
             });
     },
     

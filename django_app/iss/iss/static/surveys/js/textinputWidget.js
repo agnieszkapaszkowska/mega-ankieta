@@ -4,6 +4,8 @@ iss.lib.widgets.TextinputWidget = function(options) {
 
 $.widget("iss.textinputWidget", $.iss.widget, {
     options: {
+        pageWidget: null,
+        condition: null,
         name: function() { return '' },
         label: function() { return '' },
         placeholder: function() { return '' },
@@ -33,10 +35,12 @@ $.widget("iss.textinputWidget", $.iss.widget, {
 
     _setCallback: function(varName) {
         var element = this.element;
+        var pageWidget = this.options.pageWidget;
         iss.vars[varName] = element.find('input').val();
         element.find('input').change(
             function() {
                 iss.vars[varName] = element.find('input').val();
+                pageWidget.childChanged();
             });
     },
 

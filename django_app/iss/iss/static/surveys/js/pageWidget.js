@@ -47,9 +47,12 @@ $.widget("iss.pageWidget", {
     _setWidgets: function(widgets) {
         this._widgetsContainer.find('div').remove();
         this.widgets = [];
+        this.notExecuted = [];
         for (var i = 0; i < widgets.length; i++) {
-            var widget = widgets[i](this._widgetsContainer);
-            if (widget != null)
+            var widget = widgets[i](this._widgetsContainer, this);
+            if (widget == null)
+                this.notExecuted.push(widgets[i]);
+            else
                 this.widgets.push(widget);
         }
     },
@@ -89,6 +92,21 @@ $.widget("iss.pageWidget", {
                 return false;
         }
         return true;
+    },
+
+    childChanged: function() {
+        for (var i = 0; i < this.widgets.length; i++) {
+            this.widgets[i].checkCondition();
+        }
+        var newNotExecuted = [];
+        for (var i = 0; i < this.notExecuted.length; i++) {
+            var widget = this.notExecuted[i](this._widgetsContainer, this);
+            if (widget == null)
+                newNotExecuted.push(this.notExecuted[i]);
+            else
+                this.widgets.push(widget);
+        }
+        this.notExecuted = newNotExecuted;
     }
     
 });

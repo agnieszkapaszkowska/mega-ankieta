@@ -4,6 +4,8 @@ iss.lib.widgets.TextareaWidget = function(options) {
 
 $.widget("iss.textareaWidget", $.iss.widget, {
     options: {
+        pageWidget: null,
+        condition: null,
         name: function() { return '' },
         label: function() { return '' },
         placeholder: function() { return '' },
@@ -33,10 +35,12 @@ $.widget("iss.textareaWidget", $.iss.widget, {
 
     _setCallback: function(varName) {
         var element = this.element;
+        var pageWidget = this.options.pageWidget;
         iss.vars[varName] = element.find('textarea').val();
         element.find('textarea').change(
             function() {
                 iss.vars[varName] = element.find('textarea').val();
+                pageWidget.childChanged();
             });
     },
 
