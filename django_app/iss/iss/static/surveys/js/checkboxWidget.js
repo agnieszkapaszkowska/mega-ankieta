@@ -62,6 +62,7 @@ $.widget("iss.checkboxWidget", $.iss.widget, {
     
     validate: function() {
         if (this.options.required()
+            && this.element.is(":visible")
             && this.element.find("input:checked").length == 0) {
             this.element.addClass('erorr');
             return false;

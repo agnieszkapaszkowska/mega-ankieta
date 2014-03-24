@@ -46,6 +46,7 @@ $.widget("iss.textareaWidget", $.iss.widget, {
 
     validate: function() {
         if (this.options.required()
+            && this.element.is(":visible")
             && this.element.find('textarea').val().length == 0) {
             this.element.addClass("error");
             return false;

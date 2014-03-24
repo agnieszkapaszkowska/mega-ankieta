@@ -53,6 +53,7 @@ $.widget("iss.selectboxWidget", $.iss.widget, {
     
     validate: function() {
         if (this.options.required()
+            && this.element.is(":visible")
             && this.element.find('select')[0].selectedIndex == -1) {
             this.element.addClass('erorr');
             return false;
