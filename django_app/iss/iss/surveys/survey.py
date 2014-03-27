@@ -1,6 +1,7 @@
 import sys
 import traceback
 from parser import Parser, parseTree
+from simpleparse.error import ParserSyntaxError
 
 
 class Survey:
