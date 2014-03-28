@@ -7,7 +7,7 @@ class Arg:
             "extendedString":   ["extendedString", "string", "varId", "structElem"],
             "string":           ["string", "varId", "structElem"],
             "number":           ["number", "arythmExpr", "varId", "structElem"],
-            "bool":             ["bool", "varId", "structElem"],
+            "bool":             ["condition", "bool", "varId", "structElem"],
             "listWithTuples":   ["listWithTuples", "iterator", "varId", "structElem"],
             "listWithoutTuples":["listWithoutTuples", "iterator", "varId", "structElem"],
             "tupleWithLists":   ["tupleWithLists", "iterator", "varId", "structElem"],
@@ -38,7 +38,7 @@ class Arg:
         valueType = self.valueTree[parseTree['PROD_NAME']]
 
         if self.data and not valueType in self.typeSynonims[self.data['type']]:
-            raise Exception('Argument ' + self.argName + ' should be one of types: ' + \
+            raise Exception('Argument ' + self.name + ' should be one of types: ' + \
                     str(self.typeSynonims[self.data['type']]) + ' not ' + valueType)
 
         value = Survey.stringToClass(valueType)(self.valueTree, self.data)

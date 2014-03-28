@@ -4,7 +4,6 @@ from django.http import HttpResponse
 from iss.surveys.survey import Survey
 import json
 
-
 class SurveyView(TemplateView):
     template_name = 'surveys/index.html'
     GENERATE_TYPE = '1'
@@ -15,7 +14,7 @@ class SurveyView(TemplateView):
 
         if request.is_ajax():
             if request.POST['type'] == self.GENERATE_TYPE:
-                Survey.text = request.POST['input']
+                Survey.text =  ' ' + request.POST['input'] + ' '
                 error, survey = Survey.generate()
 
                 result['survey'] = survey

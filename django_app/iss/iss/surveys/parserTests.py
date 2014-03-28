@@ -1,10 +1,12 @@
 testCases = [\
 		('''var<<[["checkbox"]] ''', "assignmentLeft", 1),\
 		('''[["checkbox"]]>>var ''', "assignmentRight", 1),\
-		('''1==1''', "compCondition", 1),\
+		('''1==1''', "condition", 1),\
+		('''(1==1)''', "condition", 1),\
 		('''!(1==1)''', "condition", 1),\
 		('''true&&1==1''', "condition", 1),\
 		('''(1==1)||!x''', "condition", 1),\
+		('''true''', "condition", 0),\
 		('''1==1&&true&&(true&&!(false)||1==1)''', "condition", 1),\
 		('''{{ If ((6 == 8 && 1 > 0 && "xxx" == str || ( ! true && a.b.c.d != "abc" ) )) }} \nxx << 5\n{{  eNdIf }}''', "widgetConditional", 1),\
 		('''x.x.fda==5&&!(aa!="str")||(!(var)&&(5>=a.f)||!x)''', "condition", 1),\
@@ -22,14 +24,17 @@ testCases = [\
 		('''0.66''', "number", 1),\
 		('''-0.69''', "number", 1),\
 		('''"string"''', "string", 1),\
+		('''"string"''', "extendedString", 0),\
 		('''"string+*  	^&()[]\{\}/.,!~~$%^@#$%^&*"''', "string", 1),\
-		('''"{{1==1|"x"}}{{1==1|"f"}}"''', "extendedString", 1),\
+		('''"{{true|"f"}}"''', "extendedString", 1),\
+		('''"{{1==1|"f"}}"''', "extendedString", 1),\
 		('''"x{{1==1|"f"}}"''', "extendedString", 1),\
-		('''"x{{1==1|"f"}}{{1==1|"x"}}"''', "extendedString", 1),\
 		('''"{{1==1|"f"}}g"''', "extendedString", 1),\
 		('''"x{{1==1|"f"}}g"''', "extendedString", 1),\
 		('''"x{{2!=4&& !x|"f" | "sf"}}g"''', "extendedString", 1),\
 		('''"x{{2!=4&& !x|"{{1==1|"x"|"y"}}" | "sf"}}g"''', "extendedString", 1),\
+		('''"{{1==1|"x"}}{{1==1|"f"}}"''', "extendedString", 1),\
+		('''"x{{1==1|"f"}}{{1==1|"x"}}"''', "extendedString", 1),\
 		('''{{if 1==1}}\nx<<[["checkbox"]]\n{{elseif 1==1}}\n[["radiogroup"]]\n{{else}}\n[["select"]]>>y\n{{endif}}''', "widgetConditional", 1),\
 		('''(1+1)''', "arythmExpr", 1),\
 		('''1+1''', "arythmExpr", 1),\
@@ -96,7 +101,7 @@ testCases = [\
 		('''5*44 + (-3)''', "widgetArg", 1),\
 
 		('''[["checkbox"]]''', "widgetArg", 0),\
-		
+
 		#LIST_WITH_TUPLES
 		('''[(1,23),(xx,"yz"), (123,x.y,True,FaLSe), 11, ("asd{{1==2|"x"}}",5)]''', "listWithTuples", 1),\
 		('''[1]''', "listWithTuples", 1),\
@@ -120,7 +125,7 @@ testCases = [\
 
 		('''(a,b)''', "listWithoutTuplesElement", 0),\
 		('''(a)''', "listWithoutTuplesElement", 0),\
-		
+
 		#TUPLE_WITH_LIST
 		('''([1,23],["c",x.y])''', "tupleWithLists", 1),\
 		('''(11,2,[1])''', "tupleWithLists", 1),\
@@ -255,7 +260,9 @@ testCases = [\
 		('''^sdfg''', "varId", 0),\
 		('''as%fg''', "varId", 0),\
 		('''a_dfg''', "varId", 0),\
-		
+		('''TruE''', "varId", 0),\
+		('''FalSE''', "varId", 0),\
+
 		#STRUCT_ELEM
 		('''DSFGasdfg.adsfdasf''', "structElem", 1),\
 		('''asdwsdffDSRFHg.dfsgwe.a12324''', "structElem", 1),\
@@ -286,7 +293,7 @@ testCases = [\
 		('''false''', "bool", 1),\
 		('''FALSE''', "bool", 1),\
 		('''fAlSE''', "bool", 1),\
-		
+
 		('''3''', "bool", 0),\
 		('''x''', "bool", 0),\
 		('''1+1''', "bool", 0),\
@@ -334,6 +341,9 @@ testCases = [\
 		('''5 == x or x.aa != val and xx == xy''', "condition", 1),\
 
 		('''[["checkbox"]]''', "condition", 0),\
+		('''var1''', "condition", 0),\
+		('''1+1''', "condition", 0),\
+		('''true''', "condition", 0),\
 
 		#CONDITION_CONTENT
 		('''x*-9+(ad.k.p* 7 + 9) - 5 == x''', "conditionContent", 1),\
@@ -355,8 +365,6 @@ testCases = [\
 		('''[["text"]]''', "subCondition", 0),\
 
 		#COMP_CONDITION
-		('''!xx''', "compCondition", 1),\
-		('''!x.y.z''', "compCondition", 1),\
 		('''a > 5''', "compCondition", 1),\
 		('''b < x.y''', "compCondition", 1),\
 
@@ -379,6 +387,7 @@ testCases = [\
 
 		#ARYTHM_EXPR
 		('''(5)''', "arythmExpr", 1),\
+		('''-(5)''', "arythmExpr", 1),\
 		('''(-7.13)''', "arythmExpr", 1),\
 		('''1+23*x''', "arythmExpr", 1),\
 		('''x+x.yr/v''', "arythmExpr", 1),\

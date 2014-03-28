@@ -26,7 +26,7 @@ class Survey:
     def generateJS(resultTrees):
         js = Survey.surveyVar + " = new iss.lib.Survey();\n"
         return (js + Survey.generateProductionsJS(resultTrees)
-                + Survey.surveyVar + ".init();\n") 
+                + Survey.surveyVar + ".init();\n")
 
     @staticmethod
     def generateProductionsJS(resultTrees):
