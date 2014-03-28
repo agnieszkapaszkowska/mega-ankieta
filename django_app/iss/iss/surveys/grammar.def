@@ -1,32 +1,32 @@
 survey                      := ws*, ( (assignmentLeft / widgetConditional / assignmentRight / widget), ws*)*
-widget                      := "[[", ws*, string, (ws*, "|", ws*, widgetArg)*, ws*, "]]"
-widgetConditional           := "{{", ws*, c"if", ws+, condition, ws*, "}}", survey, ( "{{", ws*, c"elseif", ws+, condition, ws*, "}}", survey )*, ( "{{", ws*, c"else", ws*, "}}",survey )?, ("{{", ws*, c"endif", ws*, "}}")!
-assignmentRight             := widget, ws*, ">>", ws*, varId, ws+
-assignmentLeft              := varId, ws*, "<<", ws*, ( widget / tupleWithLists / listWithTuples / iterator / datasource / simpleExprValue ), ws+
+widget                      := "[[", ws*, string, (ws*, "|", !, ws*, widgetArg)*, ws*, !, "]", !, "]"
+widgetConditional           := "{{", ws*, c"if", ws+, condition, ws*, !, "}", !, "}", survey, ( "{{", ws*, c"elseif", ws+, condition, ws*, !, "}", !, "}", survey )*, ( "{{", ws*, c"else", ws*, !, "}", !, "}",survey )?, ("{{", ws*, c"endif", ws*, !, "}", !, "}")!
+assignmentRight             := widget, ws*, ">>", !, ws*, varId, ws+
+assignmentLeft              := varId, ws*, "<<", !, ws*, ( widget / tupleWithLists / listWithTuples / iterator / datasource / simpleExprValue ), ws+
 widgetArg                   := (id, ws*, "=")?, ws*, ( tupleWithLists / listWithTuples / iterator / datasource / simpleExprValue )
-listWithTuples              := "[", ws*, listWithTuplesElement, ( ws*, ",", ws*, listWithTuplesElement )*, ws*, "]"
+listWithTuples              := "[", ws*, listWithTuplesElement, ( ws*, ",", !, ws*, listWithTuplesElement )*, ws*, !, "]"
 listWithTuplesElement       := tupleWithoutLists / simpleValue
-listWithoutTuples           := "[", ws*, listWithoutTuplesElement,  ( ws*, ",", ws*, listWithoutTuplesElement )*, ws*, "]"
+listWithoutTuples           := "[", ws*, listWithoutTuplesElement,  ( ws*, ",", !, ws*, listWithoutTuplesElement )*, ws*, !, "]"
 listWithoutTuplesElement    := simpleValue
-tupleWithLists              := "(", ws*, tupleWithListsElement, ( ws*, ",", ws*, tupleWithListsElement)*, ws*, ")"
+tupleWithLists              := ( "(", ws*, tupleWithListsElement, ws*, ",", ws*, ")" ) / ( "(", ws*, tupleWithListsElement, ( ws*, ",", !, ws*, tupleWithListsElement)+, ws*, ")" )
 tupleWithListsElement       := (id, ws*, "=", ws* )?, (listWithoutTuples / simpleValue)
-tupleWithoutLists           := "(", ws*, tupleWithoutListsElement, ( ws*, ",", ws*, tupleWithoutListsElement )*, ws*, ")"
+tupleWithoutLists           := ( "(", ws*, tupleWithoutListsElement, ws*, ",", ws*, ")" ) / ( "(", ws*, tupleWithoutListsElement, ( ws*, ",", !, ws*, tupleWithoutListsElement )+, ws*, ")" )
 tupleWithoutListsElement    := (id, ws*, "=", ws* )?, simpleValue
-iterator                    := c"iterator", ws*, "(", ws*, string, (ws*, ",", ws*, iteratorArg)*, ws*, ")"
+iterator                    := c"iterator", ws*, !, "(", ws*, string, (ws*, ",", !, ws*, iteratorArg)*, ws*, !, ")"
 iteratorArg                 := (id, ws*, "=", ws*)?, (datasource / simpleValue)
-datasource                  := c"datasource", ws*, "(", ws*, string, (ws*, ",", ws*, datasourceArg)*, ws*, ")"
+datasource                  := c"datasource", ws*, !, "(", ws*, string, (ws*, ",", !, ws*, datasourceArg)*, ws*, !, ")"
 datasourceArg               := (id, ws*, "=", ws*)?, simpleValue 
 id                          := [A-Za-z], [A-Za-z0-9]*
 >simpleValue<               := string / extendedString / number / bool / structElem / varId
 >simpleExprValue<           := arythmExpr / condition / simpleValue
-varId                       := ?-bool, [A-Za-z], [A-Za-z0-9]*
-structElem                  := varId, (".", varId)+
+varId                       := ?-(bool / "iterator" / "datasource"), [A-Za-z], [A-Za-z0-9]*
+structElem                  := varId, (".", !, varId)+
 number                      := "-"?, ( "0" / ([1-9], [0-9]*) ), ( ".", [0-9]+ )?
 bool                        := c"true" / c"false"
 innerString					:= ("\x5C\x22" / "\x5C\x7B" / "\x5C\x7D" / -( "\x22" / "\x7B" / "\x7D" ) )+
 string                      :=  "\x22", (innerString)?, "\x22"
 extendedString              := "\x22", (innerString)?, ( ( ((stringConditional)+, innerString)+, (stringConditional)* ) /  (stringConditional)+ ), "\x22"
-stringConditional           := "{{", ws*, (condition / bool / structElem / varId), ws*, "|", ws*, ( string / extendedString ), ( ws*, "|", ws*, ( string / extendedString ) )?, ws*, "}}"
+stringConditional           := "{{", ws*, (condition / bool / structElem / varId), ws*, "|", ws*, !, ( string / extendedString ), ( ws*, "|", ws*, ( string / extendedString ) )?, ws*, !, "}", !, "}"
 condition                   := conditionTopLevelContent
 <conditionTopLevelContent>  := (subCondition, ws*, logicOp, ws*, conditionContent ) / ( ("!")?, ws*, "(", ws*, subCondition, ( ws*, logicOp, ws*, conditionContent )?, ws*, ")" ) / compCondition  / ( "!", ws* , ( bool / structElem / varId ) )
 conditionContent            := subCondition, ( ws*, logicOp, ws*, conditionContent )*

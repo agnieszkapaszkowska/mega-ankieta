@@ -15,7 +15,7 @@ testCases = [\
 		('''datasource("url", name=value,num=-0.6955)''', "datasource", 1),\
 		('''iterator("adfsa",564.5,zmienna)''', "iterator", 1),\
 		('''iterator("perm", name=value,num=-85.684)''', "iterator", 1),\
-		('''iterator("nth", datasource("xx",name=value,-5.96),data=datasource("x"),datasource)''', "iterator", 1),\
+		('''iterator("nth", datasource("xx",name=value,-5.96),data=datasource("x"))''', "iterator", 1),\
 		('''16513''', "number", 1),\
 		('''0''', "number", 1),\
 		('''-68451''', "number", 1),\
@@ -129,7 +129,8 @@ testCases = [\
 		#TUPLE_WITH_LIST
 		('''([1,23],["c",x.y])''', "tupleWithLists", 1),\
 		('''(11,2,[1])''', "tupleWithLists", 1),\
-		('''(1)''', "tupleWithLists", 1),\
+		('''(1)''', "tupleWithLists", 0),\
+		('''(1,)''', "tupleWithLists", 1),\
 		('''([1,23],["c",x.y,"asd{{1==2|"x"}}"])''', "tupleWithLists", 1),\
 
 		#TUPLE_WITH_LIST_ELEMENT
@@ -140,8 +141,8 @@ testCases = [\
 
 		#TUPLE_WITHOUT_LIST
 		('''(23,"c",x.y)''', "tupleWithoutLists", 1),\
-		('''(1)''', "tupleWithoutLists", 1),\
-		('''("asd{{1==2|"x"}}")''', "tupleWithoutLists", 1),\
+		('''(1)''', "tupleWithoutLists", 0),\
+		('''("asd{{1==2|"x"}}",)''', "tupleWithoutLists", 1),\
 
 		('''([1])''', "tupleWithoutLists", 0),\
 		('''([1,1])''', "tupleWithoutLists", 0),\
@@ -164,7 +165,7 @@ testCases = [\
 		('''iterator("ListIter", v1 = "xxx", v2 = True,dat = datasource("URLData"), "asd{{1==2|"x"}}")''', "iterator", 1),\
 		('''iterator("adfsa",564.5,zmienna)''', "iterator", 1),\
 		('''iterator("perm", name=value,num=-85.684)''', "iterator", 1),\
-		('''iterator("nth", datasource("xx",name=value,-5.96),data=datasource("x"),datasource)''', "iterator", 1),\
+		('''iterator("nth", datasource("xx",name=value,-5.96),data=datasource("x"))''', "iterator", 1),\
 
 		('''iterotor("ListIter", "xxx")''', "iterator", 0),\
 		('''iterator("ListIter", [["checkbox"]])''', "iterator", 0),\
