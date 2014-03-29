@@ -57,9 +57,11 @@ class AbstractParametrisedObject:
         self.addDefaultsToJsArgsList()
 
     def createUntypedArgs(self):
+        i = 0
         for argTree in self.resultTree[parseTree['CHILDREN_TREES']]:
             js, argName = self.generateArg(argTree)
-            self.addToJsArgsList(js, argName)
+            self.addUntypedToJsArgsList(js, str(i))
+            i += 1
 
     def generateArg(self, argTree):
         arg = Arg(argTree)
@@ -94,6 +96,9 @@ class AbstractParametrisedObject:
                 self.foundUnnamedArgs = self.getNextUnnamedArgIndex()
 
         self.jsArgsList.append(js)
+
+    def addUntypedToJsArgsList(self, js, argName):
+        self.jsArgsList.append(argName + ':' + js)
 
     def getNextUnnamedArgIndex(self):
         nextIndex = self.foundUnnamedArgs + 1
