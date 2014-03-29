@@ -60,7 +60,10 @@ class AbstractParametrisedObject:
         i = 0
         for argTree in self.resultTree[parseTree['CHILDREN_TREES']]:
             js, argName = self.generateArg(argTree)
-            self.addUntypedToJsArgsList(js, str(i))
+            if argName:
+                self.addToJsArgsList(js, argName)
+            else:
+                self.addUntypedToJsArgsList(js, str(i))
             i += 1
 
     def generateArg(self, argTree):
