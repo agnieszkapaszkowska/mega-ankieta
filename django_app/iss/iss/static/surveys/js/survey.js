@@ -2,6 +2,8 @@ iss.lib.Survey = function() {
     this.pages = [];
     this.currentPage = null;
     this.currentIndex = 0;
+    this.questions = [];
+    this.currentQuestion = null;
     this.conditions = [];
     this.widgets = [];
     this.assignments = [];
@@ -13,6 +15,7 @@ iss.lib.Survey = function() {
     this.addWidgetConditional = addWidgetConditional;
     this.init = init;
     this.addPage = addPage;
+    this.addQuestion = addQuestion;
     this.gotoNext = gotoNext;
     this.gotoPrev = gotoPrev;
     this.prepareCondition = prepareCondition;
@@ -30,6 +33,11 @@ iss.lib.Survey = function() {
                 "iss.lib.widgets.PageWidget") != -1) {
             this.addPage();   
             this.currentPage = newFunction;
+        }
+        else if (fun.toString().indexOf(
+                "iss.lib.widgets.QuestionWidget") != -1) {
+            this.addQuestion();   
+            this.currentQuestion = newFunction;
         }
         else {
             this.widgets.push(newFunction);
@@ -54,18 +62,33 @@ iss.lib.Survey = function() {
     }
 
     function addPage() {
+        this.addQuestion();
         if (this.currentPage != null) {
             this.pages.push(this.currentPage(
-                this.widgets, this.assignments, this.currentIndex));
+                this.questions, this.currentIndex));
         }
-        else if (this.widgets.length > 0) {
+        else if (this.questions.length > 0) {
             this.pages.push(iss.lib.widgets.PageWidget({})(
                 this.prepareCondition(this.conditions.slice(0)))(
-                this.widgets, this.assignments, this.currentIndex));
+                this.questions, this.currentIndex));
         }
+        this.questions = [];
+        this.currentIndex ++;
+    }
+    
+    function addQuestion() {
+        if (this.currentQuestion != null) {
+            this.questions.push(this.currentQuestion(
+                this.widgets, this.assignments));
+        }
+        else if (this.widgets.length > 0 || this.assignments.length > 0) {
+            this.questions.push(iss.lib.widgets.QuestionWidget({})(
+                this.prepareCondition(this.conditions.slice(0)))(
+                this.widgets, this.assignments));
+        }
+        this.currentQuestion = null;
         this.widgets = [];
         this.assignments = [];
-        this.currentIndex ++;
     }
     
     function init() {

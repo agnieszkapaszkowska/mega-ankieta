@@ -1,7 +1,3 @@
-iss.lib.widgets.TextWidget = function(options) {
-    return iss.lib.widgets.Widget("text", options);
-}
-
 $.widget("iss.textWidget", $.iss.widget, {
     options: {
         pageWidget: null,

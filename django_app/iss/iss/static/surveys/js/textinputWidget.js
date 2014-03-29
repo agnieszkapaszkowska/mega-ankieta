@@ -1,10 +1,6 @@
-iss.lib.widgets.TextinputWidget = function(options) {
-    return iss.lib.widgets.Widget("textinput", options);
-}
-
 $.widget("iss.textinputWidget", $.iss.widget, {
     options: {
-        pageWidget: null,
+        questionWidget: null,
         condition: null,
         name: function() { return '' },
         label: function() { return '' },
@@ -35,12 +31,12 @@ $.widget("iss.textinputWidget", $.iss.widget, {
 
     _setCallback: function(varName) {
         var element = this.element;
-        var pageWidget = this.options.pageWidget;
+        var questionWidget = this.options.questionWidget;
         iss.vars[varName] = element.find('input').val();
         element.find('input').change(
             function() {
                 iss.vars[varName] = element.find('input').val();
-                pageWidget.childChanged();
+                questionWidget.childChanged();
             });
     },
 

@@ -1,11 +1,11 @@
 iss.lib.widgets.Widget = function(name, options) {
     return function(condition) {
-        return function(container, pageWidget) {
+        return function(container, questionWidget) {
                 if (condition())
                     return eval("$('<div></div>')"
                         + ".appendTo(container)."
                         + name + "Widget(options, "
-                        + "{'pageWidget': pageWidget, 'condition': condition})"
+                        + "{'questionWidget': questionWidget, 'condition': condition})"
                         + ".data('iss-' + name + '-widget')");
                 return null;
                }

@@ -10,5 +10,5 @@ class AbstractWidgetSubclass(Widget):
         return Survey.surveyVar + ".addWidget(function() {return " + simpleJS + "});"
 
     def generateSimpleJS(self):
-        return 'iss.lib.widgets.' + self.getClassName() +\
-                '(' + Widget.generateSimpleJS(self) + ')'
+        return 'iss.lib.widgets.Widget("' + self.getWidgetName() +\
+               '", ' +  Widget.generateSimpleJS(self) + ')'

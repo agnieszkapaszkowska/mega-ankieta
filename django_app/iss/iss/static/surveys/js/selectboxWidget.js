@@ -1,10 +1,6 @@
-iss.lib.widgets.SelectboxWidget = function(options) {
-    return iss.lib.widgets.Widget("selectbox", options);
-}
-
 $.widget("iss.selectboxWidget", $.iss.widget, {
     options: {
-        pageWidget: null,
+        questionWidget: null,
         condition: null,
         name: '',
         data: function() { return [] },
@@ -43,11 +39,11 @@ $.widget("iss.selectboxWidget", $.iss.widget, {
     _setCallback: function(varName) {
         var element = this.element;
         iss.vars[varName] = element.find('select')[0].selectedIndex;
-        var pageWidget = this.options.pageWidget;
+        var questionWidget = this.options.questionWidget;
         element.find('select').change(
             function() {
                 iss.vars[varName] = element.find('select')[0].selectedIndex;
-                pageWidget.childChanged();
+                questionWidget.childChanged();
             });
     },
     
