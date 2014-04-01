@@ -5,25 +5,22 @@
         <form method="post" action="{% url 'django.contrib.auth.views.login' %}">{% csrf_token %}
 
             <fieldset class="control-group ">
-                <label for="id_username">Username</label>
+                <label for="id_username">Login</label>
                 <div class="controls">
                     <input id="id_username" maxlength="254" class="form-control" name="username" type="text" />
                 </div>
             </fieldset>
 
             <fieldset class="control-group ">
-                <label for="id_password">Password</label>
+                <label for="id_password">Hasło</label>
                 <div class="controls">
                     <input id="id_password" name="password" class="form-control"type="password" />
                 </div>
             </fieldset>
-
-
-
             <p>
                 <a href="{% url 'registration_register' %}">Nie posiadasz konta?</a>
             </p>
-            <input type="submit" class="btn btn-primary btn-large" value="Login" />
+            <input type="submit" class="btn btn-primary btn-large" value="Zaloguj" />
             <input type="hidden" name="next" value="/" />
         </form>
     </div>
