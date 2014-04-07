@@ -3,13 +3,13 @@ from django.contrib.auth.models import User
 
 
 class Survey(models.Model):
-    name = models.CharField(primary_key = True, max_length = 255)
+    name = models.CharField(max_length = 255)
     content = models.TextField()
     result = models.TextField()
     version = models.IntegerField()
 
     def __unicode__(self):
-        return "%d: %d" % (self.id, self.version)
+        return "%s: %d" % (self.name, self.version)
 
 class Permission(models.Model):
     user_login = models.ForeignKey(User)

@@ -15,6 +15,8 @@ class WidgetConditional(AbstractParametrisedObject):
                 condition = Condition(
                     component).generateJS()
             else:
+                if condition == '':
+                    condition = "function() { return true }"
                 js.append("{condition: function() { return "
                           + condition + "()" + (
                               " && " + " && ".join(conditions)
