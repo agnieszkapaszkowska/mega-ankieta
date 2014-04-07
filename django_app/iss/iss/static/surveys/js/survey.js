@@ -7,6 +7,7 @@ iss.lib.Survey = function() {
     this.conditions = [];
     this.widgets = [];
     this.assignments = [];
+    //this.container = "#qunit-fixture";
     this.container = "#image .panel-body";
     this.history = [];
     
