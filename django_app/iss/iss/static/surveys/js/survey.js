@@ -7,7 +7,6 @@ iss.lib.Survey = function() {
     this.conditions = [];
     this.widgets = [];
     this.assignments = [];
-    //this.container = "#qunit-fixture";
     this.container = "#image .panel-body";
     this.history = [];
     
@@ -104,7 +103,7 @@ iss.lib.Survey = function() {
                 this.history[this.history.length - 1].widget.hide();
             else {
                 console.log("Did not validate");
-                return;
+                return false;
             }
         }
         var widget = null;
@@ -115,11 +114,12 @@ iss.lib.Survey = function() {
         }
         if (widget == null) {
             this.submit();
-            return;
+            return true;
         }
         this.history.push({
             widget: widget,
             index: this.currentIndex});
+        return true;
     }
 
     function gotoPrev() {
