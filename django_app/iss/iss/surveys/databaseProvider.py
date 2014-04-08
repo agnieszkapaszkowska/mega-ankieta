@@ -29,10 +29,11 @@ class DatabaseProvider:
                 permission.save()
         return 1
 
-    def search(self, text):
-        return map(lambda x: x.name,
-                   models.Survey.objects.filter(
-                       name__iconstains=text))
+    def search(self, text, username):
+        return map(lambda x: x.survey_id.name,
+                   models.Permission.objects.filter(
+                       user_login__username=username,
+                       survey_id__name__icontains=text))
 
     def find(self, name):
         return models.Survey.objects.get(

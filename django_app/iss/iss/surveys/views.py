@@ -4,6 +4,9 @@ from django.http import HttpResponse
 from iss.surveys.survey import Survey
 from iss.surveys.databaseProvider import DatabaseProvider
 import json
+import sys
+import traceback
+
 
 class SurveyView(TemplateView):
     template_name = 'surveys/index.html'
@@ -31,11 +34,12 @@ class SurveyView(TemplateView):
                     request.POST['user'],
                     request.POST['code'],
                     request.POST['js'])
-            
+        
             elif request.POST['type'] == self.SEARCH_TYPE:
                 provider = DatabaseProvider()
                 result['results'] = ';'.join(
-                    provider.search(request.POST['text']))
+                    provider.search(request.POST['text'],
+                                    request.POST['username']))
             
             elif request.POST['type'] == self.OPEN_TYPE:
                 provider = DatabaseProvider()
