@@ -20,7 +20,7 @@ class SurveyView(TemplateView):
 
         if request.is_ajax():
             if request.POST['type'] == self.GENERATE_TYPE:
-                Survey.text =  ' ' + request.POST['input'] + ' '
+                Survey.text = ' ' + request.POST['input'] + ' '
                 error, survey = Survey.generate()
 
                 result['survey'] = survey
@@ -34,20 +34,20 @@ class SurveyView(TemplateView):
                     request.POST['user'],
                     request.POST['code'],
                     request.POST['js'])
-        
+
             elif request.POST['type'] == self.SEARCH_TYPE:
                 provider = DatabaseProvider()
                 result['results'] = ';'.join(
                     provider.search(request.POST['text'],
                                     request.POST['username']))
-            
+
             elif request.POST['type'] == self.OPEN_TYPE:
                 provider = DatabaseProvider()
                 result['survey'] = provider.find(
                     request.POST['name'])
 
         return HttpResponse(json.dumps(result),
-                                    content_type="application/json")
+                            content_type="application/json")
 
 
 class TestView(TemplateView):

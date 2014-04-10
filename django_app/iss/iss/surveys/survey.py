@@ -40,17 +40,18 @@ class Survey:
         return js
 
     @staticmethod
-    def stringTreeToClass(stringTree, baseClassName = ''):
+    def stringTreeToClass(stringTree, baseClassName=''):
         from iss.surveys.string import String
         string = String(stringTree).getPythonValue()
 
         return Survey.stringToClass(string, baseClassName)
 
     @staticmethod
-    def stringToClass(string, baseClassName = ''):
+    def stringToClass(string, baseClassName=''):
         fileName = string[0].lower() + string[1:] + baseClassName
         className = string[0].upper() + string[1:] + baseClassName
 
-        module = __import__('iss.surveys.' + fileName, globals(), locals(), className)
+        module = __import__(
+            'iss.surveys.' + fileName, globals(), locals(), className)
 
         return getattr(module, className)

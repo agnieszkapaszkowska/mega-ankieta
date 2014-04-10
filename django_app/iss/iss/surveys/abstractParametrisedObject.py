@@ -7,16 +7,17 @@ from iss.surveys.parser import parseTree
 class AbstractParametrisedObject:
 
     argsData = None
-    def __init__(self, resultTree, argsData = None, **kwargs):
+
+    def __init__(self, resultTree, argsData=None, **kwargs):
         self.resultTree = resultTree
 
         self.foundUnnamedArgs = 0
         self.foundArgsNames = []
         self.jsArgsList = []
-        
+
         if 'additionalJsArgs' in kwargs:
             self.jsArgsList = kwargs['additionalJsArgs']
-       
+
         if not argsData:
             argsData = self.argsData
             if not argsData:
@@ -28,13 +29,13 @@ class AbstractParametrisedObject:
         if 'unnamedArgs' in argsData:
             self.unnamedArgs = argsData['unnamedArgs']
 
-
     def generateJS(self):
         stringTree = self.resultTree[parseTree['CHILDREN_TREES']][0]
         self.resultTree[parseTree['CHILDREN_TREES']].pop(0)
 
-        widgetSubclass = Survey.stringTreeToClass(stringTree, self.getClassName())
-        return widgetSubclass(self.resultTree, additionalJsArgs = self.jsArgsList).generateJS()
+        widgetSubclass = Survey.stringTreeToClass(
+            stringTree, self.getClassName())
+        return widgetSubclass(self.resultTree, additionalJsArgs=self.jsArgsList).generateJS()
 
     def generateSimpleJS(self):
         self.createArgs()
@@ -78,17 +79,17 @@ class AbstractParametrisedObject:
 
         if not len(argName):
             if len(self.unnamedArgs) == self.foundUnnamedArgs:
-                raise Exception(self.getClassName() +\
-                        " accepts only " + str(len(self.unnamedArgs)) +\
-                        " unnamed arguments")
+                raise Exception(self.getClassName() +
+                                " accepts only " + str(len(self.unnamedArgs)) +
+                                " unnamed arguments")
 
             argName = self.unnamedArgs[self.foundUnnamedArgs]
 
         if argName in self.argsData:
             return argName, self.argsData[argName]
 
-        raise Exception(self.getClassName() +\
-                " does not accept parameter named " + argName)
+        raise Exception(self.getClassName() +
+                        " does not accept parameter named " + argName)
 
     def addToJsArgsList(self, js, argName):
         if len(argName):
@@ -114,17 +115,20 @@ class AbstractParametrisedObject:
 
     def checkArg(self, argName):
         if argName in self.foundArgsNames:
-            raise Exception("You cannot use two same-named arguments in one parametrised object")
+            raise Exception(
+                "You cannot use two same-named arguments in one parametrised object")
 
     def checkArgs(self):
         for name in self.argsData:
             if self.argsData[name]['required'] and not name in self.foundArgsNames:
-                raise Exception('Required argument "' + name + '" wasn\'t supplied')
+                raise Exception(
+                    'Required argument "' + name + '" wasn\'t supplied')
 
     def addDefaultsToJsArgsList(self):
         for name in self.argsData:
             if not self.argsData[name]['required'] and not name in self.foundArgsNames:
-                self.jsArgsList.append(name + ": function() { return " + self.argsData[name]['default'] + " }")
+                self.jsArgsList.append(
+                    name + ": function() { return " + self.argsData[name]['default'] + " }")
 
     def getClassName(self):
         return self.__class__.__name__

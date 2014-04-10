@@ -11,4 +11,4 @@ class AbstractWidgetSubclass(Widget):
 
     def generateSimpleJS(self):
         return 'iss.lib.widgets.Widget("' + self.getWidgetName() +\
-               '", ' +  Widget.generateSimpleJS(self) + ')'
+               '", ' + Widget.generateSimpleJS(self) + ')'

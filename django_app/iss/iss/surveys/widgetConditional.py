@@ -23,7 +23,7 @@ class WidgetConditional(AbstractParametrisedObject):
                               if len(conditions) > 0 else "")
                           + " }, body: function() { "
                           + Survey.generateProductionsJS(
-                                component[parseTree['CHILDREN_TREES']])
+                              component[parseTree['CHILDREN_TREES']])
                           + "}}")
                 conditions.append("!(" + condition + "())")
                 condition = ''

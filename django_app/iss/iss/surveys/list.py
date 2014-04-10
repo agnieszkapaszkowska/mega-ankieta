@@ -23,4 +23,3 @@ class List(AbstractParametrisedObject):
         arg.setData('', self.argsData)
 
         return arg.generateJS(), arg.getName()
-

@@ -6,4 +6,4 @@ class AbstractWidgetContainerSubclass(AbstractWidgetSubclass):
 
     def generateSimpleJS(self):
         return 'iss.lib.widgets.' + self.getClassName() +\
-                '(' + Widget.generateSimpleJS(self) + ')'
+            '(' + Widget.generateSimpleJS(self) + ')'

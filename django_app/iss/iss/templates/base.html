@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>MegaAnkieta</title>
+        <title>iSurveySystem</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <link href="{{STATIC_URL}}surveys/bootstrap-3.0.1-dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
@@ -38,16 +38,17 @@
     <body>
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/"><h3 class="project_name">MegaAnkieta</h3></a>
+                <a class="navbar-brand" href="/"><h3 class="project_name">iSurveySystem</h3></a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <table class="nav navbar-nav navbar-right">
-                    <tbody><tr>
-                        {% block layout_panel %}
-                        {% endblock %}
+                <div class="nav navbar-nav navbar-right">
+                    {% block layout_panel %}
+                    {% endblock %}
+                    {% block build_panel %}
+                    {% endblock %}
                     {% if user.is_authenticated %}
-                        <td>
-                            <form class="navbar-form navbar-left" role="search">
+                        <div class="navbar-left">
+                            <form class="navbar-form navbar-input-group" role="search">
                                 <div class="form-group">
                                     <input id="search-survey" type="text" class="form-control" placeholder="Szukaj">
                                 </div>
@@ -56,18 +57,14 @@
                                     Otwórz
                                 </button>
                             </form>
-                        </td>
-                        <td>
-                            <a href='{% url 'auth_logout' %}' class="btn btn-primary">Wyloguj </a>
-                        </td>
+                        </div>
+                        <a href='{% url 'auth_logout' %}' class="btn btn-primary navbar-btn">Wyloguj </a>
                     {% else %}
-                        <td>
-                            <a href='{% url 'auth_login' %}' class="btn btn-primary">Zaloguj </a>
-
-                        </td>
+                        <a href='{% url 'auth_login' %}' class="btn btn-primary navbar-btn">Zaloguj </a>
+    
                     {% endif %}
-                    </tr></tbody>
-                </table>
+
+                </div>
             </div>
         </nav>
         {% block main_content %}

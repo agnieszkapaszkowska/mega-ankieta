@@ -11,4 +11,4 @@ class AbstractDatasourceSubclass(Datasource):
 
     def generateSimpleJS(self):
         return 'iss.lib.datasources.' + self.getClassName() +\
-                '(' + Datasource.generateSimpleJS(self) + ')'
+            '(' + Datasource.generateSimpleJS(self) + ')'

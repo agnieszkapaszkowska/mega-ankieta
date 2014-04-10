@@ -11,4 +11,4 @@ class AbstractIteratorSubclass(Iterator):
 
     def generateSimpleJS(self):
         return 'iss.lib.iterators.' + self.getClassName() +\
-                '(' + Iterator.generateSimpleJS(self) + ')'
+            '(' + Iterator.generateSimpleJS(self) + ')'

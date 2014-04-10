@@ -4,11 +4,11 @@ from iss.surveys.parser import parseTree
 
 class Value:
 
-    def __init__(self, resultTree, _ = None):
+    def __init__(self, resultTree, _=None):
         self.resultTree = resultTree
 
     def generateJS(self):
-        return 'function() { return ' + self.generateSimpleJS()+ ' }'
+        return 'function() { return ' + self.generateSimpleJS() + ' }'
 
     def generateSimpleJS(self):
         start = self.resultTree[parseTree['START']]

@@ -3,7 +3,8 @@ $(function() {
     $("#editor textarea").focus();
 
     $("#edit_panel").click(function() {
-        $(".toggle-button").removeClass("active");
+        $("#change_view_panel").removeClass();
+        $("#change_view_panel").addClass("glyphicon glyphicon-edit");
         $(this).addClass("active");
         $(".fill").show();
         $(".fill").css("width", "100%");
@@ -14,7 +15,8 @@ $(function() {
     });
 
     $("#both_panels").click(function() {
-        $(".toggle-button").removeClass("active");
+        $("#change_view_panel").removeClass();
+        $("#change_view_panel").addClass("glyphicon glyphicon-adjust");
         $(this).addClass("active");
         $(".filler").show();
         $(".fill").show();
@@ -25,7 +27,8 @@ $(function() {
     });
 
     $("#view_panel").click(function() {
-        $(".toggle-button").removeClass("active");
+        $("#change_view_panel").removeClass();
+        $("#change_view_panel").addClass("glyphicon glyphicon-eye-open");
         $(this).addClass("active");
         $(".fill").hide();
         $(".filler").show();

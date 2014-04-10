@@ -21,7 +21,7 @@ class DatabaseProvider:
             if if_new:
                 survey = models.Survey(
                     name=name, content=code,
-                    result=js, version=self.START_VERSION) 
+                    result=js, version=self.START_VERSION)
                 survey.save()
                 user = User.objects.get(username=username)
                 permission = models.Permission(

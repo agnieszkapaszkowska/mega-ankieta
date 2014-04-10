@@ -6,8 +6,10 @@ from iss.surveys.value import Value
 
 
 class Assignment(AbstractParametrisedObject):
+
     def generateJS(self):
-        valueTree = self.resultTree[parseTree['CHILDREN_TREES']][self.valueIndex]
+        valueTree = self.resultTree[
+            parseTree['CHILDREN_TREES']][self.valueIndex]
         if valueTree[parseTree['PROD_NAME']] == 'widget':
             return self.getWidgetValueJS()
 
@@ -23,7 +25,8 @@ class Assignment(AbstractParametrisedObject):
         return varId.generateSimpleJS()
 
     def getAssignmentValueJS(self):
-        valueTree = self.resultTree[parseTree['CHILDREN_TREES']][self.valueIndex]
+        valueTree = self.resultTree[
+            parseTree['CHILDREN_TREES']][self.valueIndex]
         prodName = valueTree[parseTree['PROD_NAME']]
         production = Survey.stringToClass(prodName)(valueTree)
 
@@ -37,6 +40,6 @@ class Assignment(AbstractParametrisedObject):
 
         varId = Value(varTree).generateSimpleJS()
         widget = Survey.stringToClass('widget')(valueTree,
-                additionalJsArgs = ['resultVarName: "' + varId + '"'])
+                                                additionalJsArgs=['resultVarName: "' + varId + '"'])
 
         return widget.generateJS()
