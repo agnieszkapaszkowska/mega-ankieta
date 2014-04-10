@@ -30,6 +30,15 @@ iss.lib.Survey = function() {
         var condFun = this.prepareCondition(this.conditions.slice(0));
         var newFunction = fun()(condFun);
         if (fun.toString().indexOf(
+                "iss.lib.widgets.SurveyWidget") != -1) {
+            var params = newFunction();
+            if (!params)
+                return;
+            this.container = params.container;
+            this.destination = params.destination;
+            iss.surveyName = params.name;
+        }
+        else if (fun.toString().indexOf(
                 "iss.lib.widgets.PageWidget") != -1) {
             this.addPage();   
             this.currentPage = newFunction;
