@@ -65,7 +65,7 @@ class AbstractParametrisedObject:
                 self.addToJsArgsList(js, argName)
             else:
                 self.addUntypedToJsArgsList(js, str(i))
-            i += 1
+                i += 1
 
     def generateArg(self, argTree):
         arg = Arg(argTree)

@@ -6,7 +6,11 @@ $.widget("iss.selectboxWidget", $.iss.widget, {
         data: function() { return [] },
         selectedIndex: function() { return -1 },
         required: function() {return true },
-        resultVarName: null
+        resultVarName: null,
+        tupleArgs: {
+            id: function() { return "" }, 
+            text: function() { return "" }
+        }
     },
 
     _create: function() {
@@ -28,6 +32,7 @@ $.widget("iss.selectboxWidget", $.iss.widget, {
         var data = dataFun();
         for (var i = 0; i < data.length; i++) {
             var option = data[i]();
+            this.updateTupleArgs(option, this.options.tupleArgs);
             $('<option value="'
                 + option['id']() + '" '
                 + (i == this.options.selectedIndex() ? 'selected' : '')

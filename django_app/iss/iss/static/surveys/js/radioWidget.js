@@ -7,7 +7,11 @@ $.widget("iss.radioWidget", $.iss.widget, {
         checkedIndex: function() { return -1 },
         horizontal: function() {return false },
         required: function() {return true },
-        resultVarName: null
+        resultVarName: null,
+        tupleArgs: {
+            id: function() { return "" }, 
+            text: function() { return "" }
+        }
     },
 
     _create: function() {
@@ -27,6 +31,7 @@ $.widget("iss.radioWidget", $.iss.widget, {
         var data = dataFun();
         for (var i = 0; i < data.length; i++) {
             var radio = data[i]();
+            this.updateTupleArgs(radio, this.options.tupleArgs);
             $('<label ' + (this.options.horizontal() ? 
                     '' : 'style="display:block;"') + '>'
                 + '<input type="radio" name="'

@@ -6,7 +6,12 @@ $.widget("iss.checkboxWidget", $.iss.widget, {
         data: function() { return [] },
         horizontal: function() {return false },
         required: function() {return false },
-        resultVarName: null
+        resultVarName: null,
+        tupleArgs: {
+            id: function() { return "" }, 
+            text: function() { return "" }, 
+            checked: function() { return false }
+        }
     },
 
     _create: function() {
@@ -26,6 +31,7 @@ $.widget("iss.checkboxWidget", $.iss.widget, {
         var data = dataFun();
         for (var i = 0; i < data.length; i++) {
             var checkbox = data[i]();
+            this.updateTupleArgs(checkbox, this.options.tupleArgs);
             $('<label ' + (this.options.horizontal() ? 
                     '' : 'style="display:block;"') + '>'
                 + '<input type="checkbox" name="'

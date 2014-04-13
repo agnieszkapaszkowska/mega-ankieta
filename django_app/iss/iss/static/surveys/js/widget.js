@@ -38,6 +38,19 @@ $.widget("iss.widget", {
     },
 
     insertSubmitData: function(submitData) {
+    },
+
+    updateTupleArgs: function(tuple, args) {
+        var i = 0;
+        $.each(args, function(key, value) {
+            if (tuple[key] == undefined) {
+                if (tuple[i] != undefined)
+                    tuple[key] = tuple[i];
+                else
+                    tuple[key] = value;    
+                i++;
+            }
+        });
     }
 
 });

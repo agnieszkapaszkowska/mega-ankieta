@@ -6,7 +6,11 @@ $.widget("iss.likertWidget", $.iss.widget, {
         data: function() { return {} },
         answers: function() {return [] },
         required: function() {return false },
-        resultVarName: null
+        resultVarName: null,
+        tupleArgs: {
+            id: function() { return "" }, 
+            text: function() { return "" }
+        }
     },
 
     _create: function() {
@@ -29,6 +33,7 @@ $.widget("iss.likertWidget", $.iss.widget, {
         this.questionCount = 0;
         while (data[this.questionCount] != undefined) {
             var question = data[this.questionCount]();
+            this.updateTupleArgs(question, this.options.tupleArgs);
             this.questions.push(question);
             this.questionCount ++;
         }
