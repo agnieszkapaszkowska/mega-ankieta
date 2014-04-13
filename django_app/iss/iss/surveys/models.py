@@ -21,3 +21,10 @@ class Permission(models.Model):
 
     class Meta:
         unique_together = ("user_login", "survey_id")
+
+
+class Attachment(models.Model):
+    file_field = models.FileField(upload_to="attachment", blank=True)
+
+    def __unicode__(self):
+        return unicode(unicode(self.file_field).split("/")[-1])
