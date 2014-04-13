@@ -48,5 +48,12 @@ $.widget("iss.textinputWidget", $.iss.widget, {
             return false;
         }
         return true;
+    },  
+
+    insertSubmitData: function(submitData) {
+        if(this.containsSubmitData) {
+            submitData[this.options.name()] = this.element
+                .find("input").val();
+        }
     }
 });

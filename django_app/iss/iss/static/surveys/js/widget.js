@@ -19,6 +19,7 @@ $.widget("iss.widget", {
 
     _create: function() {
         this.element.addClass(this.widgetName);
+        this.containsSubmitData = true;
         this._setOptions(this.options);
     },
 
@@ -28,11 +29,15 @@ $.widget("iss.widget", {
 
     checkCondition: function() {
         if (this.options.condition != null) {
+            this.containsSubmitData = this.options.condition();
             if (this.options.condition())
                 this._show(this.element, this.options.show, function(){});
             else
                 this._hide(this.element, this.options.hide, function(){});
         }
+    },
+
+    insertSubmitData: function(submitData) {
     }
 
 });

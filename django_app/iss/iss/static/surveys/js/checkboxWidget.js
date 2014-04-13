@@ -2,7 +2,7 @@ $.widget("iss.checkboxWidget", $.iss.widget, {
     options: {
         questionWidget: null,
         condition: null,
-        name: '',
+        name: function() { return "" }, 
         data: function() { return [] },
         horizontal: function() {return false },
         required: function() {return false },
@@ -58,13 +58,23 @@ $.widget("iss.checkboxWidget", $.iss.widget, {
     
     validate: function() {
         if (this.options.required()
-            && this.element.is(":visible")
+            && this.containsSubmitData
             && this.element.find("input:checked").length == 0) {
             this.element.addClass('erorr');
             return false;
         }
         return true;
     },
+
+    insertSubmitData: function(submitData) {
+        if(this.containsSubmitData) {
+            var checked = [];
+            this.element.find("input:checked").each(function () {
+                checked.push($(this).attr("id"));
+            });
+            submitData[this.options.name()] = checked;
+        }
+    }
     
 });
 

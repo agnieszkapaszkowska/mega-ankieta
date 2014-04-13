@@ -2,7 +2,7 @@ $.widget("iss.radioWidget", $.iss.widget, {
     options: {
         questionWidget: null,
         condition: null,
-        name: '',
+        name: function() { return '' },
         data: function() { return [] },
         checkedIndex: function() { return -1 },
         horizontal: function() {return false },
@@ -59,6 +59,13 @@ $.widget("iss.radioWidget", $.iss.widget, {
         }
         return true;
     },
+
+    insertSubmitData: function(submitData) {
+        if (this.containsSubmitData) {
+            submitData[this.options.name()] = this.element
+                .find("input:checked").attr("id");
+        }
+    }
     
 });
 

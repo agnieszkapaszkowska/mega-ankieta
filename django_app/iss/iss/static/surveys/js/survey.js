@@ -8,6 +8,7 @@ iss.lib.Survey = function() {
     this.widgets = [];
     this.assignments = [];
     this.container = "#image .panel-body";
+    this.destination = ".";
     this.history = [];
     
     this.addAssignment = addAssignment;
@@ -139,6 +140,19 @@ iss.lib.Survey = function() {
     }
 
     function submit() {
-        return;
+        var submitData = {};
+        for (var i = 0; i < this.history.length; i++)
+            submitData[i] = this.history[i].widget.getSubmitData();
+        submitData.csrfmiddlewaretoken = csrfToken;
+        submitData.type = '5';
+        console.log(submitData);
+        $.ajax({
+            url: this.destination,
+            method: 'POST',
+            data: submitData,
+            success: function(data) {
+                console.log("ok");
+            }
+        });
     }
 }

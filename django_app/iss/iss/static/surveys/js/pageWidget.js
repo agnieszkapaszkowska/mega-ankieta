@@ -97,6 +97,14 @@ $.widget("iss.pageWidget", {
                 this.questions.push(question);
         }
         this.notExecuted = newNotExecuted;
+    },
+
+    getSubmitData: function() {
+        var submitData = {};
+        for (var i = 0; i < this.questions.length; i++) {
+            submitData[i] = this.questions[i].getSubmitData();
+        }
+        return submitData;
     }
     
 });

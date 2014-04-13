@@ -95,6 +95,14 @@ $.widget("iss.questionWidget", {
     childChanged: function() {
         if (this.options.pageWidget != null)
             this.options.pageWidget.childChanged();
+    },
+
+    getSubmitData: function() {
+        var submitData = {};
+        for (var i = 0; i < this.widgets.length; i++) {
+            this.widgets[i].insertSubmitData(submitData);
+        }
+        return submitData;
     }
     
 });

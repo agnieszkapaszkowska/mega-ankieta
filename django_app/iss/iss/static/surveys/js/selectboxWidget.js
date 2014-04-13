@@ -2,7 +2,7 @@ $.widget("iss.selectboxWidget", $.iss.widget, {
     options: {
         questionWidget: null,
         condition: null,
-        name: '',
+        name: function() { return "" },
         data: function() { return [] },
         selectedIndex: function() { return -1 },
         required: function() {return true },
@@ -56,6 +56,14 @@ $.widget("iss.selectboxWidget", $.iss.widget, {
         }
         return true;
     },
+
+    insertSubmitData: function(submitData) {
+        if(this.containsSubmitData) {
+            submitData[this.options.name()] = this.element
+                .find("select")[0].options[
+                    this.element.find("select")[0].selectedIndex].value;
+        }
+    }
     
 });
 

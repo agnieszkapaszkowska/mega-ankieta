@@ -33,7 +33,7 @@ class LikertWidget(AbstractWidgetSubclass):
         'required': {
             'type': 'bool',
             'required': 0,
-            'default': 'false'
+            'default': 'true'
         },
     }
 
