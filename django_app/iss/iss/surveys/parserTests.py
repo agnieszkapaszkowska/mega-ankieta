@@ -1,4 +1,4 @@
-testCases = [
+test_cases = [
     ('''var<<[["checkbox"]] ''', "assignmentLeft", 1),
     ('''[["checkbox"]]>>var ''', "assignmentRight", 1),
     ('''1==1''', "condition", 1),

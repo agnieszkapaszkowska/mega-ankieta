@@ -13,9 +13,9 @@ tupleWithListsElement       := (id, ws*, "=", ws* )?, (listWithoutTuples / simpl
 tupleWithoutLists           := ( "(", ws*, tupleWithoutListsElement, ws*, ",", ws*, ")" ) / ( "(", ws*, tupleWithoutListsElement, ( ws*, ",", !, ws*, tupleWithoutListsElement )+, ws*, ")" )
 tupleWithoutListsElement    := (id, ws*, "=", ws* )?, simpleValue
 iterator                    := c"iterator", ws*, !, "(", ws*, string, (ws*, ",", !, ws*, iteratorArg)*, ws*, !, ")"
-iteratorArg                 := (id, ws*, "=", ws*)?, (datasource / simpleValue)
+iteratorArg                 := (id, ws*, "=", ws*)?, ( tupleWithLists / listWithTuples / datasource / simpleExprValue )
 datasource                  := c"datasource", ws*, !, "(", ws*, string, (ws*, ",", !, ws*, datasourceArg)*, ws*, !, ")"
-datasourceArg               := (id, ws*, "=", ws*)?, simpleValue 
+datasourceArg               := (id, ws*, "=", ws*)?, ( tupleWithLists / listWithTuples / simpleExprValue ) 
 id                          := [A-Za-z], [A-Za-z0-9]*
 >simpleValue<               := string / extendedString / number / bool / structElem / varId
 >simpleExprValue<           := arythmExpr / condition / simpleValue
@@ -37,7 +37,7 @@ arythmExpr                  := arythmExprTopLevelContent
 <arythmExprTopLevelContent> := (subArythmExpr, ws*, arythmOp, ws*, arythmExprContent ) / ( ("-")?, ws*, "(", ws*, subArythmExpr, ( ws*, arythmOp, ws*, arythmExprContent )?, ws*, ")" ) 
 arythmExprContent			:= subArythmExpr, ( ws*, arythmOp, ws*, arythmExprContent )*
 subArythmExpr               := ( ("-", ws* )?, "(", ws*, arythmExprContent, ws*, ")" ) / ( ( "-", ws* )?, (structElem / varId) ) / number
-arythmOp                    := "-" / "+" / "*" / "/"
+arythmOp                    := "-" / "+" / "*" / "/" / "in"
 compOp                      := "==" / "!=" / "<=" / "<" / ">=" / ">"
 logicOp                     := "&&" / c"and" / "||" / c"or"
 <ws>                        := [ \t\r\n]

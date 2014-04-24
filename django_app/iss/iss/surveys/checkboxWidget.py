@@ -27,7 +27,7 @@ class CheckboxWidget(AbstractWidgetSubclass):
                             'default': 'false'
                         }
                     },
-                'unnamedArgs': ['id', 'text', 'checked'],
+                'unnamed_args': ['id', 'text', 'checked'],
             }
         },
         'horizontal': {

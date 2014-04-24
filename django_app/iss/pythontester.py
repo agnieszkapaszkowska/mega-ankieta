@@ -3,20 +3,20 @@ from __future__ import print_function
 import os, sys
 from iss.surveys.parser import Parser
 from iss.surveys.survey import Survey
-from iss.surveys.pythonTests import testCases
+from iss.surveys.pythonTests import test_cases
 
 errors = 0
 sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0) #unbuffered stdout
 
-for i in range(0, len(testCases)):
+for i in range(0, len(test_cases)):
 	try:
-		Survey.text = testCases[i]
-		success, resultTrees, nextCharacter = Parser.parse(Survey.text)
+		Survey.text = test_cases[i]
+		success, result_trees, next_character = Parser.parse(Survey.text)
 
-		if not success or nextCharacter != len(Survey.text):
+		if not success or next_character != len(Survey.text):
 			raise Exception("Parsing error")
 
-		Survey.generateJS(resultTrees)
+		Survey.generate_js(result_trees)
 
 		print('.', end='')
 
@@ -27,13 +27,13 @@ for i in range(0, len(testCases)):
 			print('x', end='')
 			continue
 
-		wrongTestNum = "\nTest %s error:\n" % i
-		errorDetails = "Survey text:\n%s\n" % testCases[i]
+		wrong_test_num = "\nTest %s error:\n" % i
+		error_details = "Survey text:\n%s\n" % test_cases[i]
 
-		print(wrongTestNum + errorDetails)
+		print(wrong_test_num + error_details)
 		raise
 
 summary = "\n\nAll tests completed (%s test):\n%s errors\n%s passed\n" % \
-		(len(testCases), errors, len(testCases) - errors)
+		(len(test_cases), errors, len(test_cases) - errors)
 
 print(summary)
