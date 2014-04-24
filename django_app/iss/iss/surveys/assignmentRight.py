@@ -2,5 +2,5 @@ from iss.surveys.assignment import Assignment
 
 
 class AssignmentRight(Assignment):
-    varIndex = 1
-    valueIndex = 0
+    var_index = 1
+    value_index = 0

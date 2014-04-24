@@ -1,20 +1,20 @@
 from iss.surveys.survey import Survey
-from iss.surveys.parser import parseTree
+from iss.surveys.parser import parse_tree
 from iss.surveys.value import Value
 
 
 class StringConditional(Value):
 
-    def generateSimpleJS(self):
-        jsParts = []
+    def generate_simple_js(self):
+        js_parts = []
 
-        for production in self.resultTree[parseTree['CHILDREN_TREES']]:
-            prodClass = Survey.stringToClass(
-                production[parseTree['PROD_NAME']])
+        for production in self.result_tree[parse_tree['CHILDREN_TREES']]:
+            prod_class = Survey.string_to_class(
+                production[parse_tree['PROD_NAME']])
 
-            jsParts.append(prodClass(production).generateSimpleJS())
+            js_parts.append(prod_class(production).generate_simple_js())
 
-        hasElse = len(jsParts) == 3
+        has_else = len(js_parts) == 3
 
-        return '((' + jsParts[0] + ')?(' + jsParts[1] + '):(' +\
-            (jsParts[2] if hasElse else '""') + '))'
+        return '((' + js_parts[0] + ')?(' + js_parts[1] + '):(' +\
+            (js_parts[2] if has_else else '""') + '))'

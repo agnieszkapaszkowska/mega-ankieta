@@ -2,7 +2,7 @@ from iss.surveys.abstractWidgetSubclass import AbstractWidgetSubclass
 
 
 class SelectboxWidget(AbstractWidgetSubclass):
-    argsData = {
+    args_data = {
         'name': {
             'type': 'string',
             'required': 1
@@ -22,7 +22,7 @@ class SelectboxWidget(AbstractWidgetSubclass):
                             'required': 1
                         }
                     },
-                'unnamedArgs': ['id', 'text'],
+                'unnamed_args': ['id', 'text'],
             }
         },
         'selectedIndex': {
@@ -37,4 +37,4 @@ class SelectboxWidget(AbstractWidgetSubclass):
         },
     }
 
-    unnamedArgs = ['name', 'data', 'selectedIndex', 'required']
+    unnamed_args = ['name', 'data', 'selectedIndex', 'required']

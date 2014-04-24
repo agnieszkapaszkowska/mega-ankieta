@@ -2,11 +2,11 @@ from iss.surveys.abstractWidgetSubclass import AbstractWidgetSubclass
 
 
 class ImgWidget(AbstractWidgetSubclass):
-    argsData = {
+    args_data = {
         'src': {
             'type': 'string',
             'required': 1
         }
     }
 
-    unnamedArgs = ['src']
+    unnamed_args = ['src']

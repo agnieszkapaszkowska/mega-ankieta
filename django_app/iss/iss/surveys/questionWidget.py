@@ -2,7 +2,7 @@ from iss.surveys.abstractWidgetContainerSubclass import AbstractWidgetContainerS
 
 
 class QuestionWidget(AbstractWidgetContainerSubclass):
-    argsData = {
+    args_data = {
     }
 
-    unnamedArgs = []
+    unnamed_args = []

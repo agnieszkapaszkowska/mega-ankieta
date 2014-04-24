@@ -3,8 +3,8 @@ from iss.surveys.value import Value
 
 class StructElem(Value):
 
-    def generateJS(self):
-        return 'function() { return ' + self.generateSimpleJS() + ' }'
+    def generate_js(self):
+        return 'function() { return ' + self.generate_simple_js() + ' }'
 
-    def generateSimpleJS(self):
-        return 'iss.vars.' + Value.generateSimpleJS(self)
+    def generate_simple_js(self):
+        return 'iss.vars.' + Value.generate_simple_js(self)

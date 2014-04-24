@@ -1,17 +1,17 @@
 from iss.surveys.survey import Survey
-from iss.surveys.parser import parseTree
+from iss.surveys.parser import parse_tree
 
 
 class Value:
 
-    def __init__(self, resultTree, _=None):
-        self.resultTree = resultTree
+    def __init__(self, result_tree, _=None):
+        self.result_tree = result_tree
 
-    def generateJS(self):
-        return 'function() { return ' + self.generateSimpleJS() + ' }'
+    def generate_js(self):
+        return 'function() { return ' + self.generate_simple_js() + ' }'
 
-    def generateSimpleJS(self):
-        start = self.resultTree[parseTree['START']]
-        stop = self.resultTree[parseTree['STOP']]
+    def generate_simple_js(self):
+        start = self.result_tree[parse_tree['START']]
+        stop = self.result_tree[parse_tree['STOP']]
 
         return Survey.text[start:stop]

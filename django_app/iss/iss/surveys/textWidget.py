@@ -2,11 +2,11 @@ from iss.surveys.abstractWidgetSubclass import AbstractWidgetSubclass
 
 
 class TextWidget(AbstractWidgetSubclass):
-    argsData = {
+    args_data = {
         'text': {
             'type': 'extendedString',
             'required': 1
         }
     }
 
-    unnamedArgs = ['text']
+    unnamed_args = ['text']

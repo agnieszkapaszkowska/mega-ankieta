@@ -2,7 +2,7 @@ from iss.surveys.abstractWidgetSubclass import AbstractWidgetSubclass
 
 
 class CheckboxWidget(AbstractWidgetSubclass):
-    argsData = {
+    args_data = {
         'name': {
             'type': 'string',
             'required': 1
@@ -42,4 +42,4 @@ class CheckboxWidget(AbstractWidgetSubclass):
         },
     }
 
-    unnamedArgs = ['name', 'data', 'horizontal', 'required']
+    unnamed_args = ['name', 'data', 'horizontal', 'required']

@@ -4,11 +4,11 @@ from iss.surveys.survey import Survey
 
 class AbstractWidgetSubclass(Widget):
 
-    def generateJS(self):
-        simpleJS = self.generateSimpleJS()
+    def generate_js(self):
+        simple_js = self.generate_simple_js()
 
-        return Survey.surveyVar + ".addWidget(function() {return " + simpleJS + "});"
+        return Survey.survey_var + ".addWidget(function() {return " + simple_js + "});"
 
-    def generateSimpleJS(self):
-        return 'iss.lib.widgets.Widget("' + self.getWidgetName() +\
-               '", ' + Widget.generateSimpleJS(self) + ')'
+    def generate_simple_js(self):
+        return 'iss.lib.widgets.Widget("' + self.get_widget_name() +\
+               '", ' + Widget.generate_simple_js(self) + ')'

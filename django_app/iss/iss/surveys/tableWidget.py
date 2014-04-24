@@ -2,7 +2,7 @@ from iss.surveys.abstractWidgetSubclass import AbstractWidgetSubclass
 
 
 class TableWidget(AbstractWidgetSubclass):
-    argsData = {
+    args_data = {
         'name': {
             'type': 'string',
             'required': 1
@@ -25,4 +25,4 @@ class TableWidget(AbstractWidgetSubclass):
         },
     }
 
-    unnamedArgs = ['name', 'data', 'number', 'required']
+    unnamed_args = ['name', 'data', 'number', 'required']

@@ -1,45 +1,45 @@
 from iss.surveys.abstractParametrisedObject import AbstractParametrisedObject
 from iss.surveys.survey import Survey
-from iss.surveys.parser import parseTree
+from iss.surveys.parser import parse_tree
 from iss.surveys.varId import VarId
 from iss.surveys.value import Value
 
 
 class Assignment(AbstractParametrisedObject):
 
-    def generateJS(self):
-        valueTree = self.resultTree[
-            parseTree['CHILDREN_TREES']][self.valueIndex]
-        if valueTree[parseTree['PROD_NAME']] == 'widget':
-            return self.getWidgetValueJS()
+    def generate_js(self):
+        value_tree = self.result_tree[
+            parse_tree['CHILDREN_TREES']][self.value_index]
+        if value_tree[parse_tree['PROD_NAME']] == 'widget':
+            return self.get_widget_value_js()
 
-        varJS = self.getAssignmentVarJS()
-        valueJS = self.getAssignmentValueJS()
+        var_js = self.get_assignment_var_js()
+        value_js = self.get_assignment_value_js()
 
-        return Survey.surveyVar + ".addAssignment( function() {" + varJS + ' = ' + valueJS + '() });\n'
+        return Survey.survey_var + ".addAssignment( function() {" + var_js + ' = ' + value_js + '() });\n'
 
-    def getAssignmentVarJS(self):
-        varTree = self.resultTree[parseTree['CHILDREN_TREES']][self.varIndex]
-        varId = VarId(varTree)
+    def get_assignment_var_js(self):
+        var_tree = self.result_tree[parse_tree['CHILDREN_TREES']][self.var_index]
+        var_id = VarId(var_tree)
 
-        return varId.generateSimpleJS()
+        return var_id.generate_simple_js()
 
-    def getAssignmentValueJS(self):
-        valueTree = self.resultTree[
-            parseTree['CHILDREN_TREES']][self.valueIndex]
-        prodName = valueTree[parseTree['PROD_NAME']]
-        production = Survey.stringToClass(prodName)(valueTree)
+    def get_assignment_value_js(self):
+        value_tree = self.result_tree[
+            parse_tree['CHILDREN_TREES']][self.value_index]
+        prod_name = value_tree[parse_tree['PROD_NAME']]
+        production = Survey.string_to_class(prod_name)(value_tree)
 
-        return production.generateJS()
+        return production.generate_js()
 
-    def getWidgetValueJS(self):
-        childrenTrees = self.resultTree[parseTree['CHILDREN_TREES']]
+    def get_widget_value_js(self):
+        children_trees = self.result_tree[parse_tree['CHILDREN_TREES']]
 
-        valueTree = childrenTrees[self.valueIndex]
-        varTree = childrenTrees[self.varIndex]
+        value_tree = children_trees[self.value_index]
+        var_tree = children_trees[self.var_index]
 
-        varId = Value(varTree).generateSimpleJS()
-        widget = Survey.stringToClass('widget')(valueTree,
-                                                additionalJsArgs=['resultVarName: "' + varId + '"'])
+        var_id = Value(var_tree).generate_simple_js()
+        widget = Survey.string_to_class('widget')(value_tree,
+                                                additional_js_args=['resultVarName: "' + varId + '"'])
 
-        return widget.generateJS()
+        return widget.generate_js()

@@ -3,5 +3,5 @@ from iss.surveys.value import Value
 
 class String(Value):
 
-    def getPythonValue(self):
-        return self.generateSimpleJS()[1:-1]
+    def get_python_value(self):
+        return self.generate_simple_js()[1:-1]

@@ -3,5 +3,5 @@ from iss.surveys.value import Value
 
 class InnerString(Value):
 
-    def generatePlainJS(self):
-        return '"' + Value.generateSimpleJS() + '"'
+    def generate_plain_js(self):
+        return '"' + Value.generate_simple_js() + '"'

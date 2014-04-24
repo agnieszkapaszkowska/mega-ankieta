@@ -2,11 +2,11 @@ from iss.surveys.abstractIteratorSubclass import AbstractIteratorSubclass
 
 
 class TestIterator(AbstractIteratorSubclass):
-    argsData = {
+    args_data = {
         'name': {
             'type': 'datasource',
             'required': 1
         },
     }
 
-    unnamedArgs = ['name']
+    unnamed_args = ['name']

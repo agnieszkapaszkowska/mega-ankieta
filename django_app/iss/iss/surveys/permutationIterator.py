@@ -2,11 +2,11 @@ from iss.surveys.abstractIteratorSubclass import AbstractIteratorSubclass
 
 
 class PermutationIterator(AbstractIteratorSubclass):
-    argsData = {
+    args_data = {
         'data': {
             'type': 'listWithTuples',
             'required': 1
         },
     }
 
-    unnamedArgs = ['data']
+    unnamed_args = ['data']

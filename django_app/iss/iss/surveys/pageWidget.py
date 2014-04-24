@@ -2,7 +2,7 @@ from iss.surveys.abstractWidgetContainerSubclass import AbstractWidgetContainerS
 
 
 class PageWidget(AbstractWidgetContainerSubclass):
-    argsData = {
+    args_data = {
         'back': {
             'type': 'bool',
             'required': 0,
@@ -25,4 +25,4 @@ class PageWidget(AbstractWidgetContainerSubclass):
         },
     }
 
-    unnamedArgs = ['back', 'buttons', 'nextbuttontext', 'prevbuttontext']
+    unnamed_args = ['back', 'buttons', 'nextbuttontext', 'prevbuttontext']

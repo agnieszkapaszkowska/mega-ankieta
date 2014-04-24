@@ -2,7 +2,7 @@ from iss.surveys.abstractWidgetSubclass import AbstractWidgetSubclass
 
 
 class LikertWidget(AbstractWidgetSubclass):
-    argsData = {
+    args_data = {
         'name': {
             'type': 'string',
             'required': 1
@@ -22,7 +22,7 @@ class LikertWidget(AbstractWidgetSubclass):
                         'required': 1
                     }
                 },
-                'unnamedArgs': ['id', 'text'],
+                'unnamed_args': ['id', 'text'],
             }
         },
         'answers': {
@@ -37,4 +37,4 @@ class LikertWidget(AbstractWidgetSubclass):
         },
     }
 
-    unnamedArgs = ['name', 'data', 'answers', 'required']
+    unnamed_args = ['name', 'data', 'answers', 'required']

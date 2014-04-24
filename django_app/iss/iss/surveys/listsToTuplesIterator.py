@@ -2,11 +2,11 @@ from iss.surveys.abstractIteratorSubclass import AbstractIteratorSubclass
 
 
 class ListsToTuplesIterator(AbstractIteratorSubclass):
-    argsData = {
+    args_data = {
         'data': {
             'type': 'tupleWithLists',
             'required': 1
         },
     }
 
-    unnamedArgs = ['data']
+    unnamed_args = ['data']

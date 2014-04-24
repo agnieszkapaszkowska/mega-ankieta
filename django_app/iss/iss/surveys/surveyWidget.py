@@ -2,7 +2,7 @@ from iss.surveys.abstractWidgetContainerSubclass import AbstractWidgetContainerS
 
 
 class SurveyWidget(AbstractWidgetContainerSubclass):
-    argsData = {
+    args_data = {
         'name': {
             'type': 'string',
             'required': 0,
@@ -20,4 +20,4 @@ class SurveyWidget(AbstractWidgetContainerSubclass):
         }
     }
 
-    unnamedArgs = ['name', 'destination', 'container']
+    unnamed_args = ['name', 'destination', 'container']

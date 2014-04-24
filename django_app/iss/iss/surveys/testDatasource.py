@@ -2,11 +2,11 @@ from iss.surveys.abstractDatasourceSubclass import AbstractDatasourceSubclass
 
 
 class TestDatasource(AbstractDatasourceSubclass):
-    argsData = {
+    args_data = {
         'name': {
             'type': 'string',
             'required': 1
         },
     }
 
-    unnamedArgs = ['name']
+    unnamed_args = ['name']

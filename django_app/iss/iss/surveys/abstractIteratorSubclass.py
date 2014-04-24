@@ -4,11 +4,11 @@ from iss.surveys.survey import Survey
 
 class AbstractIteratorSubclass(Iterator):
 
-    def generateJS(self):
-        simpleJS = self.generateSimpleJS()
+    def generate_js(self):
+        simple_js = self.generate_simple_js()
 
-        return "function() {return " + simpleJS + "}"
+        return "function() {return " + simple_js + "}"
 
-    def generateSimpleJS(self):
-        return 'iss.lib.iterators.' + self.getClassName() +\
-            '(' + Iterator.generateSimpleJS(self) + ')'
+    def generate_simple_js(self):
+        return 'iss.lib.iterators.' + self.get_class_name() +\
+            '(' + Iterator.generate_simple_js(self) + ')'

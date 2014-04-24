@@ -2,7 +2,7 @@ from iss.surveys.abstractWidgetSubclass import AbstractWidgetSubclass
 
 
 class RadioWidget(AbstractWidgetSubclass):
-    argsData = {
+    args_data = {
         'name': {
             'type': 'string',
             'required': 1
@@ -22,7 +22,7 @@ class RadioWidget(AbstractWidgetSubclass):
                             'required': 1
                         }
                     },
-                'unnamedArgs': ['id', 'text'],
+                'unnamed_args': ['id', 'text'],
             }
         },
         'checkedIndex': {
@@ -42,5 +42,5 @@ class RadioWidget(AbstractWidgetSubclass):
         },
     }
 
-    unnamedArgs = ['name', 'data', 'checkedIndex',
+    unnamed_args = ['name', 'data', 'checkedIndex',
                    'horizontal', 'required']

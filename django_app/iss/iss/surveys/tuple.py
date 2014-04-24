@@ -3,5 +3,5 @@ from iss.surveys.abstractParametrisedObject import AbstractParametrisedObject
 
 class Tuple(AbstractParametrisedObject):
 
-    def generateJS(self):
-        return 'function() { return ' + self.generateSimpleJS() + '}'
+    def generate_js(self):
+        return 'function() { return ' + self.generate_simple_js() + '}'

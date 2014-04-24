@@ -2,7 +2,7 @@ import os
 from simpleparse import generator
 from mx.TextTools import TextTools
 
-parseTree = {
+parse_tree = {
     'PROD_NAME': 0,
     'START': 1,
     'STOP': 2,
@@ -11,14 +11,14 @@ parseTree = {
 
 
 class Parser:
-    grammarFile = '/grammar.def'
-    startProdName = 'survey'
+    grammar_file = '/grammar.def'
+    start_prod_name = 'survey'
 
     @staticmethod
     def parse(text):
-        grammarPath = os.path.abspath(os.path.dirname(__file__))
-        with open(grammarPath + Parser.grammarFile, 'r') as grammar:
+        grammar_path = os.path.abspath(os.path.dirname(__file__))
+        with open(grammar_path + Parser.grammar_file, 'r') as grammar:
             parser = generator.buildParser(grammar.read()).\
-                parserbyname(Parser.startProdName)
+                parserbyname(Parser.start_prod_name)
 
         return TextTools.tag(text, parser)

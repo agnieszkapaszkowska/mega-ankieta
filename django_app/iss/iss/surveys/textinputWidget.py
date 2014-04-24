@@ -2,7 +2,7 @@ from iss.surveys.abstractWidgetSubclass import AbstractWidgetSubclass
 
 
 class TextinputWidget(AbstractWidgetSubclass):
-    argsData = {
+    args_data = {
         'name': {
             'type': 'string',
             'required': 1
@@ -24,4 +24,4 @@ class TextinputWidget(AbstractWidgetSubclass):
         },
     }
 
-    unnamedArgs = ['name', 'label', 'placeholder', 'required']
+    unnamed_args = ['name', 'label', 'placeholder', 'required']

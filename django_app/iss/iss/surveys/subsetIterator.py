@@ -2,7 +2,7 @@ from iss.surveys.abstractIteratorSubclass import AbstractIteratorSubclass
 
 
 class SubsetIterator(AbstractIteratorSubclass):
-    argsData = {
+    args_data = {
         'data': {
             'type': 'listWithTuples',
             'required': 1
@@ -13,4 +13,4 @@ class SubsetIterator(AbstractIteratorSubclass):
         },
     }
 
-    unnamedArgs = ['data', 'number']
+    unnamed_args = ['data', 'number']
