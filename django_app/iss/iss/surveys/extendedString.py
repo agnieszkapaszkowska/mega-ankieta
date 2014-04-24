@@ -6,7 +6,8 @@ from iss.surveys.value import Value
 class ExtendedString(Value):
 
     def generate_js(self):
-        return "function() { with (iss.vars) { return " + self.generate_simple_js() + '} }'
+        return ("function() { with (iss.vars) { return "
+                + self.generate_simple_js() + '} }')
 
     def generate_simple_js(self):
         text = []

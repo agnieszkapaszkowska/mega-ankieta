@@ -28,7 +28,9 @@ class LikertWidget(AbstractWidgetSubclass):
         'answers': {
             'type': 'listWithTuples',
             'required': 0,
-            'default': '[function() { return "1" }, function() { return "2" }, function() { return "3" }, function() { return "4" }, function() { return "5" }]'
+            'default': '[function() { return "1" }, function() { return "2" },\
+                function() { return "3" }, function() { return "4" },\
+                function() { return "5" }]'
         },
         'required': {
             'type': 'bool',

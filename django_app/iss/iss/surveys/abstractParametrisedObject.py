@@ -1,5 +1,4 @@
 from iss.surveys.arg import Arg
-from iss.surveys.string import String
 from iss.surveys.survey import Survey
 from iss.surveys.parser import parse_tree
 
@@ -35,7 +34,9 @@ class AbstractParametrisedObject:
 
         widget_subclass = Survey.string_tree_to_class(
             string_tree, self.get_class_name())
-        return widget_subclass(self.result_tree, additional_js_args=self.js_args_list).generate_js()
+        return widget_subclass(
+            self.result_tree,
+            additional_js_args=self.js_args_list).generate_js()
 
     def generate_simple_js(self):
         self.create_args()
@@ -80,7 +81,8 @@ class AbstractParametrisedObject:
         if not len(arg_name):
             if len(self.unnamed_args) == self.found_unnamed_args:
                 raise Exception(self.get_class_name() +
-                                " accepts only " + str(len(self.unnamed_args)) +
+                                " accepts only " + str(
+                                    len(self.unnamed_args)) +
                                 " unnamed arguments")
 
             arg_name = self.unnamed_args[self.found_unnamed_args]
@@ -96,7 +98,8 @@ class AbstractParametrisedObject:
             self.found_args_names.append(arg_name)
 
             if (hasattr(self, 'unnamed_args')
-                    and arg_name == self.unnamed_args[self.found_unnamed_args]):
+                    and arg_name == self.unnamed_args[
+                    self.found_unnamed_args]):
                 self.found_unnamed_args = self.get_next_unnamed_arg_index()
 
         self.js_args_list.append(js)
@@ -115,20 +118,23 @@ class AbstractParametrisedObject:
 
     def check_arg(self, arg_name):
         if arg_name in self.found_args_names:
-            raise Exception(
-                "You cannot use two same-named arguments in one parametrised object")
+            raise Exception("You cannot use two same-named arguments"
+                            + " in one parametrised object")
 
     def check_args(self):
         for name in self.args_data:
-            if self.args_data[name]['required'] and not name in self.found_args_names:
+            if (self.args_data[name]['required']
+                    and not name in self.found_args_names):
                 raise Exception(
                     'Required argument "' + name + '" wasn\'t supplied')
 
     def add_defaults_to_js_args_list(self):
         for name in self.args_data:
-            if not self.args_data[name]['required'] and not name in self.found_args_names:
+            if (not self.args_data[name]['required']
+                    and not name in self.found_args_names):
                 self.js_args_list.append(
-                    name + ": function() { return " + self.args_data[name]['default'] + " }")
+                    name + ": function() { return "
+                    + self.args_data[name]['default'] + " }")
 
     def get_class_name(self):
         return self.__class__.__name__

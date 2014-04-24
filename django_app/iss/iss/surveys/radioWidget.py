@@ -43,4 +43,4 @@ class RadioWidget(AbstractWidgetSubclass):
     }
 
     unnamed_args = ['name', 'data', 'checkedIndex',
-                   'horizontal', 'required']
+                    'horizontal', 'required']
