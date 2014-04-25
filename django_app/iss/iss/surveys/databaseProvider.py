@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class DatabaseProvider:
     START_VERSION = 1
 
-    def init(self):
+    def __init__(self):
         pass
 
     def save(self, if_new, name, username, code, js):

@@ -16,7 +16,7 @@ for i in range(0, len(testCases)):
 		if not success or nextCharacter != len(Survey.text):
 			raise Exception("Parsing error")
 
-		Survey.generateJS(resultTrees)
+		Survey.generate_js(resultTrees)
 
 		print('.', end='')
 

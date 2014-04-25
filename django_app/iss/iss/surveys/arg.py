@@ -24,6 +24,7 @@ class Arg:
     def __init__(self, result_tree):
         children_trees = result_tree[parse_tree['CHILDREN_TREES']]
         self.value_tree = children_trees[-1]
+        self.data = None
 
         if len(children_trees) == 2:
             start = children_trees[0][parse_tree['START']]

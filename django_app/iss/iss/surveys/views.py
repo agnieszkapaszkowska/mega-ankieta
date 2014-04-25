@@ -1,8 +1,9 @@
+import json
+
 from django.views.generic import TemplateView
 from django.http import HttpResponse
 from iss.surveys.survey import Survey
 from iss.surveys.databaseProvider import DatabaseProvider
-import json
 
 
 class SurveyView(TemplateView):

@@ -12,12 +12,12 @@ errors = 0
 sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0) #unbuffered stdout
 
 for i in range(0, len(testCases)):
-    input, prod, shouldSucceed = testCases[i]
+    inputText, prod, shouldSucceed = testCases[i]
 
     try:
-        success, children, nextCharacter = parser.parse(input, production=prod)
-        assert (success == shouldSucceed) or ((not shouldSucceed) and (nextCharacter < len(input)))
-        assert (shouldSucceed and nextCharacter == len(input)) or (not shouldSucceed)
+        success, children, nextCharacter = parser.parse(inputText, production=prod)
+        assert (success == shouldSucceed) or (not shouldSucceed) and (nextCharacter < len(inputText))
+        assert (shouldSucceed and nextCharacter == len(inputText)) or (not shouldSucceed)
 
         print(".", end="")
 
@@ -35,7 +35,7 @@ for i in range(0, len(testCases)):
         wrongTestNum = "\nTest %s error:\n" % i
         errorType = "Wasn't able to parse " if shouldSucceed else "Shouldn't have parsed "
         errorDetails = "%s as %s (%s chars parsed of %s), parsedTree: %s\n" % \
-                (input, prod, nextCharacter, len(input), children)
+                (inputText, prod, nextCharacter, len(inputText), children)
 
         print(wrongTestNum + errorType + errorDetails)
         raise
