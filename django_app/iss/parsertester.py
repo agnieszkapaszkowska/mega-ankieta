@@ -2,7 +2,7 @@
 from __future__ import print_function
 import os, sys
 from simpleparse.parser import Parser
-from iss.surveys.parserTests import testCases
+from iss.surveys.parserTests import test_cases
 from simpleparse.error import ParserSyntaxError
 
 with open('iss/surveys/grammar.def') as decl:
@@ -11,18 +11,19 @@ with open('iss/surveys/grammar.def') as decl:
 errors = 0
 sys.stdout = os.fdopen(sys.stdout.fileno(), 'w', 0) #unbuffered stdout
 
-for i in range(0, len(testCases)):
-    inputText, prod, shouldSucceed = testCases[i]
+for i in range(0, len(test_cases)):
+    input_text, prod, should_succeed = test_cases[i]
 
     try:
-        success, children, nextCharacter = parser.parse(inputText, production=prod)
-        assert (success == shouldSucceed) or (not shouldSucceed) and (nextCharacter < len(inputText))
-        assert (shouldSucceed and nextCharacter == len(inputText)) or (not shouldSucceed)
+        success, children, next_character = parser.parse(input_text, production=prod)
+        assert (success == should_succeed) or (not should_succeed) and (next_character < len(input_text))
+        assert (should_succeed and next_character == len(input_text)) or (not should_succeed)
+
 
         print(".", end="")
 
     except (AssertionError, ParserSyntaxError):
-        if not shouldSucceed:
+        if not should_succeed:
             print(".", end="")
             continue
 
@@ -32,16 +33,16 @@ for i in range(0, len(testCases)):
             print('x', end='')
             continue
 
-        wrongTestNum = "\nTest %s error:\n" % i
-        errorType = "Wasn't able to parse " if shouldSucceed else "Shouldn't have parsed "
-        errorDetails = "%s as %s (%s chars parsed of %s), parsedTree: %s\n" % \
-                (inputText, prod, nextCharacter, len(inputText), children)
+        wrong_test_num = "\nTest %s error:\n" % i
+        error_type = "wasn't able to parse " if should_succeed else "Shouldn't have parsed "
+        error_details = "%s as %s (%s chars parsed of %s), parsedTree: %s\n" % \
+                (input_text, prod, next_character, len(input_text), children)
 
-        print(wrongTestNum + errorType + errorDetails)
+        print(wrong_test_num + error_type + error_details)
         raise
 
 if errors == 0 or (len(sys.argv) == 1 or (not sys.argv[1] in ['-v', '--verbose'])):
     summary = "\n\nAll tests completed (%s tests):\n%s errors\n%s passed\n" % \
-            (len(testCases), errors, len(testCases) - errors)
+            (len(test_cases), errors, len(test_cases) - errors)
 
     print(summary)

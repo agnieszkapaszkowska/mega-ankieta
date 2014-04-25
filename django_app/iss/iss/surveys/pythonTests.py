@@ -1,4 +1,4 @@
-testCases = [
+test_cases = [
     # WIDGETS
     '''[["radio"|var1|var2]]''',
     '''[["radio"|var1.x|var2.y]]''',
