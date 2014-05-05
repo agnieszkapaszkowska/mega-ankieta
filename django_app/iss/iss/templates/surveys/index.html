@@ -1,0 +1,200 @@
+{% extends "base.html" %}
+
+{% block build_panel %}
+<div class="navbar-left">
+    <button id="view" type="submit" class="btn btn-default navbar-btn">
+        <span class="glyphicon glyphicon-cog"></span>
+        Buduj
+    </button>
+    {% if user.is_authenticated %}
+        <button id="save" class="btn btn-primary" data-toggle="modal"> <!-- data-target="#modal_save_error">-->
+            <span class="glyphicon glyphicon-save"></span>
+            Zapisz
+        </button>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block layout_panel %}
+<div class="btn-group navbar-btn">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+        <span id="change_view_panel" class="glyphicon glyphicon-adjust">
+        </span>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu" >
+        <li role="menuitem">
+            <a id="edit_panel" >
+                <span class="glyphicon glyphicon-edit"> Edytor </span>
+            </a>
+        </li>
+        <li role="menuitem">
+            <a id="both_panels">
+                <span class="glyphicon glyphicon-adjust"> Edytor/Ankieta </span>
+            </a>
+        </li>
+        <li role="menuitem">
+            <a id="view_panel">
+                <span class="glyphicon glyphicon-eye-open"> Ankieta </span>
+            </a>
+        </li>
+    </ul>
+</div>
+{% endblock %}
+
+{% block main_content %}
+        <div class="well well-lg">
+            <div class="container">
+                <div class="row row-first">
+                    <div class="col-xs-6 panel panel-default fill">
+                        <div class="panel-body">
+							<div id="editor"></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 filler">
+                        <ul class="nav nav-tabs">
+                            <li><a href="#image" data-toggle="tab">Ankieta</a></li>
+                            <li class="active"><a href="#html" data-toggle="tab">HTML</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane" id="image">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane active" id="html">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <textarea id="html-survey" disabled></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div id="menu" class="row">
+                    <div class="col-xs-12">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <textarea id="errors" disabled></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- #menu -->
+            </div> <!-- .container -->
+        </div><!-- .well -->
+        
+        <div class="modal fade" id="modal_validation_error" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h3> Błąd. </h3>
+                        <h4> Nie udało zapisać się ankiety, ponieważ zawiera ona błędy. Co chcesz zrobić? </h4>
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">
+                            Anuluj
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="saveSurvey();">
+                            Zapisz poprzednią wersję
+                        </button>
+                    </div>
+                </div><!-- .modal-content -->
+            </div><!-- .modal-dialog -->
+		</div><!-- .modal -->
+        
+        <div class="modal fade" id="choose_name_modal" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h3> Zapisz jako ...</h3>
+                        <input id="surveyName" type="text" placeholder="Nazwa"/>
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="iss.surveyName = $('#surveyName').val();saveToDatabase(true);">
+                            Zapisz
+                        </button>
+                    </div>
+                </div><!-- .modal-content -->
+            </div><!-- .modal-dialog -->
+		</div><!-- .modal -->
+        
+        <div class="modal fade" id="used_name_modal" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <h3> Ankieta o danej nazwie już istnieje </h3>
+                        <input id="newSurveyName" type="text" placeholder="Nowa nazwa"/>
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="iss.surveyName = $('#newSurveyName').val(); saveToDatabase(true);">
+                            Zmień nazwę
+                        </button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="saveToDatabase(false);">
+                            Nadpisz
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal" onclick="iss.surveyName = undefined">
+                            Anuluj
+                        </button>
+                    </div>
+                </div><!-- .modal-content -->
+            </div><!-- .modal-dialog -->
+		</div><!-- .modal -->
+        
+        <div class="modal fade" id="modal-suggestions" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">
+                            <span class="glyphicon glyphicon-remove"></span>
+                            Otwórz
+                        </button>
+                    </div>
+                </div><!-- .modal-content -->
+            </div><!-- .modal-dialog -->
+		</div><!-- .modal -->
+        
+        <div class="modal fade" id="modal_error" tabindex="-1" role="dialog"  aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">
+                            <span class="glyphicon glyphicon-remove"></span>
+                            Zamknij
+                        </button>
+                    </div>
+                </div><!-- .modal-content -->
+            </div><!-- .modal-dialog -->
+		</div><!-- .modal -->
+	
+    	<script type="text/javascript">
+			var editor= ace.edit("editor");
+			editor.setTheme("ace/theme/textmate");
+			editor.getSession().setMode("ace/mode/plain_text");
+			editor.getSession().setUseWrapMode(true);
+			editor.setFontSize(14);
+		</script>
+{% endblock %}
