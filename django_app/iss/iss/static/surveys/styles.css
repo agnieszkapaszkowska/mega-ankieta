@@ -36,3 +36,7 @@ textarea {
 	height: inherit;
 	width: inherit;
 }
+
+#image .panel-body {
+    overflow: scroll;
+}

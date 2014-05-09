@@ -44,13 +44,12 @@ $.widget("iss.radioWidget", $.iss.widget, {
     },
 
     _setCallback: function(varName) {
-        iss.vars[varName] = this.options.checkedIndex();
+        iss.vars[varName] = (this.options.checkedIndex() == -1) ? null : this.element.find('input:checked').attr('id');
         var element = this.element;
         var questionWidget = this.options.questionWidget;
         element.find('input').click(
             function() {
-                iss.vars[varName] = element.find('input')
-                            .index(element.find('input:checked'));
+                iss.vars[varName] = element.find('input:checked').attr("id");
                 questionWidget.childChanged();
             });
     },

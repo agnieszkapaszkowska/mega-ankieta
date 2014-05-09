@@ -48,7 +48,7 @@ $.widget("iss.checkboxWidget", $.iss.widget, {
         function getChecked() {
             var checked = [];
             element.find("input:checked").each(function () { 
-                checked.push($(this).parent().index()); 
+                checked.push($(this).attr("id")); 
             });
             return checked;
         }
