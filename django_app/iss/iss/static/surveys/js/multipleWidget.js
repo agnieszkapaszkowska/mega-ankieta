@@ -73,7 +73,7 @@ $.widget("iss.multipleWidget", $.iss.widget, {
     },
 
     _addAnswerCell: function(index, questionIndex) {
-        return '<input id ="' + this.options.name() + '_'
+        return '<input style="width:50px;" type="number" id ="' + this.options.name() + '_'
                 + questionIndex + '_' + index + '">';
     },
 
