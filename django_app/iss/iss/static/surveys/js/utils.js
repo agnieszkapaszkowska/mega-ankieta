@@ -52,11 +52,9 @@ $(function() {
             success: function(data) {
                 if (data.error != '') {
                     $("#errors").val(data.error);
-                    console.log(data.error);
                 }
                 else {
                     $("#errors").val('');
-                    console.log(data.survey);
                     $("#html-survey").text(data.survey);
                     iss.js = data.survey;
                     $("#image .panel-body").empty();
@@ -85,12 +83,10 @@ $(function() {
             success: function(data) {
                 if (data.error != '') {
                     $("#errors").val(data.error);
-                    console.log(data.error);
                     $("#modal_validation_error").modal();
                 }
                 else {
                     $("#errors").val('');
-                    console.log(data.survey);
                     $("#html-survey").text(data.survey);
                     $("#image .panel-body").empty();
                     iss.js = data.survey;
@@ -167,7 +163,6 @@ function saveToDatabase(ifNew) {
         },
         success: function(data) {
             if (data.success == 1) {
-                console.log("Success!");
                 return;
             }
             $("#used_name_modal").modal();
@@ -179,7 +174,6 @@ function saveToDatabase(ifNew) {
 }
 
 function openSurvey(name) {
-    console.log(name);
     $.ajax({
         url: '.',
         method: 'POST',
@@ -192,6 +186,7 @@ function openSurvey(name) {
             iss.surveyName = name;
             var editor = ace.edit("editor");
             editor.getSession().setValue(data.survey);
+            $("#view").trigger("click");
         },
         error: function(data) {
             $("#modal_error .modal-body").html(

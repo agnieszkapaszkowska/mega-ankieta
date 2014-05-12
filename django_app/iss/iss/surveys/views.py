@@ -37,7 +37,7 @@ class SurveyView(TemplateView):
                 provider = DatabaseProvider()
                 result['results'] = ';'.join(
                     provider.search(request.POST['text'],
-                                    request.POST['username']))
+                                request.POST['username']))
 
             elif request.POST['type'] == self.OPEN_TYPE:
                 provider = DatabaseProvider()

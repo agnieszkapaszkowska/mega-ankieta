@@ -53,8 +53,8 @@
                     </div>
                     <div class="col-xs-6 filler">
                         <ul class="nav nav-tabs">
-                            <li><a href="#image" data-toggle="tab">Ankieta</a></li>
-                            <li class="active"><a href="#html" data-toggle="tab">HTML</a></li>
+                            <li class="active"><a href="#image" data-toggle="tab">Ankieta</a></li>
+                            <li><a href="#html" data-toggle="tab">HTML</a></li>
                         </ul>
                         <div class="tab-content">
                             <div class="tab-pane active" id="image">
@@ -142,9 +142,6 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="iss.surveyName = $('#newSurveyName').val(); saveToDatabase(true);">
                             Zmień nazwę
-                        </button>
-                        <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="saveToDatabase(false);">
-                            Nadpisz
                         </button>
                         <button type="button" class="btn btn-default" data-dismiss="modal" onclick="iss.surveyName = undefined">
                             Anuluj
