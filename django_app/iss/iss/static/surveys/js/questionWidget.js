@@ -45,8 +45,10 @@ $.widget("iss.questionWidget", {
         this.notExecuted = [];
         for (var i = 0; i < widgets.length; i++) {
             var widget = widgets[i](this._widgetsContainer, this);
-            if (widget == null)
-                this.notExecuted.push(widgets[i]);
+            if (widget == null) {
+                var div = $('<div></div>').appendTo(this._widgetsContainer);
+                this.notExecuted.push({widget: widgets[i], div: div});
+            }
             else
                 this.widgets.push(widget);
         }
@@ -83,7 +85,7 @@ $.widget("iss.questionWidget", {
         }
         var newNotExecuted = [];
         for (var i = 0; i < this.notExecuted.length; i++) {
-            var widget = this.notExecuted[i](this._widgetsContainer, this);
+            var widget = this.notExecuted[i].widget(this.notExecuted[i].div, this);
             if (widget == null)
                 newNotExecuted.push(this.notExecuted[i]);
             else

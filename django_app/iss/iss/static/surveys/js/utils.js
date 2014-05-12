@@ -81,6 +81,7 @@ $(function() {
                 csrfmiddlewaretoken: csrfToken,
             },
             success: function(data) {
+                iss.code = code;
                 if (data.error != '') {
                     $("#errors").val(data.error);
                     $("#modal_validation_error").modal();
@@ -93,7 +94,6 @@ $(function() {
                     eval(data.survey);
                     saveSurvey();
                 }
-                iss.code = code;
             },
             error: function(data) {
                 $("#modal_error .modal-body").html(
