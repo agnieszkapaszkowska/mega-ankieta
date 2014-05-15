@@ -32,12 +32,12 @@ condition                   := conditionTopLevelContent
 conditionContent            := subCondition, ( ws*, logicOp, ws*, conditionContent )*
 subCondition                := ( "(", ws*, conditionContent, ws*, ")" ) / ( "!", ws*, "(", ws*, conditionContent, ws*, ")" ) / compCondition / ( ( "!", ws* )?, ( bool / structElem / varId ) )
 compCondition               := (conditionValue, ws*, compOp, ws*, conditionValue) 
-conditionValue              := arythmExpr / number / bool / structElem / varId / string
+conditionValue              := arythmExpr / number / bool / structElem / varId / string / listWithTuples
 arythmExpr                  := arythmExprTopLevelContent
 <arythmExprTopLevelContent> := (subArythmExpr, ws*, arythmOp, ws*, arythmExprContent ) / ( ("-")?, ws*, "(", ws*, subArythmExpr, ( ws*, arythmOp, ws*, arythmExprContent )?, ws*, ")" ) 
 arythmExprContent			:= subArythmExpr, ( ws*, arythmOp, ws*, arythmExprContent )*
 subArythmExpr               := ( ("-", ws* )?, "(", ws*, arythmExprContent, ws*, ")" ) / ( ( "-", ws* )?, (structElem / varId) ) / number
-arythmOp                    := "-" / "+" / "*" / "/" / "in"
-compOp                      := "==" / "!=" / "<=" / "<" / ">=" / ">"
+arythmOp                    := "-" / "+" / "*" / "/" 
+compOp                      := "==" / "!=" / "<=" / "<" / ">=" / ">" / "in"
 logicOp                     := "&&" / c"and" / "||" / c"or"
 <ws>                        := [ \t\r\n]
