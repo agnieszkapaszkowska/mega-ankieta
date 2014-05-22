@@ -1,0 +1,11 @@
+label {
+    width: 50%;
+}
+
+.error input {
+    border-color: red;
+}
+
+.error label {
+    color: red;
+}

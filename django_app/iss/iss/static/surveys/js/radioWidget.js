@@ -58,9 +58,10 @@ $.widget("iss.radioWidget", $.iss.widget, {
         if (this.options.required()
             && this.element.is(":visible")
             && this.element.find('input:checked').length == 0) {
-            this.element.addClass('erorr');
+            this.element.addClass('error');
             return false;
         }
+        this.element.removeClass("error");
         return true;
     },
 

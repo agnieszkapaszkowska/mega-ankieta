@@ -58,9 +58,10 @@ $.widget("iss.selectboxWidget", $.iss.widget, {
         if (this.options.required()
             && this.element.is(":visible")
             && this.element.find('select')[0].selectedIndex == -1) {
-            this.element.addClass('erorr');
+            this.element.addClass('error');
             return false;
         }
+        this.element.removeClass("error");
         return true;
     },
 
