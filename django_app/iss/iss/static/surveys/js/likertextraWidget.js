@@ -92,6 +92,27 @@ $.widget("iss.likertextraWidget", $.iss.widget, {
         return result;
     },
 
+    _existsEmptyField: function() {
+        this.element.find('tr').removeClass('error');
+        var widget = this;
+        var result = false;
+        var first = true;
+        this.element.find('tr').each(function() {
+            if (first) {
+                first = false;
+            }
+            else {
+                var input = $(this).find('input');
+                var index = input.index($(this).find('input:checked'));
+                if (!result && (index == -1 || !widget._checkExtraValue($(this)))) {
+                    $(this).addClass('error');
+                    result = true;
+                }
+            }
+        });
+        return result;
+    },
+
     _setCallback: function(varName) {
         iss.vars[varName] = this._getChecked();
         var that = this;
@@ -105,9 +126,8 @@ $.widget("iss.likertextraWidget", $.iss.widget, {
     
     validate: function() {
         if (this.options.required()
-            && this.element.is(":visible")
-            && this.element.find('input:checked').length < this.questions.length) {
-            this.element.addClass('error');
+                && this.element.is(":visible")
+                && this._existsEmptyField()) {
             return false;
         }
         this.element.removeClass("error");

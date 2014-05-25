@@ -86,12 +86,15 @@ $.widget("iss.multipleWidget", $.iss.widget, {
         return result;
     },
 
-    _existsEmpty: function() {
+    _existsEmptyField: function() {
+        this.element.find('td').removeClass('error');
         var name = this.options.name();
         for (var i = 0; i < this.questions.length; i++)
             for (var j = 0; j < this.answers.length; j++)
-                if ($('#' + name + '_' + i + '_' + j).val().length == 0)
+                if (!this._checkValue(i, j)) {
+                    $('#' + name + '_' + i + '_' + j).parent().addClass('error');
                     return true;
+                }
         return false;
     },
 
@@ -111,7 +114,6 @@ $.widget("iss.multipleWidget", $.iss.widget, {
         if (this.options.required()
                 && this.element.is(":visible")
                 && this._existsEmptyField()) {
-                this.element.addClass('error');
             return false;
         }
         this.element.removeClass("error");

@@ -23,3 +23,8 @@ td select {
 th {
     text-align: center;
 }
+
+tr.error td:nth-of-type(1) {
+    color: red;
+}
+

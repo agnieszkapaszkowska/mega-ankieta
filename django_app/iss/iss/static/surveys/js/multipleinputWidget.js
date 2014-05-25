@@ -6,6 +6,10 @@ $.widget("iss.multipleinputWidget", $.iss.multipleWidget, {
     },
 
     _getValue: function(i, j) {
-        return $('#' + name + '_' + i + '_' + j).val();
+        return $('#' + this.options.name() + '_' + i + '_' + j).val();
+    },
+
+    _checkValue: function(i, j) {
+        return ($('#' + this.options.name() + '_' + i + '_' + j).val().length > 0);
     }
 });

@@ -12,6 +12,12 @@ $.widget("iss.multipleselectWidget", $.iss.multipleWidget, {
     },
 
     _getValue: function(i, j) {
-        return $('#' + name + '_' + i + '_' + j).val();
+        return this.element.find("select")[0].selectedIndex.value;
+    },
+    
+    _checkValue: function(i, j) {
+        return this.element.find("select")[0].selectedIndex != -1;
+
+
     }
 });

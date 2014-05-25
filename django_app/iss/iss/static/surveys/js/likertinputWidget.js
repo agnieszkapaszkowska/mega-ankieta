@@ -7,6 +7,11 @@ $.widget("iss.likertinputWidget", $.iss.likertextraWidget, {
     _getExtraValue: function(row) {
         var input = row.find('input');
         return $("#" + input.attr("name")).val();
+    },
+    
+    _checkExtraValue: function(row) {
+        var input = row.find('input');
+        return $("#" + input.attr("name")).val().length > 0;
     }
 
 });
