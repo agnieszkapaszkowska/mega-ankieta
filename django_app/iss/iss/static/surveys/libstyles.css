@@ -9,3 +9,17 @@ label {
 .error label {
     color: red;
 }
+
+td input,
+td select {
+    display: block;
+    margin: 0 auto !important;
+}
+
+td select {
+    width: 100%;
+}
+
+th {
+    text-align: center;
+}

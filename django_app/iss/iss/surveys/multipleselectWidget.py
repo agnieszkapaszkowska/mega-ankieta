@@ -1,7 +1,7 @@
 from iss.surveys.abstractWidgetSubclass import AbstractWidgetSubclass
 
 
-class MultipleWidget(AbstractWidgetSubclass):
+class MultipleselectWidget(AbstractWidgetSubclass):
     args_data = {
         'name': {
             'type': 'string',

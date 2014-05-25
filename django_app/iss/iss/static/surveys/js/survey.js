@@ -108,11 +108,13 @@ iss.lib.Survey = function() {
     }
 
     function gotoNext() {
+        $('.alert').remove();
         if (this.history.length > 0) {
             if (this.history[this.history.length - 1].widget.validatePage())
                 this.history[this.history.length - 1].widget.hide();
             else {
-                console.log("Did not validate");
+                console.log("validate");
+                $('<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Uwaga!</strong> Odpowiedz na wszystkie pytania!</div>').prependTo(this.container); 
                 return false;
             }
         }
