@@ -1,22 +1,33 @@
 {% extends "base.html" %}
 
+{% block database_panel %}
+<li>
+    <button id="save" class="btn btn-primary navbar-btn" data-toggle="modal">
+        <span class="glyphicon glyphicon-save"></span>
+        Zapisz
+    </button>
+</li>
+<li>
+    <form class="navbar-form navbar-input-group" role="search">
+        <div class="form-group">
+            <input id="search-survey" type="text" class="form-control" placeholder="Szukaj">
+        </div>
+        <button id="open-button" type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-open"></span>
+            Otwórz
+        </button>
+    </form>
+</li>
+{% endblock %}
+
 {% block build_panel %}
-<div class="navbar-left">
+<li>
     <button id="view" type="submit" class="btn btn-default navbar-btn">
         <span class="glyphicon glyphicon-cog"></span>
         Buduj
     </button>
-    {% if user.is_authenticated %}
-        <button id="save" class="btn btn-primary" data-toggle="modal"> <!-- data-target="#modal_save_error">-->
-            <span class="glyphicon glyphicon-save"></span>
-            Zapisz
-        </button>
-    {% endif %}
-</div>
-{% endblock %}
-
-{% block layout_panel %}
-<div class="btn-group navbar-btn">
+</li>
+<li class="btn-group navbar-btn">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
         <span id="change_view_panel" class="glyphicon glyphicon-adjust">
         </span>
@@ -39,7 +50,7 @@
             </a>
         </li>
     </ul>
-</div>
+</li>
 {% endblock %}
 
 {% block main_content %}

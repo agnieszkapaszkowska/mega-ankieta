@@ -29,13 +29,13 @@ phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2
 EOF
 
 apt-get install --yes acl
+apt-get install --yes git
 apt-get install --yes apache2
 apt-get install --yes libapache2-mod-php5
 apt-get install --yes mysql-server
 apt-get install --yes phpmyadmin
 cp /etc/phpmyadmin/apache.conf /etc/apache2/conf.d
 apt-get install --yes sqlite3
-apt-get install --yes php5-sqlite
 apt-get install --yes gzip
 apt-get install --yes python-imaging
 apt-get install --yes python-pythonmagick
@@ -45,48 +45,39 @@ apt-get install --yes python-docutils
 apt-get install --yes python-django
 apt-get install --yes python-pip
 apt-get install --yes libapache2-mod-wsgi
-apt-get install --yes memcached
 apt-get install --yes python-mysqldb
 pip install --upgrade pip
-pip install django
-pip install django-cron
-pip install MySQL-python
-pip install beautifulsoup4
-pip install html5lib
-pip install http
-pip install httplib2
-pip install pycurl
-pip install urllib3
-pip install python-memcached
-
 
 /usr/share/debconf/fix_db.pl
+
+git clone https://github.com/agnieszkapaszkowska/mega-ankieta
+
+pip install -r mega-ankieta/venv/pip_freeze
+
+cp -r mega-ankieta/django_app/iss $WWW_PATH
 
 a2dissite default
 
 echo "
 <VirtualHost *:80>
     ServerName localhost
-    WSGIScriptAlias / $WWW_PATH/iss/iss.wsgi
+    WSGIScriptAlias / $WWW_PATH/iss/iss/iss.wsgi
 
-    Alias /static/ $WWW_PATH/iss/static/
-    Alias /favicon.ico /$WWW_PATH/iss/static/surveys/favicon.ico
+    Alias /static/ $WWW_PATH/iss/iss/static/
+    Alias /favicon.ico /$WWW_PATH/iss/iss/static/surveys/favicon.ico
 </VirtualHost>
 " >/etc/apache2/sites-available/iss
 a2ensite iss
 
 service apache2 reload
 
-rm -rf $WWW_PATH/*
-cp -r www/* $WWW_PATH
-
 echo "
 import os, sys
-sys.path.append('$WWW_PATH/iss/')
+sys.path.append('$WWW_PATH/iss')
 os.environ['DJANGO_SETTINGS_MODULE'] = 'iss.settings'
 import django.core.handlers.wsgi
 application = django.core.handlers.wsgi.WSGIHandler()
-" >$WWW_PATH/iss/iss.wsgi
+" >$WWW_PATH/iss/iss/iss.wsgi
 
 
 echo "
@@ -186,7 +177,7 @@ DEFAULT_CHARSET = 'utf-8'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_ROOT = '$WWW_PATH/iss/static/'
+STATIC_ROOT = '$WWW_PATH/iss/iss/static/'
 STATIC_URL = '/static/'
 
 TEMPLATE_DIRS = (
@@ -223,9 +214,6 @@ rm tmpdb
 echo no | python $WWW_PATH/iss/manage.py syncdb
 echo "from django.contrib.auth.models import User; User.objects.create_superuser('$DB_LOGIN', '', '$DB_PASSWORD')" | $WWW_PATH/iss/manage.py shell
 echo yes | python $WWW_PATH/iss/manage.py collectstatic
-
-#creating tables in database
-mysql -h localhost -u $DB_LOGIN -p$DB_PASSWORD $DB_NAME < db/iss_django.sql
 
 setfacl -Rm u:www-data:rwX $WWW_PATH
 
