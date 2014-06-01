@@ -47,6 +47,7 @@ $.widget("iss.textareaWidget", $.iss.widget, {
             this.element.addClass("error");
             return false;
         }
+        this.element.removeClass("error");
         return true;
     },
 

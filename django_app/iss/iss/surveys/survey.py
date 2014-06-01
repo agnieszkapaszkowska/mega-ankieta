@@ -47,10 +47,13 @@ class Survey:
 
     @staticmethod
     def string_to_class(string, base_class_name=''):
+        prefix = '' if base_class_name == '' else\
+            base_class_name[0].lower() + base_class_name[1:] + 's.'
         file_name = string[0].lower() + string[1:] + base_class_name
         class_name = string[0].upper() + string[1:] + base_class_name
 
         module = __import__(
-            'iss.surveys.' + file_name, globals(), locals(), class_name)
+            'iss.surveys.' + prefix + file_name,
+            globals(), locals(), class_name)
 
         return getattr(module, class_name)

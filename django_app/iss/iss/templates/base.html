@@ -6,6 +6,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
         <link href="{{STATIC_URL}}surveys/bootstrap-3.0.1-dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
         <link href="{{STATIC_URL}}surveys/styles.css" rel="stylesheet" media="screen">
+        <link href="{{STATIC_URL}}surveys/libstyles.css" rel="stylesheet" media="screen">
         <script src="//code.jquery.com/jquery-1.9.1.js"></script>
         <script src="{{STATIC_URL}}surveys/bootstrap-3.0.1-dist/js/bootstrap.js"></script>
         <script src="{{STATIC_URL}}surveys/aceeditor/ace.js"></script>
@@ -21,6 +22,8 @@
         <script src="{{STATIC_URL}}surveys/js/surveyWidget.js"></script>
         <script src="{{STATIC_URL}}surveys/js/widget.js"></script>
         <script src="{{STATIC_URL}}surveys/js/likertWidget.js"></script>
+        <script src="{{STATIC_URL}}surveys/js/likertextraWidget.js"></script>
+        <script src="{{STATIC_URL}}surveys/js/likertinputWidget.js"></script>
         <script src="{{STATIC_URL}}surveys/js/textWidget.js"></script>
         <script src="{{STATIC_URL}}surveys/js/imgWidget.js"></script>
         <script src="{{STATIC_URL}}surveys/js/pageWidget.js"></script>
@@ -29,6 +32,9 @@
         <script src="{{STATIC_URL}}surveys/js/radioWidget.js"></script>
         <script src="{{STATIC_URL}}surveys/js/selectboxWidget.js"></script>
         <script src="{{STATIC_URL}}surveys/js/tableWidget.js"></script>
+        <script src="{{STATIC_URL}}surveys/js/multipleWidget.js"></script>
+        <script src="{{STATIC_URL}}surveys/js/multipleinputWidget.js"></script>
+        <script src="{{STATIC_URL}}surveys/js/multipleselectWidget.js"></script>
         <script src="{{STATIC_URL}}surveys/js/textareaWidget.js"></script>
         <script src="{{STATIC_URL}}surveys/js/textinputWidget.js"></script>
         <script src="{{STATIC_URL}}surveys/js/iterator.js"></script>
@@ -43,27 +49,19 @@
                 <a class="navbar-brand" href="/"><h3 class="project_name">iSurveySystem</h3></a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <div class="nav navbar-nav navbar-right">
-                    {% block layout_panel %}
-                    {% endblock %}
+                <ul class="nav navbar-nav">
+                    {% if user.is_authenticated %}
+                        {% block database_panel %}
+                        {% endblock %}
+                    {% endif %}
                     {% block build_panel %}
                     {% endblock %}
+                </ul>
+                <div class="nav navbar-nav navbar-right">
                     {% if user.is_authenticated %}
-                        <div class="navbar-left">
-                            <form class="navbar-form navbar-input-group" role="search">
-                                <div class="form-group">
-                                    <input id="search-survey" type="text" class="form-control" placeholder="Szukaj">
-                                </div>
-                                <button id="open-button" type="submit" class="btn btn-primary">
-                                    <span class="glyphicon glyphicon-open"></span>
-                                    Otwórz
-                                </button>
-                            </form>
-                        </div>
                         <a href='{% url 'auth_logout' %}' class="btn btn-primary navbar-btn">Wyloguj </a>
                     {% else %}
                         <a href='{% url 'auth_login' %}' class="btn btn-primary navbar-btn">Zaloguj </a>
-    
                     {% endif %}
 
                 </div>
