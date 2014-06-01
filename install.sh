@@ -37,6 +37,7 @@ apt-get install --yes phpmyadmin
 cp /etc/phpmyadmin/apache.conf /etc/apache2/conf.d
 apt-get install --yes sqlite3
 apt-get install --yes gzip
+apt-get install --yes python-dev
 apt-get install --yes python-imaging
 apt-get install --yes python-pythonmagick
 apt-get install --yes python-markdown
@@ -177,7 +178,6 @@ DEFAULT_CHARSET = 'utf-8'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_ROOT = '$WWW_PATH/iss/iss/static/'
 STATIC_URL = '/static/'
 
 TEMPLATE_DIRS = (
