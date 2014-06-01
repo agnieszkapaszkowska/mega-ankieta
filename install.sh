@@ -9,7 +9,6 @@ WWW_PATH=/var/www
 ALLOWED_HOSTS="[
 	'localhost'
 ]"
-ADMIN_PATH=/usr/local/lib/python2.7/dist-packages
 
 # Make sure only root can run our script
 if [ "$(id -u)" != "0" ]; then
@@ -57,8 +56,10 @@ git clone https://github.com/agnieszkapaszkowska/mega-ankieta
 pip install -r mega-ankieta/venv/pip_freeze
 
 cp -r mega-ankieta/django_app/iss $WWW_PATH
-mkdir $WWW_PATH/iss/iss/surveys/atachment
+mkdir $WWW_PATH/iss/iss/surveys/attachment
 chmod 777 $WWW_PATH/iss/iss/surveys/attachment
+mkdir $WWW_PATH/static
+chmod 777 $WWW_PATH/static
 
 a2dissite default
 
@@ -68,7 +69,7 @@ echo "
     WSGIScriptAlias / $WWW_PATH/iss/iss/iss.wsgi
 
     Alias /attachment/ $WWW_PATH/iss/iss/surveys/attachment/
-    Alias /static/ $WWW_PATH/iss/iss/static/
+    Alias /static/ $WWW_PATH/static/
     Alias /favicon.ico /$WWW_PATH/iss/iss/static/surveys/favicon.ico
 </VirtualHost>
 " >/etc/apache2/sites-available/iss
@@ -181,6 +182,8 @@ DEFAULT_CHARSET = 'utf-8'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
+
+STATIC_ROOT = '$WWW_PATH/static'
 
 STATIC_URL = '/static/'
 
