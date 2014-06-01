@@ -1,0 +1,30 @@
+label {
+    width: 50%;
+}
+
+.error input {
+    border-color: red;
+}
+
+.error label {
+    color: red;
+}
+
+td input,
+td select {
+    display: block;
+    margin: 0 auto !important;
+}
+
+td select {
+    width: 100%;
+}
+
+th {
+    text-align: center;
+}
+
+tr.error td:nth-of-type(1) {
+    color: red;
+}
+

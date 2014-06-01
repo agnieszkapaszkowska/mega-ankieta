@@ -1,22 +1,33 @@
 {% extends "base.html" %}
 
+{% block database_panel %}
+<li>
+    <button id="save" class="btn btn-primary navbar-btn" data-toggle="modal">
+        <span class="glyphicon glyphicon-save"></span>
+        Zapisz
+    </button>
+</li>
+<li>
+    <form class="navbar-form navbar-input-group" role="search">
+        <div class="form-group">
+            <input id="search-survey" type="text" class="form-control" placeholder="Szukaj">
+        </div>
+        <button id="open-button" type="submit" class="btn btn-primary">
+            <span class="glyphicon glyphicon-open"></span>
+            Otwórz
+        </button>
+    </form>
+</li>
+{% endblock %}
+
 {% block build_panel %}
-<div class="navbar-left">
+<li>
     <button id="view" type="submit" class="btn btn-default navbar-btn">
         <span class="glyphicon glyphicon-cog"></span>
         Buduj
     </button>
-    {% if user.is_authenticated %}
-        <button id="save" class="btn btn-primary" data-toggle="modal"> <!-- data-target="#modal_save_error">-->
-            <span class="glyphicon glyphicon-save"></span>
-            Zapisz
-        </button>
-    {% endif %}
-</div>
-{% endblock %}
-
-{% block layout_panel %}
-<div class="btn-group navbar-btn">
+</li>
+<li class="btn-group navbar-btn">
     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
         <span id="change_view_panel" class="glyphicon glyphicon-adjust">
         </span>
@@ -39,53 +50,32 @@
             </a>
         </li>
     </ul>
-</div>
+</li>
 {% endblock %}
 
 {% block main_content %}
         <div class="well well-lg">
-            <div class="container">
-                <div class="row row-first">
-                    <div class="col-xs-6 panel panel-default fill">
-                        <div class="panel-body">
-							<div id="editor"></div>
-                        </div>
+            <div class="row row-first">
+                <div class="col-xs-6 panel panel-default editor-panel">
+                    <div class="panel-body">
+                        <div id="editor"></div>
                     </div>
-                    <div class="col-xs-6 filler">
-                        <ul class="nav nav-tabs">
-                            <li><a href="#image" data-toggle="tab">Ankieta</a></li>
-                            <li class="active"><a href="#html" data-toggle="tab">HTML</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane" id="image">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane active" id="html">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <textarea id="html-survey" disabled></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+                <div class="col-xs-6 panel panel-default image-panel">
+                    <div class="panel-body">
+                        <div id="image"></div>
                     </div>
                 </div>
             </div>
-            <div class="container">
-                <div id="menu" class="row">
-                    <div class="col-xs-12">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <textarea id="errors" disabled></textarea>
-                            </div>
+            <div id="menu" class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <textarea id="errors" disabled></textarea>
                         </div>
                     </div>
-                </div> <!-- #menu -->
-            </div> <!-- .container -->
+                </div>
+            </div> <!-- #menu -->
         </div><!-- .well -->
         
         <div class="modal fade" id="modal_validation_error" tabindex="-1" role="dialog"  aria-hidden="true">
@@ -142,9 +132,6 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="iss.surveyName = $('#newSurveyName').val(); saveToDatabase(true);">
                             Zmień nazwę
-                        </button>
-                        <button type="button" class="btn btn-warning" data-dismiss="modal" onclick="saveToDatabase(false);">
-                            Nadpisz
                         </button>
                         <button type="button" class="btn btn-default" data-dismiss="modal" onclick="iss.surveyName = undefined">
                             Anuluj

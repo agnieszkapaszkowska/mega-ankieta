@@ -6,10 +6,9 @@ $(function() {
         $("#change_view_panel").removeClass();
         $("#change_view_panel").addClass("glyphicon glyphicon-edit");
         $(this).addClass("active");
-        $(".fill").show();
-        $(".fill").css("width", "100%");
-        $(".filler").hide();
-        $("#menu").css("margin-top", "0px");
+        $(".editor-panel").show();
+        $(".editor-panel").css("width", "100%");
+        $(".image-panel").hide();
         $(".linedwrap").css("width", "100%");
         editor.resize();
     });
@@ -18,11 +17,10 @@ $(function() {
         $("#change_view_panel").removeClass();
         $("#change_view_panel").addClass("glyphicon glyphicon-adjust");
         $(this).addClass("active");
-        $(".filler").show();
-        $(".fill").show();
-        $(".fill").css("width", "50%");
-        $(".filler").css("width", "50%");
-        $("#menu").css("margin-top", "0px");
+        $(".image-panel").show();
+        $(".editor-panel").show();
+        $(".image-panel").css("width", "50%");
+        $(".editor-panel").css("width", "50%");
         editor.resize();
     });
 
@@ -30,10 +28,9 @@ $(function() {
         $("#change_view_panel").removeClass();
         $("#change_view_panel").addClass("glyphicon glyphicon-eye-open");
         $(this).addClass("active");
-        $(".fill").hide();
-        $(".filler").show();
-        $(".filler").css("width", "100%");
-        $("#menu").css("margin-top", "62px");
+        $(".editor-panel").hide();
+        $(".imgae-panel").show();
+        $(".image-panel").css("width", "100%");
         editor.resize();
     });
 
@@ -52,20 +49,16 @@ $(function() {
             success: function(data) {
                 if (data.error != '') {
                     $("#errors").val(data.error);
-                    console.log(data.error);
                 }
                 else {
                     $("#errors").val('');
-                    console.log(data.survey);
-                    $("#html-survey").text(data.survey);
                     iss.js = data.survey;
-                    $("#image .panel-body").empty();
+                    $(".panel-body #image").empty();
                     eval(data.survey);
                 }
             },
             error: function(data) {
                 $("#errors").val('error');
-                console.log('error');
             }
         });
     });
@@ -83,21 +76,18 @@ $(function() {
                 csrfmiddlewaretoken: csrfToken,
             },
             success: function(data) {
+                iss.code = code;
                 if (data.error != '') {
                     $("#errors").val(data.error);
-                    console.log(data.error);
                     $("#modal_validation_error").modal();
                 }
                 else {
                     $("#errors").val('');
-                    console.log(data.survey);
-                    $("#html-survey").text(data.survey);
-                    $("#image .panel-body").empty();
+                    $(".panel-body #image").empty();
                     iss.js = data.survey;
                     eval(data.survey);
                     saveSurvey();
                 }
-                iss.code = code;
             },
             error: function(data) {
                 $("#modal_error .modal-body").html(
@@ -167,7 +157,6 @@ function saveToDatabase(ifNew) {
         },
         success: function(data) {
             if (data.success == 1) {
-                console.log("Success!");
                 return;
             }
             $("#used_name_modal").modal();
@@ -179,7 +168,6 @@ function saveToDatabase(ifNew) {
 }
 
 function openSurvey(name) {
-    console.log(name);
     $.ajax({
         url: '.',
         method: 'POST',
@@ -192,6 +180,7 @@ function openSurvey(name) {
             iss.surveyName = name;
             var editor = ace.edit("editor");
             editor.getSession().setValue(data.survey);
+            $("#view").trigger("click");
         },
         error: function(data) {
             $("#modal_error .modal-body").html(

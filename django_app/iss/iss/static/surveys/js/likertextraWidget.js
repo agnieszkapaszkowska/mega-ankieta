@@ -1,9 +1,10 @@
-$.widget("iss.likertWidget", $.iss.widget, {
+$.widget("iss.likertextraWidget", $.iss.widget, {
     options: {
         questionWidget: null,
         condition: null,
         name: function() { return "" },
         data: function() { return [] },
+        question: function() { return "" },
         title: function() { return "" },
         answers: function() {return [] },
         required: function() {return true },
@@ -31,17 +32,15 @@ $.widget("iss.likertWidget", $.iss.widget, {
         var data = dataFun();
         this.questions = [];
         this.answers = this.options.answers();
-        this.questionCount = 0;
-        while (data[this.questionCount] != undefined) {
-            var question = data[this.questionCount]();
+        for (var i = 0; i < data.length; i++) {
+            var question = data[i]();
             this.updateTupleArgs(question, this.options.tupleArgs);
             this.questions.push(question);
-            this.questionCount ++;
         }
         $('<table id="' + this.options.name() + '"></table>')
             .appendTo(this.element);
         this._addHead();
-        for (var i = 0; i < this.questionCount; i++) {
+        for (var i = 0; i < this.questions.length; i++) {
             this._addRow(i);
         }
     },
@@ -49,12 +48,13 @@ $.widget("iss.likertWidget", $.iss.widget, {
     _addHead: function() {
         var head = $('<tr></tr>').appendTo(this.element.find('table'));
 
-        $('<th style="width:25%;">' + this.options.title() + '</th>').appendTo(head);
-        var width = 75 / this.answers.length;
+        $('<th style="width: 25%;">' + this.options.title() + '</th>').appendTo(head);
+        var width = 75 / (this.answers.length + 1);
         for (var i = 0; i < this.answers.length; i++) {
             $('<th style="width:' + width + '%;">' + this.answers[i]() + '</th>')
                 .appendTo(head);
         }
+        $('<th style="width:' + width + '%;">' + this.options.question() + '</th>').appendTo(head);
     },
 
     _addRow: function(index) {
@@ -65,6 +65,7 @@ $.widget("iss.likertWidget", $.iss.widget, {
             $('<td>' + this._addAnswerCell(i, index) + '</td>')
                 .appendTo(row);
         }
+        this._addExtraCell(index, row);
     },
 
     _addAnswerCell: function(index, questionIndex) {
@@ -74,10 +75,11 @@ $.widget("iss.likertWidget", $.iss.widget, {
                    + '_' + index + '" >'
         return cell;
     },
-    
+
     _getChecked: function() {
         var result = {};
         var answers = this.answers;
+        var widget = this;
         this.element.find('tr').each(function() {
             var input = $(this).find('input');
             var index = input.index($(this).find('input:checked'));
@@ -85,21 +87,24 @@ $.widget("iss.likertWidget", $.iss.widget, {
                 result[input.attr("name")] = null;
             else
                 result[input.attr("name")] = answers[index]();
+            result[input.attr("name") + "_extra"] = widget._getExtraValue($(this));
         });
         return result;
     },
 
-    _existsEmpty: function() {
+    _existsEmptyField: function() {
         this.element.find('tr').removeClass('error');
+        var widget = this;
         var result = false;
         var first = true;
         this.element.find('tr').each(function() {
-            if (first)
+            if (first) {
                 first = false;
+            }
             else {
                 var input = $(this).find('input');
                 var index = input.index($(this).find('input:checked'));
-                if (index == -1 && !result) {
+                if (!result && (index == -1 || !widget._checkExtraValue($(this)))) {
                     $(this).addClass('error');
                     result = true;
                 }
@@ -112,7 +117,7 @@ $.widget("iss.likertWidget", $.iss.widget, {
         iss.vars[varName] = this._getChecked();
         var that = this;
         var questionWidget = this.options.questionWidget;
-        this.element.find('input').click(
+        this.element.find('input').change(
             function() {
                 iss.vars[varName] = that._getChecked();
                 questionWidget.childChanged();
@@ -122,9 +127,10 @@ $.widget("iss.likertWidget", $.iss.widget, {
     validate: function() {
         if (this.options.required()
                 && this.element.is(":visible")
-                && this._existsEmpty()) {
+                && this._existsEmptyField()) {
             return false;
         }
+        this.element.removeClass("error");
         return true;
     },
     

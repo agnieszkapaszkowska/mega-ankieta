@@ -7,7 +7,7 @@ iss.lib.Survey = function() {
     this.conditions = [];
     this.widgets = [];
     this.assignments = [];
-    this.container = "#image .panel-body";
+    this.container = ".panel-body #image";
     this.destination = ".";
     this.history = [];
     
@@ -108,11 +108,12 @@ iss.lib.Survey = function() {
     }
 
     function gotoNext() {
+        $('.alert').remove();
         if (this.history.length > 0) {
             if (this.history[this.history.length - 1].widget.validatePage())
                 this.history[this.history.length - 1].widget.hide();
             else {
-                console.log("Did not validate");
+                $('<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button><strong>Uwaga!</strong> Odpowiedz na wszystkie pytania!</div>').prependTo(this.container); 
                 return false;
             }
         }
@@ -145,13 +146,11 @@ iss.lib.Survey = function() {
             submitData[i] = this.history[i].widget.getSubmitData();
         submitData.csrfmiddlewaretoken = csrfToken;
         submitData.type = '5';
-        console.log(submitData);
         $.ajax({
             url: this.destination,
             method: 'POST',
             data: submitData,
             success: function(data) {
-                console.log("ok");
             }
         });
     }

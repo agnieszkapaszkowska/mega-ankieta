@@ -43,11 +43,13 @@ $.widget("iss.selectboxWidget", $.iss.widget, {
 
     _setCallback: function(varName) {
         var element = this.element;
-        iss.vars[varName] = element.find('select')[0].selectedIndex;
+        iss.vars[varName] = element.find("select")[0].options[
+            element.find("select")[0].selectedIndex].value;
         var questionWidget = this.options.questionWidget;
         element.find('select').change(
             function() {
-                iss.vars[varName] = element.find('select')[0].selectedIndex;
+                iss.vars[varName] = element.find("select")[0].options[
+                    element.find("select")[0].selectedIndex].value;
                 questionWidget.childChanged();
             });
     },
@@ -56,9 +58,10 @@ $.widget("iss.selectboxWidget", $.iss.widget, {
         if (this.options.required()
             && this.element.is(":visible")
             && this.element.find('select')[0].selectedIndex == -1) {
-            this.element.addClass('erorr');
+            this.element.addClass('error');
             return false;
         }
+        this.element.removeClass("error");
         return true;
     },
 
