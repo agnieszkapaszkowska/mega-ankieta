@@ -100,7 +100,6 @@ $.widget("iss.multipleWidget", $.iss.widget, {
 
     _setCallback: function(varName) {
         iss.vars[varName] = this._getData();
-        console.log(iss.vars[varName]);
         var questionWidget = this.options.questionWidget;
         var that = this;
         this.element.find('input').change(

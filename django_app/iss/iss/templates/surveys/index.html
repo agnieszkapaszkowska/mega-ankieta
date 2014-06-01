@@ -55,48 +55,27 @@
 
 {% block main_content %}
         <div class="well well-lg">
-            <div class="container">
-                <div class="row row-first">
-                    <div class="col-xs-6 panel panel-default fill">
-                        <div class="panel-body">
-							<div id="editor"></div>
-                        </div>
+            <div class="row row-first">
+                <div class="col-xs-6 panel panel-default editor-panel">
+                    <div class="panel-body">
+                        <div id="editor"></div>
                     </div>
-                    <div class="col-xs-6 filler">
-                        <ul class="nav nav-tabs">
-                            <li class="active"><a href="#image" data-toggle="tab">Ankieta</a></li>
-                            <li><a href="#html" data-toggle="tab">HTML</a></li>
-                        </ul>
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="image">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-    
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tab-pane" id="html">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <textarea id="html-survey" disabled></textarea>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+                <div class="col-xs-6 panel panel-default image-panel">
+                    <div class="panel-body">
+                        <div id="image"></div>
                     </div>
                 </div>
             </div>
-            <div class="container">
-                <div id="menu" class="row">
-                    <div class="col-xs-12">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <textarea id="errors" disabled></textarea>
-                            </div>
+            <div id="menu" class="row">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <textarea id="errors" disabled></textarea>
                         </div>
                     </div>
-                </div> <!-- #menu -->
-            </div> <!-- .container -->
+                </div>
+            </div> <!-- #menu -->
         </div><!-- .well -->
         
         <div class="modal fade" id="modal_validation_error" tabindex="-1" role="dialog"  aria-hidden="true">

@@ -1,22 +1,26 @@
 .fill {
 	width:50%;
-	margin-top:42px;
-}
-
-.filler {
-	width:50%;
-	height:100%;
-}
-
-.row-first {
-	height:500px;
+    height: 100%;
 }
 
 body {
-	margin-top:70px;
+	margin-top: 60px;
+    height: 90%;
 }
 
-.panel, .panel-body, .tab-pane, .tab-content, #code_form {
+html {
+    height: 100%;
+}
+
+.row-first {
+    height: 85%;
+}
+
+#menu { 
+    height: 10%;
+}
+
+.well, .panel, .panel-body, #editor, #image {
 	height:100%;
 }
 
@@ -32,11 +36,7 @@ textarea {
     margin: 0px;
 }
 
-#editor {
-	height: inherit;
-	width: inherit;
-}
-
-#image .panel-body {
+.panel-body #image {
     overflow: scroll;
 }
+
