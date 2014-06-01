@@ -1,3 +1,4 @@
+import os
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -24,7 +25,9 @@ class Permission(models.Model):
 
 
 class Attachment(models.Model):
-    file_field = models.FileField(upload_to="attachment", blank=True)
+    file_field = models.FileField(
+        upload_to=os.path.abspath(os.path.dirname(__file__)) + "/attachment",
+        blank=True)
 
     def __unicode__(self):
         return unicode(unicode(self.file_field).split("/")[-1])

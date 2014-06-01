@@ -9,6 +9,7 @@ WWW_PATH=/var/www
 ALLOWED_HOSTS="[
 	'localhost'
 ]"
+ADMIN_PATH=/usr/local/lib/python2.7/dist-packages
 
 # Make sure only root can run our script
 if [ "$(id -u)" != "0" ]; then
@@ -56,6 +57,8 @@ git clone https://github.com/agnieszkapaszkowska/mega-ankieta
 pip install -r mega-ankieta/venv/pip_freeze
 
 cp -r mega-ankieta/django_app/iss $WWW_PATH
+mkdir $WWW_PATH/iss/iss/surveys/atachment
+chmod 777 $WWW_PATH/iss/iss/surveys/attachment
 
 a2dissite default
 
@@ -64,6 +67,7 @@ echo "
     ServerName localhost
     WSGIScriptAlias / $WWW_PATH/iss/iss/iss.wsgi
 
+    Alias /attachment/ $WWW_PATH/iss/iss/surveys/attachment/
     Alias /static/ $WWW_PATH/iss/iss/static/
     Alias /favicon.ico /$WWW_PATH/iss/iss/static/surveys/favicon.ico
 </VirtualHost>
@@ -214,6 +218,7 @@ rm tmpdb
 echo no | python $WWW_PATH/iss/manage.py syncdb
 echo "from django.contrib.auth.models import User; User.objects.create_superuser('$DB_LOGIN', '', '$DB_PASSWORD')" | $WWW_PATH/iss/manage.py shell
 echo yes | python $WWW_PATH/iss/manage.py collectstatic
+cp -r $ADMIN_PATH/django/contrib/admin/static/admin $WWW_PATH/iss/iss/static/admin
 
 setfacl -Rm u:www-data:rwX $WWW_PATH
 
